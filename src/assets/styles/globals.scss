@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply text-base text-black; 
+}
+
+.disabled {
+	pointer-events: none;
+	text-decoration: none;
+	cursor: default;
+	opacity: 0.2 !important;
+}
