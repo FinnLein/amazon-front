@@ -1,4 +1,5 @@
-import { getAccessToken } from '@/services/auth/auth.helper'
+import { getAccessToken, removeFromStorage } from '@/services/auth/auth.helper'
+import AuthService from '@/services/auth/auth.service'
 import axios from 'axios'
 import { errorCatch, getContentType } from './api.helper'
 
@@ -30,12 +31,13 @@ instance.interceptors.response.use(
 		) {
 			originalRequest._isRetry = true
 			try {
-				//get new tokens
+				await AuthService.getNewTokens()
 				return instance.request(originalRequest)
 			} catch (error) {
-				if(errorCatch(error) === 'jwt expired')
-					//delete tokens
+				if (errorCatch(error) === 'jwt expired') removeFromStorage()
 			}
 		}
+
+		throw error
 	}
 )
