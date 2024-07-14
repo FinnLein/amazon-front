@@ -1,4 +1,4 @@
-import { TUser } from "@/types/user/user.type"
+import { TUser } from "@/types/user.type"
 
 export interface IUserState {
     email: string 

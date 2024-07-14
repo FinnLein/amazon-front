@@ -1,5 +1,7 @@
-import { TCategory } from '../category/category.type'
-import { TReview } from '../review/review.type'
+import { TCategory } from "./category.type"
+import { TReview } from "./review.type"
+
+
 
 export type TProduct = {
 	id: number
