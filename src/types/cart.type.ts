@@ -1,6 +1,6 @@
 import { TProduct } from './product.type'
 
-export type TCart = {
+export type TCartItem = {
 	id: number
 	product: TProduct
 	quantity: number

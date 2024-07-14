@@ -1,44 +1,44 @@
 import { instance } from '@/api/api.interceptor'
 import { getCategoriesUrl } from '@/config/configUrl'
 import { TCategory } from '@/types/category.type'
-import { HTTPMethods } from '@/utils/enums/HTTPMethods'
+import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
 
 export const CategoryService = {
 	async getAll() {
 		return instance<TCategory[]>({
 			url: getCategoriesUrl(),
-			method: HTTPMethods.get
+			method: EnumHTTPMethods.get
 		})
 	},
 	async getById(id: string | number) {
 		return instance<TCategory[]>({
 			url: `${getCategoriesUrl()}/${id}`,
-			method: HTTPMethods.get
+			method: EnumHTTPMethods.get
 		})
 	},
 	async getBySlug(slug: string) {
 		return instance<TCategory[]>({
 			url: `${getCategoriesUrl()}/by-slug/${slug}`,
-			method: HTTPMethods.get
+			method: EnumHTTPMethods.get
 		})
 	},
 	async create() {
 		return instance<TCategory[]>({
 			url: getCategoriesUrl(),
-			method: HTTPMethods.post
+			method: EnumHTTPMethods.post
 		})
 	},
 	async update(id: string | number, name: string) {
 		return instance<TCategory[]>({
 			url: `${getCategoriesUrl()}/${id}`,
-			method: HTTPMethods.put,
+			method: EnumHTTPMethods.put,
 			data: { name }
 		})
 	},
 	async delete(id: string | number) {
 		return instance<TCategory[]>({
 			url: `${getCategoriesUrl()}/${id}`,
-			method: HTTPMethods.delete
+			method: EnumHTTPMethods.delete
 		})
 	}
 }

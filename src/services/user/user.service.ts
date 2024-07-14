@@ -1,21 +1,21 @@
 import { instance } from '@/api/api.interceptor'
 import { getUsersUrl } from '@/config/configUrl'
 import { TUser } from '@/types/user.type'
-import { HTTPMethods } from '@/utils/enums/HTTPMethods'
 import { IUser } from './user.interface'
+import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
 
 export const UserService = {
 	async getProfile() {
 		return instance<TUser>({
 			url: `${getUsersUrl}/profile`,
-			method: HTTPMethods.get
+			method: EnumHTTPMethods.get
 		})
 	},
 
 	async updateProfile(data: IUser) {
 		return instance<TUser>({
 			url: `${getUsersUrl}/profile`,
-			method: HTTPMethods.put,
+			method: EnumHTTPMethods.put,
 			data
 		})
 	},
@@ -23,7 +23,7 @@ export const UserService = {
 	async toggleFavorite(productId: string | number) {
 		return instance<TUser>({
 			url: `${getUsersUrl}/profile/favorites/${productId}`,
-			method: HTTPMethods.patch
+			method: EnumHTTPMethods.patch
 		})
 	}
 }

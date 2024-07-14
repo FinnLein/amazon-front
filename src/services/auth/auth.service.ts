@@ -2,7 +2,6 @@ import { getContentType } from '@/api/api.helper'
 import { instance } from '@/api/api.interceptor'
 import { getAuthUrl } from '@/config/configUrl'
 import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
-import { HTTPMethods } from '@/utils/enums/HTTPMethods'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import {
@@ -10,6 +9,7 @@ import {
 	IEmailPassword
 } from './../../store/user/user.interface'
 import { saveToStorage } from './auth.helper'
+import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
 
 export const AuthService = {
 	async main(
@@ -18,7 +18,7 @@ export const AuthService = {
 	) {
 		const response = await instance<IAuthResponse>({
 			url: `${getAuthUrl}/${type}`,
-			method: HTTPMethods.post,
+			method: EnumHTTPMethods.post,
 			data
 		})
 
