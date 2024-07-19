@@ -2,12 +2,16 @@ import { IAuthResponse, ITokens } from '@/store/user/user.interface'
 import { Tokens } from '@/utils/enums/tokens.enums'
 import Cookies from 'js-cookie'
 
-export const getAccessToken = async () => {
+export const getAccessToken = () => {
 	const accessToken = Cookies.get(Tokens.accessToken)
 	return accessToken || null
 }
+export const getRefreshToken = () => {
+	const refreshToken = Cookies.get(Tokens.refreshToken)
+	return refreshToken || null
+}
 
-export const getUserFromStorage = async () => {
+export const getUserFromStorage = () => {
 	return JSON.parse(localStorage.getItem('user') || '{}')
 }
 
