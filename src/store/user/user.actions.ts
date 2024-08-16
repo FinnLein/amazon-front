@@ -8,7 +8,7 @@ import { IAuthResponse, IEmailPassword } from './user.interface'
 
 //register
 export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
-	`${getAuthUrl}/register`,
+	`${getAuthUrl}register`,
 	async (data, thunkApi) => {
 		try {
 			const response = await AuthService.main(AuthorizationType.register, data)
@@ -21,7 +21,7 @@ export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
 
 //login
 export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
-	`${getAuthUrl}/login`,
+	`${getAuthUrl}login`,
 	async (data, thunkApi) => {
 		try {
 			const response = await AuthService.main(AuthorizationType.login, data)
@@ -32,6 +32,7 @@ export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
 	}
 )
 
+
 //logout
 export const logout = createAsyncThunk(`${getAuthUrl}/logout`, async () => {
 	removeFromStorage()
@@ -39,7 +40,7 @@ export const logout = createAsyncThunk(`${getAuthUrl}/logout`, async () => {
 
 //check-auth
 export const checkAuth = createAsyncThunk<IAuthResponse>(
-	`${getAuthUrl}/check-auth`,
+	`${getAuthUrl}check-auth`,
 	async (_, thunkApi) => {
 		try {
 			const response = await AuthService.getNewTokens()

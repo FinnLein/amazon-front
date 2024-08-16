@@ -10,6 +10,7 @@ import {
 	REHYDRATE
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { cartSlice } from './cart/cart.slice'
 import { userSlice } from './user/user.slice'
 
 const persistConfig = {
@@ -19,7 +20,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-	user: userSlice.reducer 
+	user: userSlice.reducer,
+	cart: cartSlice.reducer
 })
 
 const PersistedReducer = persistReducer(persistConfig, rootReducer)

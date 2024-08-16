@@ -1,20 +1,19 @@
 import { instance } from '@/api/api.interceptor'
 import { getUsersUrl } from '@/config/configUrl'
-import { TUser } from '@/types/user.type'
-import { IUser } from './user.interface'
+import { TFullUser, TUser } from '@/types/user.type'
 import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
 
 export const UserService = {
 	async getProfile() {
-		return instance<TUser>({
-			url: `${getUsersUrl}/profile`,
+		return instance<TFullUser>({
+			url: getUsersUrl('profile'),
 			method: EnumHTTPMethods.get
 		})
 	},
 
-	async updateProfile(data: IUser) {
+	async updateProfile(data: TUser) {
 		return instance<TUser>({
-			url: `${getUsersUrl}/profile`,
+			url: getUsersUrl('profile'),
 			method: EnumHTTPMethods.put,
 			data
 		})
@@ -22,7 +21,7 @@ export const UserService = {
 
 	async toggleFavorite(productId: string | number) {
 		return instance<TUser>({
-			url: `${getUsersUrl}/profile/favorites/${productId}`,
+			url: getUsersUrl(`profile/favorites/${productId}`),
 			method: EnumHTTPMethods.patch
 		})
 	}

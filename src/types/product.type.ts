@@ -18,3 +18,12 @@ export type TProduct = {
 export type TProductDetails = {
 	product: TProduct
 }
+
+export type TypeProducts = {
+	products: TProduct[]
+}
+
+export type TypePaginationProduct = {
+	products: TProduct[]
+	length: number
+}

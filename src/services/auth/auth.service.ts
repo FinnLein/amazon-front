@@ -1,23 +1,22 @@
-import { getContentType } from '@/api/api.helper'
-import { instance } from '@/api/api.interceptor'
+import { axiosClassic } from '@/api/api.interceptor'
 import { getAuthUrl } from '@/config/configUrl'
 import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
-import axios from 'axios'
+import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
+import { Tokens } from '@/utils/enums/tokens.enums'
 import Cookies from 'js-cookie'
 import {
 	IAuthResponse,
 	IEmailPassword
 } from './../../store/user/user.interface'
 import { saveToStorage } from './auth.helper'
-import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
 
 export const AuthService = {
 	async main(
 		type: AuthorizationType.login | AuthorizationType.register,
 		data: IEmailPassword
 	) {
-		const response = await instance<IAuthResponse>({
-			url: `${getAuthUrl}/${type}`,
+		const response = await axiosClassic<IAuthResponse>({
+			url: getAuthUrl(`${type}`),
 			method: EnumHTTPMethods.post,
 			data
 		})
@@ -28,14 +27,11 @@ export const AuthService = {
 	},
 
 	async getNewTokens() {
-		const refreshToken = Cookies.get('refresh-token')
+		const refreshToken = Cookies.get(Tokens.refreshToken)
 
-		const response = await axios.post<string, { data: IAuthResponse }>(
-			process.env.SERVER_URL + `${getAuthUrl}/login/access-token`,
-			{ refreshToken },
-			{
-				headers: getContentType()
-			}
+		const response = await axiosClassic.post<string, { data: IAuthResponse }>(
+			getAuthUrl(`login/access-token`),
+			{ refreshToken }
 		)
 
 		if (response.data.accessToken) saveToStorage(response.data)

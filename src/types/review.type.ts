@@ -5,5 +5,5 @@ export type TReview = {
 	user: TUser
 	createdAt: string
 	text: string
-	rating: string
+	rating: number
 }

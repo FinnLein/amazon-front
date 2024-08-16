@@ -6,7 +6,7 @@ import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
 export const OrderService = {
 	async getAll() {
 		return instance<TOrder[]>({
-			url: getOrdersUrl(),
+			url: getOrdersUrl(''),
 			method: EnumHTTPMethods.get
 		})
 	}
