@@ -1,7 +1,7 @@
 import { TOrder } from "./order.type"
 import { TProduct } from "./product.type"
 
-export type TUser = {
+export interface TUser  {
 	id: number
 	email: string
 	name: string
@@ -9,7 +9,7 @@ export type TUser = {
 	phone: string
 }
 
-export type TFullUser = {
+export interface TFullUser extends TUser {
 	favorites: TProduct[]
 	orders: TOrder[]
 }

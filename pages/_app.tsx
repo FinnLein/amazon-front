@@ -1,5 +1,4 @@
 import '@/assets/styles/globals.scss'
-import '@/assets/styles/react-select.scss'
 import { TypeComponentAuthFields } from '@/providers/auth-provider/auth-page.types'
 import AuthProvider from '@/providers/auth-provider/AuthProvider'
 import { persistor, store } from '@/store/store'

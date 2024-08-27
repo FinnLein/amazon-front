@@ -3,13 +3,14 @@ import {
 	FLUSH,
 	PAUSE,
 	PERSIST,
-	persistReducer,
-	persistStore,
 	PURGE,
 	REGISTER,
-	REHYDRATE
+	REHYDRATE,
+	persistReducer,
+	persistStore
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+
 import { cartSlice } from './cart/cart.slice'
 import { userSlice } from './user/user.slice'
 

@@ -1,12 +1,7 @@
-import { ProductService } from '@/services/product/product.service'
-import { EnumProductSort } from '@/services/product/productSort.enum'
 import { TProduct } from '@/types/product.type'
-import { useQuery } from '@tanstack/react-query'
-import { FC, useState } from 'react'
-import Button from '../button/Button'
+import { FC } from 'react'
 import Heading from '../Heading'
 import Loader from '../Loader'
-import Select from '../select/Select'
 import ProductItem from './product-item/ProductItem'
 
 interface ICatalog {

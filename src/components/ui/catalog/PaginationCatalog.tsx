@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { FC, useState } from 'react'
 import Button from '../button/Button'
 import Heading from '../Heading'
-import Select from '../select/Select'
+import SortDropdown from '../select/SortDropdown'
 import ProductItem from './product-item/ProductItem'
 
 interface IPaginationCatalog {
@@ -14,25 +14,28 @@ interface IPaginationCatalog {
 }
 
 const PaginationCatalog: FC<IPaginationCatalog> = ({ data, title }) => {
+	const productsPerPage = 4
+
 	const [sortType, setSortType] = useState<EnumProductSort>(
-		EnumProductSort.HIGH_PRICE
+		EnumProductSort.NEWEST
 	)
 
 	const [page, setPage] = useState(1)
 
-	const { data: response, isLoading: isLoadingQuery } = useQuery({
-		queryKey: ['products'],
-		queryFn: () => ProductService.getAll({ page, perPage: 4, sort: sortType }),
+	const { data: response, isLoading } = useQuery({
+		queryKey: ['products', sortType, page],
+		queryFn: () =>
+			ProductService.getAll({ page, perPage: productsPerPage, sort: sortType }),
 		initialData: data
 	})
+
+	const hasMorePages = response.products.length === productsPerPage
 
 	return (
 		<section>
 			{title && <Heading className='mb-5'>{title}</Heading>}
 
-			<div className='flex justify-end'>
-				<Select sortType={sortType} setSortType={setSortType} />
-			</div>
+			<SortDropdown sortType={sortType} setSortType={setSortType} />
 			{response.products.length ? (
 				<>
 					<div className='grid grid-cols-4 gap-10	'>
@@ -40,14 +43,23 @@ const PaginationCatalog: FC<IPaginationCatalog> = ({ data, title }) => {
 							<ProductItem key={product.id} product={product} />
 						))}
 					</div>
-					<div className='text-center mt-16'>
-						<Button
-							onClick={() => setPage(page + 1)}
-							size='md'
-							variant='orange'
-						>
-							Load more
-						</Button>
+					<div className='flex justify-center gap-10	 mt-16'>
+						{Array.from({ length: response.length / productsPerPage }).map(
+							(_, index) => {
+								const pageNumber = index + 1
+								return (
+									<Button
+										key={pageNumber}
+										size='md'
+										variant={page === pageNumber ? 'orange' : 'white'}
+										onClick={() => setPage(pageNumber)}
+										className='mx-3'
+									>
+										{pageNumber}
+									</Button>
+								)
+							}
+						)}
 					</div>
 				</>
 			) : (

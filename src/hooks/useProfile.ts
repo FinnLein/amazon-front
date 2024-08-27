@@ -10,7 +10,8 @@ export const useProfile = () => {
 		queryKey: ['get profile'],
 		queryFn: () => UserService.getProfile(),
 		select: ({ data }) => data,
-		enabled: !!user
+		enabled: !!user,
+		
 	})
 
 	return { profile: data  }

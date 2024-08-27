@@ -12,7 +12,6 @@ const Home: FC<TypePaginationProduct> = ({ products, length }) => {
 
 	return (
 		<>
-			<Heading>Hello Darling!</Heading>
 			<Layout>
 				{!!user && <button onClick={() => logout()}>Logout</button>}
 				<PaginationCatalog

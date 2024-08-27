@@ -14,7 +14,7 @@ const DynamicFavoriteButton = dynamic(() => import('./FavoriteButton'), {
 
 const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
 	return (
-		<div className=''>
+		<div className='animate-scaleIn'>
 			<div className='bg-white rounded-xl relative overflow-hidden'>
 				<div className='absolute top-2 right-3 z-10'>
 					<DynamicFavoriteButton productId={product.id} />

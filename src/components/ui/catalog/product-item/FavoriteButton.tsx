@@ -13,11 +13,11 @@ const FavoriteButton: FC<{ productId: number }> = ({ productId }) => {
 		mutationFn: () => UserService.toggleFavorite(productId),
 		onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get profile'] })
 	})
+
 	if (!profile) return null
 
-	const isExists = profile.favorites.some(
-		favoriteItem => favoriteItem.id === productId
-	)
+	const isExists = profile.favorites.some(favorite => favorite.id === productId)
+
 
 	return (
 		<div>
