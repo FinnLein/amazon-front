@@ -1,9 +1,9 @@
+import { useUserStore } from '@/store/user/userStore'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { useAuth } from './useAuth'
 
 export const useAuthRedirect = () => {
-	const { user } = useAuth()
+	const { user } = useUserStore()
 
 	const { replace } = useRouter()
 

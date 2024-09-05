@@ -1,6 +1,5 @@
-import { useActions } from '@/hooks/useActions'
-import { useAuth } from '@/hooks/useAuth'
 import { getAccessToken, getRefreshToken } from '@/services/auth/auth.helper'
+import { useUserStore } from '@/store/user/userStore'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { FC, PropsWithChildren, useEffect } from 'react'
@@ -12,8 +11,8 @@ const AuthProvider: FC<PropsWithChildren<TypeComponentAuthFields>> = ({
 	Component: { isOnlyUser },
 	children
 }) => {
-	const { user } = useAuth()
-	const { logout, checkAuth } = useActions()
+	const { user } = useUserStore()
+	const { logout, checkAuth } = useUserStore()
 	const { pathname } = useRouter()
 
 	useEffect(() => {

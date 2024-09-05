@@ -1,13 +1,14 @@
-import { useAuth } from '@/hooks/useAuth'
+import { useUserStore } from '@/store/user/userStore'
 import { useRouter } from 'next/router'
 import { FC, PropsWithChildren } from 'react'
 import { TypeComponentAuthFields } from './auth-page.types'
+
 
 const CheckRole: FC<PropsWithChildren<TypeComponentAuthFields>> = ({
 	Component: { isOnlyUser },
 	children
 }) => {
-	const { user } = useAuth()
+	const { user } = useUserStore()
 
 	const router = useRouter()
 

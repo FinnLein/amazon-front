@@ -1,7 +1,6 @@
-import { useActions } from '@/hooks/useActions'
-import { useAuth } from '@/hooks/useAuth'
 import { useAuthRedirect } from '@/hooks/useAuthRedirect'
 import { IEmailPassword } from '@/store/user/user.interface'
+import { useUserStore } from '@/store/user/userStore'
 import Button from '@/ui/button/Button'
 import Heading from '@/ui/Heading'
 import Field from '@/ui/input/Field'
@@ -14,14 +13,14 @@ import { validEmail } from './valid-email'
 
 const Auth: FC = () => {
 	useAuthRedirect()
-	const { register, login } = useActions()
+	const { register, login } = useUserStore()
 	const {
 		register: formRegister,
 		handleSubmit,
 		reset,
 		formState: { errors }
 	} = useForm<IEmailPassword>({ mode: 'onChange' })
-	const { isLoading } = useAuth()
+	const { isLoading } = useUserStore()
 
 	const [type, setType] = useState<
 		AuthorizationType.login | AuthorizationType.register

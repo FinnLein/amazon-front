@@ -1,12 +1,11 @@
-import { useRouter } from 'next/navigation'
-import { useTypedSelector } from './useTypedSelector'
+import { useCartStore } from '@/store/cart/cartStore'
 
 export const useCart = () => {
-	const items = useTypedSelector(state => state.cart.items)
+	const items = useCartStore(state => state.items)
 
 	const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
 
-	const { push } = useRouter()
+	// const { push } = useRouter()
 
 	return { items, total }
 }

@@ -22,11 +22,11 @@ const ProductRating: FC<{ product: TProduct }> = ({ product }) => {
 						allowFraction
 						transition
 					/>
-					<span style={{ color: '#FFBC0D' }} className="text-sm ml-1">{rating}</span>
+					<span className='text-sm ml-1 color-[#ffffff]'>{rating}</span>
 				</span>
 			)}
 
-			<span className="text-xs">({product.reviews.length} reviews)</span>
+			<span className='text-xs'>({product.reviews.length} reviews)</span>
 		</div>
 	)
 }

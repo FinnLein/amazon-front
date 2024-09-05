@@ -1,12 +1,15 @@
-import { ProductService } from '@/services/product/product.service'
-import { EnumProductSort } from '@/services/product/productSort.enum'
-import { TypePaginationProduct } from '@/types/product.type'
 import { useQuery } from '@tanstack/react-query'
 import { FC, useState } from 'react'
-import Button from '../button/Button'
+
+import { TypePaginationProduct } from '@/types/product.type'
+
 import Heading from '../Heading'
+import Button from '../button/Button'
 import SortDropdown from '../select/SortDropdown'
+
 import ProductItem from './product-item/ProductItem'
+import { ProductService } from '@/services/product/product.service'
+import { EnumProductSort } from '@/services/product/productSort.enum'
 
 interface IPaginationCatalog {
 	data: TypePaginationProduct
@@ -28,8 +31,6 @@ const PaginationCatalog: FC<IPaginationCatalog> = ({ data, title }) => {
 			ProductService.getAll({ page, perPage: productsPerPage, sort: sortType }),
 		initialData: data
 	})
-
-	const hasMorePages = response.products.length === productsPerPage
 
 	return (
 		<section>

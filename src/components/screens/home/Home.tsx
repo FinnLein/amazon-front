@@ -1,23 +1,20 @@
-import { useActions } from '@/hooks/useActions'
-import { useAuth } from '@/hooks/useAuth'
-import { TypePaginationProduct } from '@/types/product.type'
-import PaginationCatalog from '@/ui/catalog/PaginationCatalog'
-import Heading from '@/ui/Heading'
-import Layout from '@/ui/layout/Layout'
 import { FC } from 'react'
 
+import PaginationCatalog from '@/ui/catalog/PaginationCatalog'
+import Layout from '@/ui/layout/Layout'
+
+
+import { useUserStore } from '@/store/user/userStore'
+import { TypePaginationProduct } from '@/types/product.type'
+
 const Home: FC<TypePaginationProduct> = ({ products, length }) => {
-	const { user } = useAuth()
-	const { logout } = useActions()
+	const { user } = useUserStore()
+	const { logout } = useUserStore()
 
 	return (
 		<>
 			<Layout>
-				{!!user && <button onClick={() => logout()}>Logout</button>}
-				<PaginationCatalog
-					title='Catalog'
-					data={{ products, length }}
-				/>
+				<PaginationCatalog title='Catalog' data={{ products, length }} />
 			</Layout>
 		</>
 	)
