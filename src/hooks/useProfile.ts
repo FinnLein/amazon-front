@@ -1,3 +1,5 @@
+'use client'
+
 import { UserService } from '@/services/user/user.service'
 import { useUserStore } from '@/store/user/userStore'
 import { useQuery } from '@tanstack/react-query'

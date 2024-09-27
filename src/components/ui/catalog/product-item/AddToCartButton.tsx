@@ -1,3 +1,5 @@
+'use client'
+
 import { useCart } from '@/hooks/useCart';
 import { useCartStore } from '@/store/cart/cartStore';
 import { TProduct } from '@/types/product.type';

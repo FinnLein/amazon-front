@@ -16,8 +16,16 @@ export const getUserFromStorage = () => {
 }
 
 export const setTokensStorage = (data: ITokens) => {
-	Cookies.set(Tokens.accessToken, data.accessToken)
-	Cookies.set(Tokens.refreshToken, data.refreshToken)
+	Cookies.set(Tokens.accessToken, data.accessToken, {
+		domain: 'localhost',
+		sameSite: 'strict',
+		expires: 1
+	})
+	Cookies.set(Tokens.refreshToken, data.refreshToken, {
+		domain: 'localhost',
+		sameSite: 'strict',
+		expires: 30
+	})
 }
 export const removeFromStorage = () => {
 	Cookies.remove(Tokens.accessToken)

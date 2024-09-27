@@ -8,9 +8,7 @@ export const metadata: Metadata = {
 }
 
 const AuthPage: NextPage = () => {
-	return (
-			<Auth />
-	)
+	return <Auth />
 }
 
 export default AuthPage

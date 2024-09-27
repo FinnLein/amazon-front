@@ -5,12 +5,13 @@ export interface ITokens {
     refreshToken: string
 }
 
-export interface IEmailPassword{
-    email: string
-    password: string 
+export interface IEmailPassword {
+	email: string
+	password: string
 }
 
+
 export interface IAuthResponse extends ITokens {
-    user: TUser 
+    user: TUser,
 }
 

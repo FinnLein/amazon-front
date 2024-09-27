@@ -1,3 +1,9 @@
+export const ADMIN_PANEL_URL = '/admin'
+
+export const getSiteUrl = () => process.env.APP_URL as string
+
+export const getAdminUrl = (path = '') => `${ADMIN_PANEL_URL}${path}`
+
 export const getAuthUrl = (string: string) => `/auth/${string}`
 export const getCategoriesUrl = (string: string) => `/categories/${string}`
 export const getReviewsUrl = (string: string) => `/reviews/${string}`
@@ -10,4 +16,3 @@ export const getProductsUrl = (string: string) => `/products/${string}`
 export const getCategoryUrl = (string: string) => `/category/${string}`
 export const getOrderUrl = (string: string) => `/order/${string}`
 export const getProductUrl = (string: string) => `/product/${string}`
-

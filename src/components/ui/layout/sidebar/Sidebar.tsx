@@ -1,46 +1,30 @@
+'use client'
+
 import cn from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FC, useState } from 'react'
-import { LuPanelLeftClose, LuPanelLeftOpen } from 'react-icons/lu'
+import { FC } from 'react'
 
-import Loader from '@/ui/Loader'
 import { useGetCategories } from '@/ui/layout/sidebar/useGetCategories'
 
 import { useUserStore } from '@/store/user/userStore'
+import { Loader } from '@/ui/Loader'
 import { FiLogOut } from 'react-icons/fi'
 
 const Sidebar: FC = () => {
 	const { data, isLoading } = useGetCategories()
 
-	const [isRolledUp, setIsRolledUp] = useState(false)
-
 	const pathName = usePathname()
 	const { user } = useUserStore()
 	const { logout } = useUserStore()
 
-	const toggleSidebar = () => {
-		setIsRolledUp(!isRolledUp)
-	}
-
 	return (
-		<aside className='relative bg-secondary flex flex-col justify-between'>
-			<button
-				type='button'
-				className='absolute top-0 right-7'
-				onClick={() => toggleSidebar()}
-			>
-				{isRolledUp ? (
-					<LuPanelLeftOpen size={30} color={'white'} />
-				) : (
-					<LuPanelLeftClose size={30} color={'white'} />
-				)}
-			</button>
+		<aside className='relative bg-secondary  flex flex-col justify-between'>
 			{isLoading ? (
 				<Loader />
 			) : data ? (
 				<div className='mb-20'>
-					<div className='text-xl text-white mt-4 mb-6 ml-6'>Categories: </div>
+					<div className='text-xl  text-white mt-4 mb-6 ml-6'>Categories: </div>
 					<ul>
 						{data?.map(category => (
 							<li key={category.id}>

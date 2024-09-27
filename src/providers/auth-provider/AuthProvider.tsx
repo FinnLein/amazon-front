@@ -1,19 +1,18 @@
-import { getAccessToken, getRefreshToken } from '@/services/auth/auth.helper'
+import { ADMIN_PANEL_URL } from '@/config/configUrl'
+import Auth from '@/screens/auth/Auth'
+import { getAccessToken } from '@/services/auth/auth.helper'
 import { useUserStore } from '@/store/user/userStore'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
+import { Tokens } from '@/utils/enums/tokens.enums'
+import Cookies from 'js-cookie'
+import { usePathname, useRouter } from 'next/navigation'
 import { FC, PropsWithChildren, useEffect } from 'react'
-import { TypeComponentAuthFields } from './auth-page.types'
+import Custom404 from '../../app/not-found'
+import { protectedRoutes } from './protected-routes.data'
 
-const DynamicCheckRole = dynamic(() => import('./CheckRole'), { ssr: false })
-
-const AuthProvider: FC<PropsWithChildren<TypeComponentAuthFields>> = ({
-	Component: { isOnlyUser },
-	children
-}) => {
+const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 	const { user } = useUserStore()
 	const { logout, checkAuth } = useUserStore()
-	const { pathname } = useRouter()
+	const pathname = usePathname()
 
 	useEffect(() => {
 		const accessToken = getAccessToken()
@@ -21,15 +20,27 @@ const AuthProvider: FC<PropsWithChildren<TypeComponentAuthFields>> = ({
 	}, [])
 
 	useEffect(() => {
-		const refreshToken = getRefreshToken()
+		const refreshToken = Cookies.get(Tokens.refreshToken)
 		if (!refreshToken && user) logout()
 	}, [pathname])
 
-	return isOnlyUser ? (
-		<DynamicCheckRole Component={{ isOnlyUser }}>{children}</DynamicCheckRole>
-	) : (
-		<>{children}</>
+	const router = useRouter()
+
+	const isProtectedRoute = protectedRoutes.some(route =>
+		pathname?.startsWith(route)
 	)
+
+	const isAdminRoute = pathname?.startsWith(ADMIN_PANEL_URL)
+
+	if (!isProtectedRoute && !isAdminRoute) return <>{children}</>
+
+	if (user?.role === 'ADMIN') return <>{children}</>
+	if (user && isProtectedRoute) return <>{children}</>
+	if (user && isAdminRoute) return <Custom404 />
+
+	if (pathname !== '/auth') return <Auth />
+
+	return true
 }
 
 export default AuthProvider

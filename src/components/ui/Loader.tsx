@@ -1,62 +1,36 @@
-import { FC } from 'react'
+import { m } from 'framer-motion'
 
-const Loader: FC = () => {
+export function Loader() {
 	return (
-		<svg
-			width='44'
-			height='44'
-			viewBox='0 0 44 44'
+		<m.svg
 			xmlns='http://www.w3.org/2000/svg'
-			stroke='#fff'
+			width='64'
+			height='64'
+			viewBox='0 0 64 64'
+			fill='none'
+			animate={{ rotate: 360 }}
+			transition={{ repeat: Infinity, duration: 1.3, ease: 'linear' }}
 		>
-			<g fill='none' fillRule='evenodd' strokeWidth='2'>
-				<circle cx='22' cy='22' r='1'>
-					<animate
-						attributeName='r'
-						begin='0s'
-						dur='1.8s'
-						values='1; 20'
-						calcMode='spline'
-						keyTimes='0; 1'
-						keySplines='0.165, 0.84, 0.44, 1'
-						repeatCount='indefinite'
-					/>
-					<animate
-						attributeName='stroke-opacity'
-						begin='0s'
-						dur='1.8s'
-						values='1; 0'
-						calcMode='spline'
-						keyTimes='0; 1'
-						keySplines='0.3, 0.61, 0.355, 1'
-						repeatCount='indefinite'
-					/>
-				</circle>
-				<circle cx='22' cy='22' r='1'>
-					<animate
-						attributeName='r'
-						begin='-0.9s'
-						dur='1.8s'
-						values='1; 20'
-						calcMode='spline'
-						keyTimes='0; 1'
-						keySplines='0.165, 0.84, 0.44, 1'
-						repeatCount='indefinite'
-					/>
-					<animate
-						attributeName='stroke-opacity'
-						begin='-0.9s'
-						dur='1.8s'
-						values='1; 0'
-						calcMode='spline'
-						keyTimes='0; 1'
-						keySplines='0.3, 0.61, 0.355, 1'
-						repeatCount='indefinite'
-					/>
-				</circle>
-			</g>
-		</svg>
+			<m.circle
+				cx='32'
+				cy='32'
+				r='28'
+				stroke='#FEFEFE'
+				strokeWidth='8'
+				initial={{ opacity: 0.5 }}
+				animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.1, 1] }}
+				transition={{ repeat: Infinity, duration: 1.3, ease: 'easeInOut' }}
+			/>
+			<m.circle
+				cx='32'
+				cy='32'
+				r='14'
+				stroke='#FFAD51'
+				strokeWidth='8'
+				initial={{ scale: 1 }}
+				animate={{ scale: [1, 1.1, 1] }}
+				transition={{ repeat: Infinity, duration: 1.3, ease: 'easeInOut' }}
+			/>
+		</m.svg>
 	)
 }
-
-export default Loader

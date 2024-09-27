@@ -1,10 +1,9 @@
-import Layout from '@/ui/layout/Layout'
 import { NextPage } from 'next'
 
 const ProductPage: NextPage = () => {
-return <Layout>
+return <div>
     Product page
-</Layout>
+</div>
 }
 
 

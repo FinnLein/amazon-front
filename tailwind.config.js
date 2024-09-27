@@ -16,8 +16,8 @@ export const colors = {
 module.exports = {
 	content: ['./src/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}'],
 	theme: {
-		colors,
 		extend: {
+			colors,
 			fontSize: {
 				xs: '0.82rem',
 				sm: '0.98rem',
@@ -59,5 +59,5 @@ module.exports = {
 			}
 		}
 	},
-	plugins: [],
+	plugins: []
 }

@@ -1,9 +1,9 @@
 import { getAccessToken, removeFromStorage } from '@/services/auth/auth.helper'
 import { AuthService } from '@/services/auth/auth.service'
-import axios from 'axios'
+import axios, { CreateAxiosDefaults } from 'axios'
 import { errorCatch, getContentType } from './api.helper'
 
-const axiosOptions = {
+const axiosOptions: CreateAxiosDefaults = {
 	baseURL: process.env.SERVER_URL,
 	headers: getContentType()
 }
@@ -37,7 +37,11 @@ instance.interceptors.response.use(
 				await AuthService.getNewTokens()
 				return instance.request(originalRequest)
 			} catch (error) {
-				if (errorCatch(error) === 'jwt expired') removeFromStorage()
+				if (
+					errorCatch(error) === 'jwt expired' ||
+					errorCatch(error) === 'Refresh token not passed'
+				)
+					removeFromStorage()
 			}
 		}
 

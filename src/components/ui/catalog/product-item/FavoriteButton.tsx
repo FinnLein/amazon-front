@@ -1,3 +1,5 @@
+'use client'
+
 import { useProfile } from '@/hooks/useProfile'
 import { UserService } from '@/services/user/user.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'

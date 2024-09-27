@@ -3,7 +3,7 @@ import { TReview } from "./review.type"
 
 
 
-export type TProduct = {
+export interface TProduct {
 	id: number
 	name: string
 	slug: string

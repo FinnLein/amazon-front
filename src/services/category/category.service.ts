@@ -17,7 +17,7 @@ export const CategoryService = {
 		})
 	},
 	async getBySlug(slug: string) {
-		return axiosClassic<TCategory[]>({
+		return axiosClassic<TCategory>({
 			url: getCategoriesUrl(`by-slug/${slug}`),
 			method: EnumHTTPMethods.get
 		})

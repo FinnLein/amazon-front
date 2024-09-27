@@ -1,3 +1,5 @@
+'use client'
+
 import { useRouter } from 'next/navigation'
 import { FC, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
@@ -23,7 +25,7 @@ const Search: FC = () => {
 				<button
 					className='bg-primary text-white flex items-centSer justify-center p-2.5 '
 					onClick={() => push(`/q?term=${searchTerm}`)}
-                    aria-label='найти'
+					aria-label='найти'
 				>
 					<BsSearch />
 				</button>

@@ -1,7 +1,7 @@
 import Home from '@/screens/home/Home'
 import { ProductService } from '@/services/product/product.service'
 import { TypePaginationProduct } from '@/types/product.type'
-import { GetStaticProps, Metadata, NextPage } from 'next'
+import { Metadata, NextPage } from 'next'
 
 export const metaData: Metadata = {
 	title: 'Home',
@@ -9,19 +9,19 @@ export const metaData: Metadata = {
 		'Free shipping on millions of items. Get the best of Shopping and Entertainment with Prime.'
 }
 
-const HomePage: NextPage<TypePaginationProduct> = ({ products, length }) => {
-	return <Home products={products} length={length} />
+const HomePage: NextPage<TypePaginationProduct> = async ({ products, length }) => {
+	const data = await getProducts()
+
+	return <Home products={data.products} length={data.length} />
 }
 
-export const getStaticProps: GetStaticProps<
-	TypePaginationProduct
-> = async () => {
+async function getProducts() {
 	const data = await ProductService.getAll({
 		page: 1,
 		perPage: 4
 	})
 
-	return { props: data }
+	return data
 }
 
 export default HomePage

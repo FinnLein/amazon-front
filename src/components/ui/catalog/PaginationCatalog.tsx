@@ -1,3 +1,5 @@
+'use client'
+
 import { useQuery } from '@tanstack/react-query'
 import { FC, useState } from 'react'
 
@@ -7,9 +9,9 @@ import Heading from '../Heading'
 import Button from '../button/Button'
 import SortDropdown from '../select/SortDropdown'
 
-import ProductItem from './product-item/ProductItem'
 import { ProductService } from '@/services/product/product.service'
 import { EnumProductSort } from '@/services/product/productSort.enum'
+import ProductItem from './product-item/ProductItem'
 
 interface IPaginationCatalog {
 	data: TypePaginationProduct
