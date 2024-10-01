@@ -1,8 +1,8 @@
 import { TProduct } from '@/types/product.type'
 import { FC } from 'react'
 import Heading from '../Heading'
-import Loader from '../Loader'
 import ProductItem from './product-item/ProductItem'
+import { Loader } from '../Loader'
 
 interface ICatalog {
 	products: TProduct[]

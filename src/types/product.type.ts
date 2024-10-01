@@ -2,7 +2,6 @@ import { TCategory } from "./category.type"
 import { TReview } from "./review.type"
 
 
-
 export interface TProduct {
 	id: number
 	name: string
@@ -23,7 +22,3 @@ export type TypeProducts = {
 	products: TProduct[]
 }
 
-export type TypePaginationProduct = {
-	products: TProduct[]
-	length: number
-}

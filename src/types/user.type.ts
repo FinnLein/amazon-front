@@ -20,6 +20,6 @@ export interface TFullUser extends TUser {
 	orders: TOrder[]
 }
 
-export interface IAuthFormData extends Pick<TUser, 'email'> {
+export interface IAuthFormData extends Pick<TUser, 'email' | 'phone' | 'name'> {
 	password: string
 }

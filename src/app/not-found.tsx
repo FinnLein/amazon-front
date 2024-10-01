@@ -1,3 +1,20 @@
-export default function Custom404() {
-	return <h1>404 - Page Not Found</h1>
+import '@/assets/styles/globals.scss'
+import Heading from '@/ui/Heading'
+
+import Link from 'next/link'
+
+export default function NotFound() {
+	return (
+		<div className='flex h-screen justify-center items-center'>
+			<div>
+				<Heading>Not Found</Heading>
+				<p>Could not find requested resource</p>
+				<p>
+					<Link href='/' className='text-primary'>
+						Home
+					</Link>
+				</p>
+			</div>
+		</div>
+	)
 }

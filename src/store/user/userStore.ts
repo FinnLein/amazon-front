@@ -1,18 +1,18 @@
 import { errorCatch } from '@/api/api.helper'
 import { removeFromStorage } from '@/services/auth/auth.helper'
 import { AuthService } from '@/services/auth/auth.service'
-import { TUser } from '@/types/user.type'
+import { IAuthFormData, TUser } from '@/types/user.type'
 import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { IAuthResponse, IEmailPassword } from './user.interface'
+import { IAuthResponse } from './user.interface'
 
 interface IUserStore {
 	user: TUser | null
 	isLoading: boolean
 	error: null | null
-	register: (data: IEmailPassword) => Promise<void>
-	login: (data: IEmailPassword) => Promise<void>
+	register: (data: IAuthFormData) => Promise<void>
+	login: (data: IAuthFormData) => Promise<void>
 	logout: () => void
 	checkAuth: () => Promise<void>
 }
@@ -23,7 +23,7 @@ export const useUserStore = create<IUserStore>()(
 				user: null,
 				isLoading: false,
 				error: null,
-				register: async (data: IEmailPassword) => {
+				register: async (data: IAuthFormData) => {
 					set({ isLoading: true })
 					try {
 						const res: IAuthResponse = await AuthService.main(
@@ -37,7 +37,8 @@ export const useUserStore = create<IUserStore>()(
 						set({ isLoading: false })
 					}
 				},
-				login: async (data: IEmailPassword) => {
+				login: async (data: IAuthFormData) => {
+					
 					set({ isLoading: true })
 					try {
 						const res: IAuthResponse = await AuthService.main(
@@ -59,7 +60,7 @@ export const useUserStore = create<IUserStore>()(
 					set({ isLoading: true })
 					try {
 						const res = await AuthService.getNewTokens()
-						set({ user: res.data.user, isLoading: false })
+						set({ user: res.user, isLoading: false })
 					} catch (error) {
 						if (errorCatch(error) === 'jwt expired') get().logout()
 						set({ error: error.message, isLoading: false })

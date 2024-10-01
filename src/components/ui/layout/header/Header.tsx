@@ -5,11 +5,15 @@ import HeaderCart from './cart/HeaderCart'
 import HeaderProfile from './HeaderProfile'
 import Logo from './Logo'
 import Search from './Search'
+import cn from 'clsx'
+interface Props {
+	className?: string
+}
 
-const Header: FC = () => {
+const Header: FC<Props> = ({ className }) => {
 	return (
 		<header
-			className='bg-secondary w-full py-6 px-6 grid'
+			className={cn('bg-secondary w-full py-6 px-6 grid', className)}
 			style={{ gridTemplateColumns: '1fr 3fr 1.2fr' }}
 		>
 			<Logo />

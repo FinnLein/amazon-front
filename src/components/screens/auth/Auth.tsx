@@ -1,35 +1,70 @@
+'use client'
+
 import { useAuthRedirect } from '@/hooks/useAuthRedirect'
-import { IEmailPassword } from '@/store/user/user.interface'
 import { useUserStore } from '@/store/user/userStore'
+import { IAuthFormData } from '@/types/user.type'
 import Button from '@/ui/button/Button'
 import Heading from '@/ui/Heading'
 import Field from '@/ui/input/Field'
 import { Loader } from '@/ui/Loader'
-import { capitaliseFirstLetter } from '@/utils/capitaliseFirstLetter'
-import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
-import { FC, useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { validEmail } from './valid-email'
+import { validPhone } from './valid-phone'
 
-const Auth: FC = () => {
+interface Props {
+	isLogin: boolean
+}
+
+const Auth: FC<Props> = ({ isLogin }) => {
 	useAuthRedirect()
-	const { register, login } = useUserStore()
+	const router = useRouter()
+	const { login, register } = useUserStore()
+
 	const {
 		register: formRegister,
 		handleSubmit,
 		reset,
 		formState: { errors }
-	} = useForm<IEmailPassword>({ mode: 'onChange' })
-	const { isLoading } = useUserStore()
+	} = useForm<IAuthFormData>({ mode: 'onChange' })
 
-	const [type, setType] = useState<
-		AuthorizationType.login | AuthorizationType.register
-	>(AuthorizationType.login)
+	const { mutate: mutateLogin, isPending: isLoginPending } = useMutation({
+		mutationKey: ['login'],
+		mutationFn: (data: IAuthFormData) => login(data),
+		onSuccess() {
+			reset()
+			router.push('/')
+			toast.success('Login succesful')
+		},
+		onError: error => {
+			toast.error(error.message)
+		}
+	})
+	const {
+		error,
+		mutate: mutateRegister,
+		isPending: isRegisterPending
+	} = useMutation({
+		mutationKey: ['register'],
+		mutationFn: (data: IAuthFormData) => register(data),
+		onSuccess() {
+			reset()
+			router.push('/')
+			toast.success('Register succesful')
+		},
+		onError: error => {
+			toast.error(error.message)
+		}
+	})
 
-	const onSubmit: SubmitHandler<IEmailPassword> = data => {
-		if (type === AuthorizationType.login) login(data)
-		else register(data)
+	const isPending = isLoginPending || isRegisterPending
 
+	const onSubmit: SubmitHandler<IAuthFormData> = data => {
+		isLogin ? mutateLogin(data) : mutateRegister(data)
 		reset()
 	}
 
@@ -39,23 +74,53 @@ const Auth: FC = () => {
 				onSubmit={handleSubmit(onSubmit)}
 				className='rounded-lg bg-white shadow-sm p-14  m-auto flex flex-col items-center'
 			>
-				<Heading className='capitalize text-center mb-3'>{type}</Heading>
+				<Heading className='capitalize text-center mb-3'>
+					{isLogin ? 'Login' : 'Registration'}
+				</Heading>
 
-				{isLoading ? (
+				{isPending ? (
 					<Loader />
 				) : (
 					<>
+					{isLogin ? <></> : <>
+						<Field
+							placeholder='Name'
+							{...formRegister('name', {
+								required: 'Name is required',
+								minLength: {
+									value: 6,
+									message: 'Name should be at least 6 symbols'
+								}
+							})}
+							error={errors.name?.message}
+						/>
+						{error && <p className='text-red'>{error.message}</p>}
+						
+						<Field 
+							placeholder='Phone'
+							{...formRegister('phone', {
+								required: 'Phone is required',
+								pattern: {
+									value: validPhone,
+									message: 'Please enter a valid phone number'
+								}
+							})}
+							error={errors.phone?.message}
+						/>
+						{error && <p className='text-red'>{error.message}</p>}</>}
+					
 						<Field
 							placeholder='Email'
-							error={errors.email?.message}
 							{...formRegister('email', {
 								required: 'Email is required',
 								pattern: {
 									value: validEmail,
-									message: 'please enter a valid email address'
+									message: 'Please enter a valid email address'
 								}
 							})}
+							error={errors.email?.message}
 						/>
+						{error && <p className='text-red'>{error.message}</p>}
 						<Field
 							placeholder='Password'
 							error={errors.password?.message}
@@ -68,24 +133,27 @@ const Auth: FC = () => {
 								}
 							})}
 						/>
-						<Button className="justify-center" variant='orange'>Let's go!</Button>
+						{error && <p className='text-red'>{error.message}</p>}
 
-						<div>
-							<button
-								type='button'
-								className='inline-block opacity-20 mt-3 text-sm'
-								onClick={() =>
-									setType(
-										type === AuthorizationType.login
-											? AuthorizationType.register
-											: AuthorizationType.login
-									)
-								}
-							>
-								{type === AuthorizationType.login
-									? capitaliseFirstLetter(AuthorizationType.register)
-									: capitaliseFirstLetter(AuthorizationType.login)}
-							</button>
+						<Button className='justify-center' variant='orange'>
+							{isPending ? <Loader /> : isLogin ? 'Login' : 'Register'}
+						</Button>
+						<div className='text-sm mt-5'>
+							{isLogin ? (
+								<div>
+									First time here?{' '}
+									<Link className='text-primary' href='/register'>
+										Register
+									</Link>
+								</div>
+							) : (
+								<div>
+									Account already exists?{' '}
+									<Link className='text-primary' href='/login'>
+										Login
+									</Link>
+								</div>
+							)}
 						</div>
 					</>
 				)}

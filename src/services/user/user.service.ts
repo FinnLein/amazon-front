@@ -1,8 +1,9 @@
 import { instance } from '@/api/api.interceptor'
+import { IUserFormState } from '@/app/admin/users/(form)/user-form.types'
 import { getUsersUrl } from '@/config/configUrl'
 import { TFullUser, TUser } from '@/types/user.type'
 import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
-import { IUserFormState } from '../../app/admin/users/[form]/user-form.types'
+import { IPaginationParams, IPaginationResponse } from '@/types/pagination.type'
 
 export const UserService = {
 	async getProfile() {
@@ -27,10 +28,11 @@ export const UserService = {
 		})
 	},
 
-	async getAll() {
-		return instance<TUser[]>({
+	async getAll(params?: IPaginationParams) {
+		return instance<IPaginationResponse<TUser>>({
 			url: getUsersUrl(''),
-			method: EnumHTTPMethods.get
+			method: EnumHTTPMethods.get,
+			params
 		})
 	},
 

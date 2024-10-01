@@ -32,13 +32,10 @@ export const AuthService = {
 			{ refreshToken }
 		)
 
-		
-		console.log(response)
-		console.log(refreshToken)
 
 		if (response.data.accessToken) saveToStorage(response.data)
 
-		return response
+		return response.data
 	},
 
 	async getNewtokensByRefreshToken(refreshToken: string) {
@@ -53,7 +50,7 @@ export const AuthService = {
 		)
 
 
-		return response
+		return response.data
 	},
 
 	async logout(){

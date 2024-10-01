@@ -1,5 +1,6 @@
 import { getCategoryUrl, getProductUrl } from '@/config/configUrl'
 import { TProduct } from '@/types/product.type'
+
 import { convertPrice } from '@/utils/convertPrice'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
@@ -14,8 +15,8 @@ const DynamicFavoriteButton = dynamic(() => import('./FavoriteButton'), {
 
 const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
 	return (
-		<div className='animate-scaleIn'>
-			<div className='bg-white rounded-xl relative overflow-hidden'>
+		<div className='animate-scaleIn bg-white overflow-hidden rounded-xl'>
+			<div className='relative '>
 				<div className='absolute top-2 right-3 z-10'>
 					<DynamicFavoriteButton productId={product.id} />
 					<AddToCartButton product={product} />
@@ -30,18 +31,21 @@ const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
 					/>
 				</Link>
 			</div>
-			<Link href={getProductUrl(`${product.slug}`)}>
-				<h3 className='mt-2 font-semibold	'>{product.name}</h3>
-			</Link>
-
-			<Link
-				href={getCategoryUrl(product.category.slug)}
-				className='text-aqua text-xs mb-2'
-			>
-				{product.category.name}
-			</Link>
-			<ProductRating product={product} />
-			<div className='text-xl font-semibold'>{convertPrice(product.price)}</div>
+			<div className='p-2'>
+				<Link href={getProductUrl(`${product.slug}`)}>
+					<h3 className='mt-2 font-semibold	'>{product.name}</h3>
+				</Link>
+				<Link
+					href={getCategoryUrl(product?.category?.slug)}
+					className='text-aqua text-xs mb-2'
+				>
+					{product?.category?.name}
+				</Link>
+				<ProductRating product={product} />
+				<div className='text-xl font-semibold'>
+					{convertPrice(product.price)}
+				</div>
+			</div>
 		</div>
 	)
 }

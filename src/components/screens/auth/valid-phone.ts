@@ -1,0 +1,1 @@
+export const validPhone = /^(?:\+7|8)\d{10}$/;

@@ -1,18 +1,17 @@
 import { axiosClassic, instance } from '@/api/api.interceptor'
 import { getProductsUrl } from '@/config/configUrl'
-import { TProduct, TypePaginationProduct } from '@/types/product.type'
+import { IPaginationParamsWithSort, IPaginationResponse } from '@/types/pagination.type'
+import { TProduct } from '@/types/product.type'
 import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
-import { DataFilters, TProductData } from './product.interface'
+import { TProductData } from './product.interface'
 
 export const ProductService = {
-	async getAll(queryData = {} as DataFilters) {
-		const { data } = await axiosClassic<TypePaginationProduct>({
+	async getAll(params?: IPaginationParamsWithSort) {
+		return axiosClassic<IPaginationResponse<TProduct>>({
 			url: getProductsUrl(''),
 			method: EnumHTTPMethods.get,
-			params: queryData
+			params
 		})
-
-		return data
 	},
 	async getSimilar(id: string | number) {
 		return axiosClassic<TProduct[]>({

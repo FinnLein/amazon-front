@@ -9,14 +9,13 @@ import { useGetCategories } from '@/ui/layout/sidebar/useGetCategories'
 
 import { useUserStore } from '@/store/user/userStore'
 import { Loader } from '@/ui/Loader'
-import { FiLogOut } from 'react-icons/fi'
+import Logout from '@/ui/logout/Logout'
 
 const Sidebar: FC = () => {
 	const { data, isLoading } = useGetCategories()
 
 	const pathName = usePathname()
 	const { user } = useUserStore()
-	const { logout } = useUserStore()
 
 	return (
 		<aside className='relative bg-secondary  flex flex-col justify-between'>
@@ -47,16 +46,7 @@ const Sidebar: FC = () => {
 				<div>Categories not found</div>
 			)}
 			{!!user && (
-				<div>
-					<button
-						className='text-white flex items-center ml-10 my-10'
-						onClick={() => logout()}
-						type='button'
-					>
-						<FiLogOut />
-						<span className='ml-2'>Logout</span>
-					</button>
-				</div>
+				<div>{pathName === '/profile' ? null : <Logout color='white' />}</div>
 			)}
 		</aside>
 	)

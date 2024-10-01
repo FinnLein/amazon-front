@@ -1,12 +1,10 @@
-import { Providers } from '@/providers/Provider'
-import Header from '@/ui/layout/header/Header'
-import Sidebar from '@/ui/layout/sidebar/Sidebar'
-import { PropsWithChildren } from 'react'
-import { Golos_Text } from 'next/font/google'
 import '@/assets/styles/globals.scss'
-import { Metadata } from 'next'
-import { SITE_NAME } from '@/constants/seo.constants'
 import { getSiteUrl } from '@/config/configUrl'
+import { SITE_NAME } from '@/constants/seo.constants'
+import { Providers } from '@/providers/Provider'
+import { Metadata } from 'next'
+import { Golos_Text } from 'next/font/google'
+import { PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
 	icons: {
@@ -37,20 +35,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 		<html lang='en' className={golos.variable}>
 			<body>
 				<Providers>
-					<div className='bg-secondary'>
-						<Header />
-						<div
-							className='grid'
-							style={{
-								gridTemplateColumns: '.8fr 4fr'
-							}}
-						>
-							<Sidebar />
-							<main className='p-12 pb-52 bg-bg-color rounded-tl-lg'>
-								{children}
-							</main>
-						</div>
-					</div>
+					<main>{children}</main>
 				</Providers>
 				<div id='modal'></div>
 			</body>

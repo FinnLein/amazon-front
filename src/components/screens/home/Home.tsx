@@ -1,13 +1,14 @@
 'use client'
 
-import { TypePaginationProduct } from '@/types/product.type'
+import { IPaginationResponse } from '@/types/pagination.type'
+import { TProduct } from '@/types/product.type'
 import PaginationCatalog from '@/ui/catalog/PaginationCatalog'
 import { FC } from 'react'
 
-const Home: FC<TypePaginationProduct> = ({ products, length }) => {
+const Home: FC = () => {
 	return (
 		<>
-			<PaginationCatalog title='Catalog' data={{ products, length }} />
+			<PaginationCatalog title='Catalog' />
 		</>
 	)
 }

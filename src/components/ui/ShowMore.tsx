@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import Button from './button/Button'
-import Loader from './Loader'
+import { Loader } from './Loader'
 
 interface Props {
 	onLoadMore: () => void

@@ -1,5 +1,6 @@
 'use client'
 
+import { SERVER_URL } from '@/constants/main.constants'
 import { useProfile } from '@/hooks/useProfile'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,12 +10,14 @@ const HeaderProfile: FC = () => {
 	const { profile } = useProfile()
 
 	return (
-		<Link href={'/my-orders'}>
+		<Link href={'/profile'}>
 			{profile?.avatarPath && (
 				<Image
 					width={43}
 					height={43}
-					src={profile?.avatarPath}
+					src={profile?.avatarPath.includes('http')
+						? profile?.avatarPath
+						: SERVER_URL  + profile?.avatarPath}
 					alt='profile'
 					className='rounded-full border-primary border border-solid animate-opacity'
 				/>
