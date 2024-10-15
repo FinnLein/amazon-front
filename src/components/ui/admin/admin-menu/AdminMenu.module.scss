@@ -1,0 +1,33 @@
+.sidebar {
+	@apply fixed left-5 bg-black-700 rounded-lg py-2 shadow-lg w-60 text-white;
+
+	&.rolledUp {
+		.menu {
+			> a {
+				@apply p-2 justify-center;
+
+				&:first-child {
+					@apply mt-10;
+				}
+			}
+		}
+	}
+	.menu {
+		> a {
+			@apply flex items-center py-4 px-5 gap-2 text-white cursor-pointer transition-colors ease-out duration-300;
+			&:hover {
+				@apply bg-black-600;
+				> svg {
+					@apply text-amber-200 transition-colors ease-out duration-300;
+				}
+			}
+		}
+	}
+}
+
+.toggle {
+	@apply flex justify-center items-center absolute top-0 right-1.5 w-12 h-12 text-white/50;
+	&:hover {
+		@apply text-white;
+	}
+}

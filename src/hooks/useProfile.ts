@@ -12,7 +12,8 @@ export const useProfile = () => {
 		queryFn: () => UserService.getProfile(),
 		select: ({ data }) => data,
 		enabled: !!user,
-		refetchInterval: 1800000
+		refetchInterval: 1800000,
+		
 	})
 
 	// const { data: tokensData, isSuccess } = useQuery({

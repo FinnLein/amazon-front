@@ -5,8 +5,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap");
 
 body {
-	@apply bg-bg-color text-base text-black;
+	@apply bg-secondary text-base text-black-700;
 	font-family: "Golos Text", sans-serif;
+}
+
+::-webkit-scrollbar{
+	display: none;
 }
 
 .disabled {
@@ -14,6 +18,7 @@ body {
 	text-decoration: none;
 	cursor: default;
 	opacity: 0.2 !important;
+	box-sizing: border-box;
 }
 
 .open-menu {

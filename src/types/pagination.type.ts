@@ -1,8 +1,8 @@
 import { EnumProductSort } from '@/services/product/productSort.enum'
 
 export interface IPaginationParams {
-	skip?: number
 	take?: number
+	skip?: number
 	searchTerm?: string
 }
 

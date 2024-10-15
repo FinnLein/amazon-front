@@ -19,6 +19,12 @@ export const OrderService = {
 			method: EnumHTTPMethods.get
 		})
 	},
+	async getRecently() {
+		return instance<TOrder[]>({
+			url: getOrdersUrl('get-last'),
+			method: EnumHTTPMethods.get
+		})
+	},
 	async place(data: TData) {
 		return instance<{ confirmation: { confirmation_url: string } }>({
 			url: getOrdersUrl(''),

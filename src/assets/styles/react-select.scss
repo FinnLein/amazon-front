@@ -1,0 +1,96 @@
+/* React Select */
+.custom-select {
+	&__control {
+		background-color: transparent !important;
+		border: none !important;
+		border-radius: 0 !important;
+		border-bottom: 1px solid white !important;
+		box-shadow: none !important;
+
+		&--menu-is-open {
+			border-color: white !important;
+		}
+	}
+
+	&__value-container {
+		padding: 0 !important;
+		cursor: text !important;
+	}
+
+	&__input-container {
+	}
+
+	&__indicator-separator {
+		display: none !important;
+	}
+
+	&__indicators {
+		cursor: pointer !important;
+	}
+
+	&__indicator {
+		color: white !important;
+
+		&:hover {
+			color: white !important;
+		}
+	}
+
+	&__single-value {
+		color: white !important;
+		border-radius: 0.5rem !important;
+	}
+
+	&__single-value__label {
+		font-size: 80% !important;
+		color: white !important;
+	}
+
+	&__menu {
+		background-color: #292a2e !important;
+		color: white  !important;
+		::-webkit-scrollbar{
+			display: none;
+		}
+	}
+
+	&__menu-list {
+		
+	}
+
+	&__option {
+		cursor: pointer !important;
+		&--is-focused {
+			background-color: darken(#292a2e, 5%) !important;
+		}
+		&--is-selected {
+			background-color: darken(#292a2e, 10%) !important;
+		}
+	}
+
+	&-container {
+		> div {
+			outline: none !important;
+			box-shadow: none !important;
+		}
+
+		.form-control__control {
+			@apply border-none outline-none transition-all;
+			border-color: #ced4da !important;
+			box-shadow: none !important;
+		}
+
+		&:hover,
+		&--menu-is-open {
+			border-color: #ced4da !important;
+		}
+
+		.form-control__indicators {
+			@apply cursor-pointer;
+		}
+	}
+
+	&__menu {
+		@apply animate-scaleIn;
+	}
+}

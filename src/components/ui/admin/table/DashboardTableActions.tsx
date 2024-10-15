@@ -1,7 +1,9 @@
 import { Edit, Trash2 } from 'lucide-react'
 import Link from 'next/link'
+
 import styles from './DashboardTable.module.scss'
 import { IDashbordTableBaseData } from './dashbord-table.type'
+
 export function DashboardTableActions<TData extends IDashbordTableBaseData>({
 	baseRecord
 }: {
@@ -13,7 +15,10 @@ export function DashboardTableActions<TData extends IDashbordTableBaseData>({
 		<>
 			{editUrl && (
 				<td className={styles.minWidth}>
-					<Link href={editUrl}>
+					<Link
+						className='hover:text-orange-300 transition-colors duration-300 ease-in-out'
+						href={editUrl}
+					>
 						<Edit />
 					</Link>
 				</td>
@@ -22,7 +27,7 @@ export function DashboardTableActions<TData extends IDashbordTableBaseData>({
 			{deleteHandler && (
 				<td className={styles.minWidth}>
 					<button onClick={deleteHandler} aria-label='delete'>
-						<Trash2 />
+						<Trash2 className='hover:text-rose-500 transition-colors duration-300 ease-in-out' />
 					</button>
 				</td>
 			)}

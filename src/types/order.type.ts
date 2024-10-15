@@ -13,6 +13,5 @@ export type TOrder = {
 	createdAt: string
 	items: TCartItem[]
 	status: EnumOrderStatus
-	user: TUser
 	total: number
 }

@@ -1,5 +1,8 @@
 export type TCategory = {
-	id: number
+	id: string
 	name: string
 	slug: string
+	description: string
 }
+
+export interface ICategoryData extends Omit<TCategory, 'id'> {}

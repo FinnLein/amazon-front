@@ -1,24 +1,27 @@
 'use client'
 
 import { SERVER_URL } from '@/constants/main.constants'
-import { useProfile } from '@/hooks/useProfile'
+import { useProfileQueries } from '@/ui/fields/profile-form/useProfileQueries'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 
 const HeaderProfile: FC = () => {
-	const { profile } = useProfile()
+	const { data } = useProfileQueries()
 
 	return (
 		<Link href={'/profile'}>
-			{profile?.avatarPath && (
+			{data?.avatarPath && (
 				<Image
 					width={43}
 					height={43}
-					src={profile?.avatarPath.includes('http')
-						? profile?.avatarPath
-						: SERVER_URL  + profile?.avatarPath}
-					alt='profile'
+					src={
+						data?.avatarPath.includes('http')
+							? data?.avatarPath
+							: SERVER_URL + data?.avatarPath
+					}
+					alt='data'
 					className='rounded-full border-primary border border-solid animate-opacity'
 				/>
 			)}

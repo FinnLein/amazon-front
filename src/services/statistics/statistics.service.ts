@@ -33,6 +33,12 @@ export const StatisticsService = {
 			method: EnumHTTPMethods.get
 		})
 	},
+	async getMostExpensiveProductsByCategory() {
+		return instance<TPriceProducts>({
+			url: getStatisticsUrl('most-expensive-products/by-category'),
+			method: EnumHTTPMethods.get
+		})
+	},
 	async getMostChippiesProducts() {
 		return instance<TPriceProducts>({
 			url: getStatisticsUrl('most-chippiest-products'),
@@ -50,5 +56,5 @@ export const StatisticsService = {
 			url: getStatisticsUrl('registration-by-month'),
 			method: EnumHTTPMethods.get
 		})
-	}
+	},
 }

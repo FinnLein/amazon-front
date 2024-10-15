@@ -1,6 +1,5 @@
 'use client'
 
-import { useProfile } from '@/hooks/useProfile'
 import styles from './DashboardTable.module.scss'
 import { DashboardTableActions } from './DashboardTableActions'
 import { IDashbordTable, IDashbordTableBaseData } from './dashbord-table.type'

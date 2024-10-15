@@ -13,6 +13,6 @@ export const getStatisticsUrl = (string: string) => `/statistics/${string}`
 export const getPaymentUrl = (string: string) => `/payment/${string}`
 export const getProductsUrl = (string: string) => `/products/${string}`
 
+
 export const getCategoryUrl = (string: string) => `/category/${string}`
-export const getOrderUrl = (string: string) => `/order/${string}`
 export const getProductUrl = (string: string) => `/product/${string}`

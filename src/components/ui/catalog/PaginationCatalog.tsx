@@ -1,14 +1,15 @@
 'use client'
 
-import { FC } from 'react'
+import { m } from 'framer-motion'
+import { FC, useEffect } from 'react'
+
+import { useManageProducts } from '@/hooks/useProducts'
 
 import Heading from '../Heading'
+import ShowMore from '../ShowMore'
+import { itemVariants } from '../admin/statistics/user-statistics-animation'
 import SortDropdown from '../select/SortDropdown'
 
-import { useManageProducts } from '@/app/(customer)/useManageProducts'
-import { m } from 'framer-motion'
-import ShowMore from '../ShowMore'
-import { productContainerVariants } from './product-item/product-animation'
 import ProductItem from './product-item/ProductItem'
 
 interface IPaginationCatalog {
@@ -24,7 +25,11 @@ const PaginationCatalog: FC<IPaginationCatalog> = ({ title }) => {
 		setPage,
 		isHasMore,
 		isLoading
-	} = useManageProducts()
+	} = useManageProducts(4, true, true)
+
+	useEffect(() => {
+		setPage(0)
+	}, [sortType])
 
 	return (
 		<section>
@@ -32,24 +37,35 @@ const PaginationCatalog: FC<IPaginationCatalog> = ({ title }) => {
 
 			<SortDropdown sortType={sortType} setSortType={setSortType} />
 			{products?.length ? (
-				<>
-					<m.div
-						variants={productContainerVariants}
-						className='grid grid-cols-4 gap-10	'
-					>
-						{products.map(product => (
-							<ProductItem key={product.id} product={product} />
+				<div className='flex gap-5 items-center'>
+					{page > 0 && page ? (
+						<ShowMore
+							type='left'
+							isLoading={isLoading}
+							onLoadMore={() => setPage(page - 1)}
+						/>
+					) : null}
+					<div className='grid grid-cols-4 gap-10	'>
+						{products.map((product, index) => (
+							<m.div
+								key={product.id}
+								variants={itemVariants}
+								initial='initial'
+								whileInView='animate'
+								transition={{ delay: 0.05 * index }}
+							>
+								<ProductItem index={index} product={product} />
+							</m.div>
 						))}
-					</m.div>
-					<div className='flex justify-center gap-10 mt-16'>
-						{isHasMore ? (
-							<ShowMore
-								isLoading={isLoading}
-								onLoadMore={() => setPage(page + 1)}
-							/>
-						) : null}
 					</div>
-				</>
+					{isHasMore ? (
+						<ShowMore
+							type='right'
+							isLoading={isLoading}
+							onLoadMore={() => setPage(page + 1)}
+						/>
+					) : null}
+				</div>
 			) : (
 				<div>There are no products</div>
 			)}

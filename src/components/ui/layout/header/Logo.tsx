@@ -6,11 +6,15 @@ import logoImage from '../../../../assets/images/logo.svg'
 
 const Logo: FC = () => {
 	return (
-		<>
-			<Link href='/'>
-				<Image src={logoImage} priority width={180} height={37} alt='Amazon' />
-			</Link>
-		</>
+		<Link href='/'>
+			<Image
+				src={logoImage}
+				fetchPriority='high'
+				width={180}
+				height={37}
+				alt='Amazon'
+			/>
+		</Link>
 	)
 }
 

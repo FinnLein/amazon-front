@@ -38,7 +38,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 	if (user && isProtectedRoute) return <>{children}</>
 	if (user && isAdminRoute) return <Custom404 />
 
-	if (pathname !== '/auth') return <Auth />
+	if (pathname !== '/auth') return <Auth isLogin />
 
 	return true
 }

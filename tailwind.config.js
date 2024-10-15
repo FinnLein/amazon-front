@@ -2,7 +2,15 @@
 const twColors = require('tailwindcss/colors')
 
 export const colors = {
-	black: '#2E3239',
+	black: {
+		300: '#6F7379',
+		500: '#4D5158',
+		600: '#3E4249',
+		700: '#2E3239',
+		800: '#202327',
+		900: '#15181C',
+		950: '#0D0F12'
+	},
 	gray: '#CDCDCD',
 	white: twColors.white,
 	primary: '#FF9902',
@@ -17,6 +25,26 @@ module.exports = {
 	theme: {
 		extend: {
 			colors,
+			gridTemplateColumns: {
+				'auto-fill-100': 'repeat(auto-fill, minmax(100px, 1fr))',
+				'auto-fit-100': 'repeat(auto-fit, minmax(100px, 1fr))',
+				'auto-fill-200': 'repeat(auto-fill, minmax(200px, 1fr))',
+				'auto-fit-200': 'repeat(auto-fit, minmax(200px, 1fr))',
+				'auto-fill-300': 'repeat(auto-fill, minmax(300px, 1fr))',
+				'auto-fit-300': 'repeat(auto-fit, minmax(300px, 1fr))',
+				'auto-fill-400': 'repeat(auto-fill, minmax(400px, 1fr))',
+				'auto-fit-400': 'repeat(auto-fit, minmax(400px, 1fr))'
+			},
+			gridTemplateRows: {
+				'auto-fill-100': 'repeat(auto-fill, minmax(100px, 1fr))',
+				'auto-fit-100': 'repeat(auto-fit, minmax(100px, 1fr))',
+				'auto-fill-200': 'repeat(auto-fill, minmax(200px, 1fr))',
+				'auto-fit-200': 'repeat(auto-fit, minmax(200px, 1fr))',
+				'auto-fill-300': 'repeat(auto-fill, minmax(300px, 1fr))',
+				'auto-fit-300': 'repeat(auto-fit, minmax(300px, 1fr))',
+				'auto-fill-400': 'repeat(auto-fill, minmax(400px, 1fr))',
+				'auto-fit-400': 'repeat(auto-fit, minmax(400px, 1fr))'
+			},
 			fontSize: {
 				xs: '0.82rem',
 				sm: '0.98rem',
@@ -52,11 +80,13 @@ module.exports = {
 					}
 				}
 			},
+			flex: {
+
+			},
 			animation: {
 				opacity: 'animationOpacity .5s ease-in-out',
 				scaleIn: 'scaleIn .35s ease-in-out'
 			}
 		}
-	},
-	plugins: []
+	}
 }

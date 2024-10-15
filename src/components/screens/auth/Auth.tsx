@@ -92,7 +92,7 @@ const Auth: FC<Props> = ({ isLogin }) => {
 									message: 'Name should be at least 6 symbols'
 								}
 							})}
-							error={errors.name?.message}
+							error={errors.name}
 						/>
 						{error && <p className='text-red'>{error.message}</p>}
 						
@@ -105,7 +105,7 @@ const Auth: FC<Props> = ({ isLogin }) => {
 									message: 'Please enter a valid phone number'
 								}
 							})}
-							error={errors.phone?.message}
+							error={errors.phone}
 						/>
 						{error && <p className='text-red'>{error.message}</p>}</>}
 					
@@ -118,12 +118,12 @@ const Auth: FC<Props> = ({ isLogin }) => {
 									message: 'Please enter a valid email address'
 								}
 							})}
-							error={errors.email?.message}
+							error={errors.email}
 						/>
 						{error && <p className='text-red'>{error.message}</p>}
 						<Field
 							placeholder='Password'
-							error={errors.password?.message}
+							error={errors.password}
 							type='password'
 							{...formRegister('password', {
 								required: 'Password is required',

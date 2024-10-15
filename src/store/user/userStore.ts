@@ -1,11 +1,15 @@
-import { errorCatch } from '@/api/api.helper'
-import { removeFromStorage } from '@/services/auth/auth.helper'
-import { AuthService } from '@/services/auth/auth.service'
-import { IAuthFormData, TUser } from '@/types/user.type'
-import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
+
+import { IAuthFormData, TUser } from '@/types/user.type'
+
+import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
+
+import { errorCatch } from '@/api/api.helper'
+
 import { IAuthResponse } from './user.interface'
+import { removeFromStorage } from '@/services/auth/auth.helper'
+import { AuthService } from '@/services/auth/auth.service'
 
 interface IUserStore {
 	user: TUser | null
@@ -38,7 +42,6 @@ export const useUserStore = create<IUserStore>()(
 					}
 				},
 				login: async (data: IAuthFormData) => {
-					
 					set({ isLoading: true })
 					try {
 						const res: IAuthResponse = await AuthService.main(
@@ -48,6 +51,7 @@ export const useUserStore = create<IUserStore>()(
 						set({ user: res.user, isLoading: false })
 					} catch (error) {
 						set({ error: error.message, isLoading: false })
+						debugger
 					} finally {
 						set({ isLoading: false })
 					}

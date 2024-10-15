@@ -1,23 +1,30 @@
-import { getCategoryUrl, getProductUrl } from '@/config/configUrl'
-import { TProduct } from '@/types/product.type'
-
-import { convertPrice } from '@/utils/convertPrice'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
+
+import { getCategoryUrl, getProductUrl } from '@/config/configUrl'
+
+import { TProduct } from '@/types/product.type'
+
+import { convertPrice } from '@/utils/convertPrice'
+
 import AddToCartButton from './AddToCartButton'
 import ProductRating from './ProductRating'
+import { SERVER_URL } from '@/constants/main.constants'
 
 const DynamicFavoriteButton = dynamic(() => import('./FavoriteButton'), {
 	ssr: false
 })
 
-const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
+const ProductItem: FC<{ product: TProduct; index: number }> = ({
+	product,
+	index
+}) => {
 	return (
-		<div className='animate-scaleIn bg-white overflow-hidden rounded-xl'>
-			<div className='relative '>
-				<div className='absolute top-2 right-3 z-10'>
+		<div className='flex flex-col h-full bg-white overflow-hidden rounded-xl'>
+			<div className='relative flex-shrink-0 flex-grow basis-auto'>
+				<div className='absolute top-0 right-0 z-10 bg-white p-1 rounded-xl'>
 					<DynamicFavoriteButton productId={product.id} />
 					<AddToCartButton product={product} />
 				</div>
@@ -27,11 +34,15 @@ const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
 						width={250}
 						height={250}
 						alt={product.name}
-						src={product.images[0]}
+						src={
+							product.images[0].includes('http')
+								? product.images[0]
+								: SERVER_URL + product.images[0]
+						}
 					/>
 				</Link>
 			</div>
-			<div className='p-2'>
+			<div className='p-2 flex-shrink-0 flex-grow-0 basis-auto'>
 				<Link href={getProductUrl(`${product.slug}`)}>
 					<h3 className='mt-2 font-semibold	'>{product.name}</h3>
 				</Link>

@@ -1,8 +1,11 @@
-import { useCart } from '@/hooks/useCart'
-import { useCartStore } from '@/store/cart/cartStore'
-import { TCartItem } from '@/types/cart.type'
 import { FC } from 'react'
 import { FiMinus, FiPlus, FiTrash } from 'react-icons/fi'
+
+import { useCartStore } from '@/store/cart/cartStore'
+
+import { useCart } from '@/hooks/useCart'
+
+import { TCartItem } from '@/types/cart.type'
 
 const CartActions: FC<{ item: TCartItem }> = ({ item }) => {
 	const { removeFromCart, changeQuantity } = useCartStore(state => state)
@@ -25,7 +28,7 @@ const CartActions: FC<{ item: TCartItem }> = ({ item }) => {
 					disabled
 					readOnly
 					value={quantity}
-					className='w-10 bg-black text-center'
+					className='w-10 bg-black-700 text-center'
 					placeholder='.'
 				/>
 				<button

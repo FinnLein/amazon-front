@@ -1,0 +1,32 @@
+.common {
+    @apply relative border-b border-black-600 transition-colors focus-within:border-primary;
+
+    > label {
+        @apply block;
+
+        > span {
+            @apply text-xs uppercase text-white block;
+        }
+    }
+}
+
+.editorWrapper {
+    @apply border-0;
+
+    .wrapper {
+        .toolbar {
+            @apply mt-4 outline-none border-none rounded-t-lg mb-0 bg-black-600 bg-opacity-40 p-3;
+
+            > div {
+                @apply m-0;
+
+                > div {
+                    @apply outline-none border-none shadow-none transition-colors border-black-500 bg-white hover:bg-black-300 mx-1.5;
+                }
+            }
+        }
+        .editor {
+            @apply text-white h-96 border rounded-b-lg border-black-700 px-4 overflow-hidden;
+        }
+    }
+}

@@ -34,7 +34,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
 				}}
 			>
 				<Sidebar />
-				<section className='p-12 pb-52 bg-bg-color rounded-tl-lg'>
+				<section className='py-8 px-4 pb-52 bg-bg-color rounded-tl-lg'>
 					{children}
 				</section>
 			</div>

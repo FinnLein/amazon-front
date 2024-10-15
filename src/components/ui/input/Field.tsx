@@ -1,18 +1,32 @@
 import cn from 'clsx'
 import { forwardRef } from 'react'
-import { IField } from './field.interface'
 
-const Field = forwardRef<HTMLInputElement, IField>(
+import { IFieldProps } from './field.interface'
+
+const Field = forwardRef<HTMLInputElement, IFieldProps>(
 	(
-		{ className, type = 'text', placeholder, error, style, Icon, ...rest },
+		{
+			className,
+			color = 'black',
+			type = 'text',
+			placeholder,
+			error,
+			style,
+			Icon,
+			...rest
+		},
 		ref
 	) => {
 		return (
-			<div className={cn('mb-4', className)} >
-				<label>
+			<div className={cn('mb-4', className)}>
+				<label
+					className={cn({
+						'text-black-700': color === 'black',
+						'text-white': color === 'white'
+					})}
+				>
 					<span className='mb-1 block'>
 						{Icon && <Icon className={'mr-3'} />}
-						{placeholder}
 					</span>
 					<input
 						className={cn(
@@ -27,7 +41,9 @@ const Field = forwardRef<HTMLInputElement, IField>(
 						{...rest}
 					></input>
 				</label>
-				{error && <div className={'text-red mt-1 text-sm'}>{error}</div>}
+				{error && (
+					<div className={'text-red mt-1 text-sm'}>{error.message}</div>
+				)}
 			</div>
 		)
 	}

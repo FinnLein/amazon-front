@@ -1,9 +1,13 @@
-import { instance } from '@/api/api.interceptor'
-import { IUserFormState } from '@/app/admin/users/(form)/user-form.types'
+import { IUserFormState } from '@/ui/fields/user-form/user-form.types'
+
 import { getUsersUrl } from '@/config/configUrl'
-import { TFullUser, TUser } from '@/types/user.type'
-import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
+
 import { IPaginationParams, IPaginationResponse } from '@/types/pagination.type'
+import { TFullUser, TUser } from '@/types/user.type'
+
+import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
+
+import { instance } from '@/api/api.interceptor'
 
 export const UserService = {
 	async getProfile() {
@@ -13,10 +17,18 @@ export const UserService = {
 		})
 	},
 
-	async updateProfile(data: TUser) {
+	async updateProfile(data: IUserFormState) {
 		return instance<TUser>({
 			url: getUsersUrl('profile'),
 			method: EnumHTTPMethods.put,
+			data
+		})
+	},
+
+	async updateProfileAvatar(data: IUserFormState) {
+		return instance<TUser>({
+			url: getUsersUrl('profile-avatar'),
+			method: EnumHTTPMethods.patch,
 			data
 		})
 	},
@@ -38,16 +50,16 @@ export const UserService = {
 
 	// admin
 
-	async byId(id: string | number) {
+	async byId(id: string) {
 		return instance<TUser>({
-			url: getUsersUrl(`${id}`),
+			url: getUsersUrl(id),
 			method: EnumHTTPMethods.get
 		})
 	},
 
 	async create(createUserDto: IUserFormState) {
 		return instance<TUser>({
-			url: getUsersUrl(``),
+			url: getUsersUrl(`/`),
 			method: EnumHTTPMethods.post,
 			data: createUserDto
 		})

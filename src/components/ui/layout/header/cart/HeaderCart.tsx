@@ -18,28 +18,15 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import styles from './Cart.module.scss'
 import CartItem from './cart-item/CartItem'
+import { useOrders } from '@/hooks/useOrders'
 
 const HeaderCart: FC = () => {
 	const { isShow, setIsShow, ref } = useOutside(false)
 	const { total } = useCart()
 	const { items, reset } = useCartStore(state => state)
 
-	const { push } = useRouter()
 
-	const { mutate } = useMutation({
-		mutationKey: ['create order and payment'],
-		mutationFn: () =>
-			OrderService.place({
-				items: items.map(item => ({
-					quantity: item.quantity,
-					price: item.price,
-					productId: item.product.id
-				}))
-			}),
-		onSuccess({ data }) {
-			push(data.confirmation.confirmation_url)
-		}
-	})
+	const {mutate} = useOrders()
 
 	return (
 		<div className='relative z-40' ref={ref}>

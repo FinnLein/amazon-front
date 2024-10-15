@@ -1,9 +1,14 @@
-import { axiosClassic, instance } from '@/api/api.interceptor'
 import { getProductsUrl } from '@/config/configUrl'
-import { IPaginationParamsWithSort, IPaginationResponse } from '@/types/pagination.type'
-import { TProduct } from '@/types/product.type'
+
+import {
+	IPaginationParamsWithSort,
+	IPaginationResponse
+} from '@/types/pagination.type'
+import { TProduct, TProductData } from '@/types/product.type'
+
 import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
-import { TProductData } from './product.interface'
+
+import { axiosClassic, instance } from '@/api/api.interceptor'
 
 export const ProductService = {
 	async getAll(params?: IPaginationParamsWithSort) {
@@ -39,10 +44,11 @@ export const ProductService = {
 		})
 	},
 
-	async create() {
+	async create(data: TProductData) {
 		return instance<TProduct>({
-			url: getProductsUrl(''),
-			method: EnumHTTPMethods.post
+			url: getProductsUrl('/'),
+			method: EnumHTTPMethods.post,
+			data
 		})
 	},
 

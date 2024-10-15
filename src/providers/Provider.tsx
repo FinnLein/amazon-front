@@ -2,10 +2,11 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { LazyMotion, domAnimation } from 'framer-motion'
 import { PropsWithChildren, useState } from 'react'
-import AuthProvider from './auth-provider/AuthProvider'
-import { domAnimation, LazyMotion } from 'framer-motion'
 import { Toaster } from 'react-hot-toast'
+
+import AuthProvider from './auth-provider/AuthProvider'
 
 export function Providers({ children }: PropsWithChildren) {
 	const [client] = useState(new QueryClient())
@@ -13,8 +14,10 @@ export function Providers({ children }: PropsWithChildren) {
 	return (
 		<QueryClientProvider client={client}>
 			<AuthProvider>
-				<LazyMotion features={domAnimation}>{children}</LazyMotion>
-				<Toaster />
+				<LazyMotion features={domAnimation}>
+					<main>{children}</main>
+					<Toaster />
+				</LazyMotion>
 			</AuthProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>

@@ -1,13 +1,15 @@
 'use client'
 
-import { COLORS } from '@/constants/color.constants'
-import { StatisticsService } from '@/services/statistics/statistics.service'
-import { Loader } from '@/ui/Loader'
 import { useQuery } from '@tanstack/react-query'
 import { m } from 'framer-motion'
 import { AreaChart, BarChart2 } from 'lucide-react'
 import { FC } from 'react'
-import { containerVariants, itemVariants, ROTATE_CARD } from './user-statistics-animation'
+
+import { Loader } from '@/ui/Loader'
+
+import { itemVariants } from './user-statistics-animation'
+import { COLORS } from '@/constants/color.constants'
+import { StatisticsService } from '@/services/statistics/statistics.service'
 
 const UserStatistics: FC = () => {
 	const { data, isPending } = useQuery({
@@ -21,12 +23,21 @@ const UserStatistics: FC = () => {
 			{isPending ? (
 				<Loader />
 			) : (
-				<m.div variants={containerVariants}  className='grid grid-cols-3 gap-4 text-black'>
+				<m.div className='grid grid-cols-3 gap-4 text-black-700'>
 					{data?.map((i, index) => (
 						<m.div
-                            variants={itemVariants}
-                            whileHover={ROTATE_CARD.whileHover}
-                            transition={ROTATE_CARD.transition}
+							variants={itemVariants}
+							initial='initial'
+							whileInView='animate'
+							whileHover={{
+								rotateX: 10,
+								rotateY: -8,
+								x: 5,
+								y: -10,
+								z: 0,
+								boxShadow: '1px 1px 7px rgb(253,230,138,1)'
+							}}
+							transition={{ delay: 0.2 * index }}
 							key={i.name}
 							className='grid justify-items-center  grid-cols-2 py-4 px-2 bg-bg-color rounded-lg'
 						>
