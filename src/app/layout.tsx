@@ -18,7 +18,6 @@ export const metadata: Metadata = {
 	openGraph: {
 		type: 'website',
 		siteName: SITE_NAME,
-		emails: ['info@amazon.com']
 	}
 }
 

@@ -45,7 +45,6 @@ export function useCategoryQueries(
 		isCreateForm ? createCategory(data) : updateCategory(data)
 	}
 
-	console.log(data)
 
 	return {
 		data,

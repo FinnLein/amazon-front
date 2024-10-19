@@ -8,8 +8,6 @@ const Home: FC = () => {
 	return (
 		<>
 			<PaginationCatalog title='Catalog' />
-			<PaginationCatalog title='Fresh' />
-			<PaginationCatalog title='Catalog' />
 		</>
 	)
 }

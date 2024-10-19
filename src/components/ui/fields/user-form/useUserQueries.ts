@@ -1,12 +1,13 @@
 'use client'
 
-import { UserService } from '@/services/user/user.service'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import toast from 'react-hot-toast'
+
 import { IQuieriesResultUser, IUserFormState } from './user-form.types'
+import { UserService } from '@/services/user/user.service'
 
 export function useUserQueries(
 	id = '',
@@ -37,7 +38,7 @@ export function useUserQueries(
 		onSuccess() {
 			toast.success('User updated successfully')
 			refetch()
-			
+			push('/admin/users')
 		}
 	})
 

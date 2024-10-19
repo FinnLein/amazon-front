@@ -5,7 +5,7 @@ import { IOption } from '@/ui/select/select.interface'
 import { CategoryService } from '@/services/category/category.service'
 
 export const useProductCategories = () => {
-	const { isLoading: isLodingCategories, data } = useQuery({
+	const { isLoading: isLoadingCategories, data } = useQuery({
 		queryKey: ['get categories'],
 		queryFn: () =>
 			CategoryService.getAll({
@@ -22,7 +22,7 @@ export const useProductCategories = () => {
 	})
 
 	return {
-		isLodingCategories,
+		isLoadingCategories,
 		data
 	}
 }

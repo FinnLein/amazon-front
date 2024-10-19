@@ -46,7 +46,7 @@ export const ProductService = {
 
 	async create(data: TProductData) {
 		return instance<TProduct>({
-			url: getProductsUrl('/'),
+			url: getProductsUrl(''),
 			method: EnumHTTPMethods.post,
 			data
 		})

@@ -1,8 +1,10 @@
-import { useDebounce } from '@/hooks/useDebounce'
-import { ProductService } from '@/services/product/product.service'
-import { EnumProductSort } from '@/services/product/productSort.enum'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+
+import { useDebounce } from '@/hooks/useDebounce'
+
+import { ProductService } from '@/services/product/product.service'
+import { EnumProductSort } from '@/services/product/productSort.enum'
 
 export const useManageProducts = (
 	pageNumber: number,
@@ -15,7 +17,7 @@ export const useManageProducts = (
 	const debouncedSearchTerm = useDebounce(searchTerm, 500)
 
 	const { isLoading, data, refetch } = useQuery({
-		queryKey: ['get all products', debouncedSearchTerm, sortType],
+		queryKey: ['get all products', debouncedSearchTerm, sortType, page],
 		queryFn: () =>
 			ProductService.getAll({
 				searchTerm: debouncedSearchTerm,

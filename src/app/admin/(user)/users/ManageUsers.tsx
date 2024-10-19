@@ -8,7 +8,7 @@ import Skeleton from 'react-loading-skeleton'
 import Heading from '@/ui/Heading'
 import ShowMore from '@/ui/ShowMore'
 import DashboardTable from '@/ui/admin/table/DashboardTable'
-import { IDashbordTableBaseData } from '@/ui/admin/table/dashbord-table.type'
+import { IDashboardTableBaseData } from '@/ui/admin/table/dashbord-table.type'
 import Field from '@/ui/input/Field'
 
 import { useProfile } from '@/hooks/useProfile'
@@ -21,8 +21,8 @@ import { useManageUsers } from './useManageUsers'
 import { SERVER_URL } from '@/constants/main.constants'
 
 interface IUsersTable
-	extends Pick<TUser, 'id' | 'email' | 'role' | 'avatarPath' | 'name'>,
-		IDashbordTableBaseData {}
+	extends Pick<TUser, 'id' | 'email' | 'rights' | 'avatarPath' | 'name'>,
+		IDashboardTableBaseData {}
 
 export function ManageUsers() {
 	const {
@@ -35,7 +35,7 @@ export function ManageUsers() {
 		isHasMore
 	} = useManageUsers()
 
-	const { profile } = useProfile()
+	const { user } = useProfile()
 
 	return (
 		<m.div
@@ -101,19 +101,20 @@ export function ManageUsers() {
 							render: record => record.email
 						},
 						{
-							title: 'Role',
-							dataIndex: 'role',
-							render: record => record.role
+							title: 'Rights',
+							dataIndex: 'rights',
+							render: record => record.rights
 						}
 					]}
+					//@ts-ignore
 					data={
 						users
-							?.filter(user => user.id !== profile?.id)
+							?.filter(u => u.id !== user?.id)
 							?.map(({ id, ...user }) => ({
 								id,
 								avatarPath: user.avatarPath,
 								email: user.email,
-								role: user.role,
+								rights: user.rights.join(', '),
 								name: user.name,
 								editUrl: `/admin/user/edit/${id}`,
 								deleteHandler: () => deleteUser(id)

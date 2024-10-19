@@ -25,7 +25,6 @@ const HeaderCart: FC = () => {
 	const { total } = useCart()
 	const { items, reset } = useCartStore(state => state)
 
-
 	const {mutate} = useOrders()
 
 	return (

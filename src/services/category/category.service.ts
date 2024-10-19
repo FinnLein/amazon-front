@@ -15,7 +15,7 @@ export const CategoryService = {
 			params
 		})
 	},
-	async getById(id: string ) {
+	async getById(id: string) {
 		return instance<TCategory>({
 			url: getCategoriesUrl(`${id}`),
 			method: EnumHTTPMethods.get

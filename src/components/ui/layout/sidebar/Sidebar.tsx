@@ -8,15 +8,15 @@ import { FC } from 'react'
 import { Loader } from '@/ui/Loader'
 import Logout from '@/ui/logout/Logout'
 
-import { useUserStore } from '@/store/user/userStore'
+import { useProfile } from '@/hooks/useProfile'
 
 import { useManageCategories } from '@/app/admin/(category)/categories/useManageCategories'
 
 const Sidebar: FC = () => {
 	const { categories, isLoading } = useManageCategories(100)
+	const { user } = useProfile()
 
 	const pathName = usePathname()
-	const { user } = useUserStore()
 
 	return (
 		<aside className='relative bg-secondary  flex flex-col justify-between'>
@@ -46,7 +46,7 @@ const Sidebar: FC = () => {
 			) : (
 				<div>Categories not found</div>
 			)}
-			{!!user && (
+			{user.id && (
 				<div>{pathName === '/profile' ? null : <Logout color='white' />}</div>
 			)}
 		</aside>

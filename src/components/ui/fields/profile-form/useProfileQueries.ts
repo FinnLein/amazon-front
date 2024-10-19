@@ -1,29 +1,40 @@
+'use client'
+
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 import { useModalStore } from '@/store/modal/modalStore'
-import { useUserStore } from '@/store/user/userStore'
 
 import { IUserFormState } from '../user-form/user-form.types'
 
 import { IQuieriesResultProfile } from './profile-form.types'
+import { saveTokenStorage } from '@/services/auth/auth.helper'
+import { AuthService } from '@/services/auth/auth.service'
 import { UserService } from '@/services/user/user.service'
+import { useProfile } from '@/hooks/useProfile'
 
 export function useProfileQueries(isAvatar?: boolean): IQuieriesResultProfile {
-	const { user } = useUserStore()
-
 	const [isNeedResetForm, setIsNeedResetForm] = useState(false)
 	const { setIsActive } = useModalStore()
 
-	const { data, refetch, isLoading } = useQuery({
-		queryKey: ['profile'],
-		queryFn: () => UserService.getProfile(),
-		select: ({ data }) => data,
-		enabled: !!user,
-		refetchInterval: 1800000
+	const {user, refetch} = useProfile()
+
+	const { isSuccess, data: dataTokens } = useQuery({
+		queryKey: ['new tokens'],
+		queryFn: () => AuthService.getNewTokens(),
+		enabled: !user,
+		select: ({ data }) => data
 	})
+
+	useEffect(() => {
+		if (!isSuccess) return
+
+		if (dataTokens.accessToken) {
+			saveTokenStorage(dataTokens.accessToken)
+		}
+	}, [isSuccess])
 
 	const { mutate: updateProfile } = useMutation({
 		mutationKey: ['update profile'],
@@ -51,10 +62,7 @@ export function useProfileQueries(isAvatar?: boolean): IQuieriesResultProfile {
 	}
 
 	return {
-		data,
-		isLoading,
 		isNeedResetForm,
-		onSubmit,
-		isinitialUserLoading: isLoading
+		onSubmit
 	}
 }

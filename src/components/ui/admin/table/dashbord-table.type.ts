@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface IDashbordTableBaseData {
+export interface IDashboardTableBaseData {
 	editUrl?: string
 	deleteHandler?: () => void
 }
@@ -11,9 +11,9 @@ interface TableColumn<TData> {
 	render: (record: TData, index: number) => ReactNode
 }
 
-export type TActions = 'Edit' | 'Delete' 
+export type TActions = 'Edit' | 'Delete'
 
-export interface IDashbordTable<TData extends IDashbordTableBaseData> {
+export interface IDashboardTable<TData extends IDashboardTableBaseData> {
 	columns: TableColumn<TData>[]
 	data: TData[]
 	headerActions: TActions[]

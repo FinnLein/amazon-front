@@ -7,7 +7,7 @@ import Skeleton from 'react-loading-skeleton'
 import Heading from '@/ui/Heading'
 import ShowMore from '@/ui/ShowMore'
 import DashboardTable from '@/ui/admin/table/DashboardTable'
-import { IDashbordTableBaseData } from '@/ui/admin/table/dashbord-table.type'
+import { IDashboardTableBaseData } from '@/ui/admin/table/dashbord-table.type'
 import Field from '@/ui/input/Field'
 
 import { TCategory } from '@/types/category.type'
@@ -18,7 +18,7 @@ import { useManageCategories } from './useManageCategories'
 
 interface ICategoryTable
 	extends Omit<TCategory, 'description'>,
-		IDashbordTableBaseData {}
+		IDashboardTableBaseData {}
 
 function ManageCategories() {
 	const {

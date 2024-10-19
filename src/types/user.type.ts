@@ -2,8 +2,10 @@ import { TOrder } from './order.type'
 import { TProduct } from './product.type'
 
 export enum UserRole {
-	User = 'USER',
-	Admin = 'ADMIN'
+	USER = 'USER',
+	ADMIN = 'ADMIN',
+	MANAGER = 'MANAGER',
+	PREMIUM = 'PREMIUM',
 }
 
 export interface TUser {
@@ -12,7 +14,7 @@ export interface TUser {
 	name: string
 	avatarPath: string
 	phone: string
-	role: UserRole
+	rights: UserRole[]
 }
 
 export interface TFullUser extends TUser {

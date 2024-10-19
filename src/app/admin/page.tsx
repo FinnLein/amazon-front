@@ -1,8 +1,9 @@
-import UserStatistics from '@/ui/admin/statistics/UserStatistics'
 import { NextPage } from 'next'
 
+import { MainStatistic } from '@/ui/admin/statistics/MainStatistic'
+
 const AdminPage: NextPage = () => {
-	return <UserStatistics />
+	return <MainStatistic />
 }
 
 export default AdminPage

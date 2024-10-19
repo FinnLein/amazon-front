@@ -1,12 +1,16 @@
 'use server'
 
-import { ITokenInside } from './../services/auth/auth.types'
-
-import { AuthService } from '@/services/auth/auth.service'
 import { jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
-import { Tokens } from './enums/tokens.enums'
-import { IUserDataState, transformUserToState } from './transform-user-to-state'
+
+import { Tokens } from '../enums/tokens.enums'
+import {
+	IUserDataState,
+	transformUserToState
+} from '../transform-user-to-state'
+
+import { AuthService } from '@/services/auth/auth.service'
+import { ITokenInside } from '@/services/auth/auth.types'
 
 export async function getServerAuth(): Promise<IUserDataState | null> {
 	const JWT_SECRET = process.env.JWT_SECRET
@@ -17,7 +21,7 @@ export async function getServerAuth(): Promise<IUserDataState | null> {
 
 	if (!accessToken) {
 		try {
-			const data = await AuthService.getNewtokensByRefreshToken(refreshToken)
+			const data = await AuthService.getNewTokensByRefreshToken(refreshToken)
 			accessToken = data.accessToken
 		} catch (error) {
 			return null

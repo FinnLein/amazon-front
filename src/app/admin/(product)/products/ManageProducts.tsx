@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Heading from '@/ui/Heading'
 import ShowMore from '@/ui/ShowMore'
 import DashboardTable from '@/ui/admin/table/DashboardTable'
-import { IDashbordTableBaseData } from '@/ui/admin/table/dashbord-table.type'
+import { IDashboardTableBaseData } from '@/ui/admin/table/dashbord-table.type'
 import Field from '@/ui/input/Field'
 import SortDropdown from '@/ui/select/SortDropdown'
 
@@ -21,7 +21,7 @@ import { SERVER_URL } from '@/constants/main.constants'
 
 interface IProductsTable
 	extends Pick<TProduct, 'id' | 'category' | 'images' | 'name' | 'price'>,
-		IDashbordTableBaseData {}
+		IDashboardTableBaseData {}
 
 export function ManageProducts() {
 	const {

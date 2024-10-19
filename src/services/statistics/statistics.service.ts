@@ -1,12 +1,15 @@
-import { instance } from '@/api/api.interceptor'
 import { getStatisticsUrl } from '@/config/configUrl'
+
 import {
 	TPriceProducts,
 	TStatisticsProducts,
 	TStatisticsResponse,
 	TUsersRegistration
 } from '@/types/statistics.type'
+
 import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
+
+import { instance } from '@/api/api.interceptor'
 
 export const StatisticsService = {
 	async getMain() {
@@ -51,10 +54,16 @@ export const StatisticsService = {
 			method: EnumHTTPMethods.get
 		})
 	},
+	async getProductsCount() {
+		return instance<TStatisticsResponse>({
+			url: getStatisticsUrl('products-count'),
+			method: EnumHTTPMethods.get
+		})
+	},
 	async getUsersRegistrationByMonths() {
 		return instance<TUsersRegistration>({
 			url: getStatisticsUrl('registration-by-month'),
 			method: EnumHTTPMethods.get
 		})
-	},
+	}
 }

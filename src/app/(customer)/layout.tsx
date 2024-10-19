@@ -1,11 +1,14 @@
-import '@/assets/styles/globals.scss'
-import { getSiteUrl } from '@/config/configUrl'
-import { SITE_NAME } from '@/constants/seo.constants'
+import { Metadata } from 'next'
+import { PropsWithChildren } from 'react'
+
 import Header from '@/ui/layout/header/Header'
 import Sidebar from '@/ui/layout/sidebar/Sidebar'
-import { Metadata } from 'next'
-import { Golos_Text } from 'next/font/google'
-import { PropsWithChildren } from 'react'
+
+import '@/assets/styles/globals.scss'
+
+import { getSiteUrl } from '@/config/configUrl'
+
+import { SITE_NAME } from '@/constants/seo.constants'
 
 export const metadata: Metadata = {
 	icons: {

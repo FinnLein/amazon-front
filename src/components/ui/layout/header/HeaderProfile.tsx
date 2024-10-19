@@ -1,29 +1,33 @@
 'use client'
 
-import { SERVER_URL } from '@/constants/main.constants'
-import { useProfileQueries } from '@/ui/fields/profile-form/useProfileQueries'
-
+import { UserPen } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 
+import { useProfile } from '@/hooks/useProfile'
+
+import { SERVER_URL } from '@/constants/main.constants'
+
 const HeaderProfile: FC = () => {
-	const { data } = useProfileQueries()
+	const { user } = useProfile()
 
 	return (
 		<Link href={'/profile'}>
-			{data?.avatarPath && (
+			{user?.avatarPath ? (
 				<Image
 					width={43}
 					height={43}
 					src={
-						data?.avatarPath.includes('http')
-							? data?.avatarPath
-							: SERVER_URL + data?.avatarPath
+						user?.avatarPath.includes('http')
+							? user?.avatarPath
+							: SERVER_URL + user?.avatarPath
 					}
 					alt='data'
 					className='rounded-full border-primary border border-solid animate-opacity'
 				/>
+			) : (
+				<UserPen size={28} color='white' />
 			)}
 		</Link>
 	)

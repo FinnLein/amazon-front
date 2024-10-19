@@ -1,5 +1,11 @@
-import MyOrders from './MyOrders'
+import { UserRole } from '@/types/user.type'
 
-export default function MyOrdersPage() {
+import { protectPage } from '@/utils/server/protect-page'
+
+import MyOrders from '@/screens/my-orders/MyOrders'
+
+export default async function MyOrdersPage() {
+	await protectPage([UserRole.USER])
+
 	return <MyOrders />
 }

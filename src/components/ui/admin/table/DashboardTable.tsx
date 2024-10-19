@@ -2,14 +2,14 @@
 
 import styles from './DashboardTable.module.scss'
 import { DashboardTableActions } from './DashboardTableActions'
-import { IDashbordTable, IDashbordTableBaseData } from './dashbord-table.type'
+import { IDashboardTable, IDashboardTableBaseData } from './dashbord-table.type'
 
-function DashboardTable<TData extends IDashbordTableBaseData>({
+function DashboardTable<TData extends IDashboardTableBaseData>({
 	columns,
 	data,
 	headerActions
-}: IDashbordTable<TData>) {
-
+}: IDashboardTable<TData>) {
+	console.log(data)
 	return (
 		<div className={styles.body_table_admin}>
 			<table className={styles.table_admin}>

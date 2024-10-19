@@ -1,5 +1,11 @@
-import Favorites from './Favorites'
+import { UserRole } from '@/types/user.type'
 
-export default function FavoritesPage() {
+import { protectPage } from '@/utils/server/protect-page'
+
+import Favorites from '@/screens/favorites/Favorites'
+
+export default async function FavoritesPage() {
+	await protectPage([UserRole.USER])
+
 	return <Favorites />
 }

@@ -59,7 +59,7 @@ export const UserService = {
 
 	async create(createUserDto: IUserFormState) {
 		return instance<TUser>({
-			url: getUsersUrl(`/`),
+			url: getUsersUrl(``),
 			method: EnumHTTPMethods.post,
 			data: createUserDto
 		})

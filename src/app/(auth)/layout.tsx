@@ -1,13 +1,14 @@
-import '@/assets/styles/globals.scss'
-import { ADMIN_PANEL_URL } from '@/config/configUrl'
-import { getServerAuth } from '@/utils/get-server-auth'
 import { redirect } from 'next/navigation'
 import { PropsWithChildren } from 'react'
+
+import '@/assets/styles/globals.scss'
+
+import { getServerAuth } from '@/utils/server/get-server-auth'
 
 export default async function Layout({ children }: PropsWithChildren<unknown>) {
 	const user = await getServerAuth()
 
-	if (user?.isLoggedIn) return redirect(user.isAdmin ? ADMIN_PANEL_URL : '/')
+	if (user?.isLoggedIn) return redirect('/')
 
 	return <section>{children}</section>
 }

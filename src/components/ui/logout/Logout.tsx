@@ -1,21 +1,22 @@
-import { useUserStore } from '@/store/user/userStore'
 import { useMutation } from '@tanstack/react-query'
 import cn from 'clsx'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { FiLogOut } from 'react-icons/fi'
+
+import { AuthService } from '@/services/auth/auth.service'
+
 type Props = {
 	color?: 'black' | 'white'
 }
 
 const Logout: FC<Props> = ({ color }) => {
-	const { logout } = useUserStore()
 	const { push } = useRouter()
 
 	const { mutate } = useMutation({
 		mutationKey: ['logout'],
 		//@ts-ignore
-		mutationFn: () => logout(),
+		mutationFn: () => AuthService.logout(),
 		onSuccess: () => {
 			push('/')
 		}
@@ -28,7 +29,7 @@ const Logout: FC<Props> = ({ color }) => {
 					'text-secondary': color === 'black',
 					'text-white': color === 'white'
 				})}
-				onClick={() => logout()}
+				onClick={() => mutate()}
 				type='button'
 			>
 				<FiLogOut />

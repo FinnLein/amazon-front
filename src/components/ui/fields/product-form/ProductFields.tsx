@@ -35,7 +35,7 @@ export function ProductFields({
 	getValues: UseFormGetValues<IProductFormState>
 	setValue: UseFormSetValue<IProductFormState>
 }) {
-	const { isLodingCategories, data } = useProductCategories()
+	const { isLoadingCategories, data } = useProductCategories()
 
 	return (
 		<div className='grid min-lg:grid-cols-2 gap-5 text-black-700'>
@@ -64,7 +64,7 @@ export function ProductFields({
 							error={error}
 							options={data || []}
 							placeholder='Category'
-							isLoading={isLodingCategories}
+							isLoading={isLoadingCategories}
 						/>
 					)}
 				/>

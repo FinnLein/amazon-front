@@ -2,9 +2,9 @@ import { Edit, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 
 import styles from './DashboardTable.module.scss'
-import { IDashbordTableBaseData } from './dashbord-table.type'
+import { IDashboardTableBaseData } from './dashbord-table.type'
 
-export function DashboardTableActions<TData extends IDashbordTableBaseData>({
+export function DashboardTableActions<TData extends IDashboardTableBaseData>({
 	baseRecord
 }: {
 	baseRecord: TData

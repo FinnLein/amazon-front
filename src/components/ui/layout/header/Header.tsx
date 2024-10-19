@@ -6,9 +6,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 
-import { useProfileQueries } from '@/ui/fields/profile-form/useProfileQueries'
-
-import { UserRole } from '@/types/user.type'
+import { useProfile } from '@/hooks/useProfile'
 
 import HeaderProfile from './HeaderProfile'
 import Logo from './Logo'
@@ -20,7 +18,9 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ className }) => {
-	const { data } = useProfileQueries()
+	const {
+		user: { isAdmin, favorites }
+	} = useProfile()
 
 	return (
 		<header
@@ -30,13 +30,18 @@ const Header: FC<Props> = ({ className }) => {
 			<Logo />
 			<Search />
 			<div className='flex items-center justify-end gap-10'>
-				{data?.role === UserRole.Admin ? (
+				{isAdmin && (
 					<Link href='/admin' className='text-white'>
 						<Shield size={28} />{' '}
 					</Link>
-				) : null}
+				)}
 
-				<Link href='/favorites' className='text-white'>
+				<Link href='/favorites' className='text-white relative'>
+					{!!favorites?.length && (
+						<span className='flex h-4 w-4 items-center justify-center rounded-full bg-white p-0.5 text-[0.75rem] text-secondary absolute -top-1 -right-1'>
+							{favorites?.length}
+						</span>
+					)}
 					<AiOutlineHeart size={28} />
 				</Link>
 				<HeaderCart />

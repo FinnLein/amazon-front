@@ -1,46 +1,48 @@
-import { axiosClassic } from '@/api/api.interceptor'
 import { getAuthUrl } from '@/config/configUrl'
+
 import { IAuthFormData } from '@/types/user.type'
-import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
+
 import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
-import { Tokens } from '@/utils/enums/tokens.enums'
-import Cookies from 'js-cookie'
+import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
+
+import { axiosClassic } from '@/api/api.interceptor'
+
 import { IAuthResponse } from './../../store/user/user.interface'
-import { removeFromStorage, saveToStorage } from './auth.helper'
+import { removeFromStorage, saveTokenStorage } from './auth.helper'
 
 export const AuthService = {
 	async main(
 		type: AuthorizationType.login | AuthorizationType.register,
-		data: IAuthFormData
+		data: IAuthFormData,
+		token?: string | null
 	) {
 		const response = await axiosClassic<IAuthResponse>({
 			url: getAuthUrl(`${type}`),
 			method: EnumHTTPMethods.post,
-			data
+			data,
+			headers: {
+				recaptcha: token
+			}
 		})
 
-		if (response.data.accessToken) saveToStorage(response.data)
+		if (response.data.accessToken) saveTokenStorage(response.data.accessToken)
 
 		return response.data
 	},
 
 	async getNewTokens() {
-		const refreshToken = Cookies.get(Tokens.refreshToken)
-
-		const response = await axiosClassic.post<string, { data: IAuthResponse }>(
-			getAuthUrl(`login/access-token`),
-			{ refreshToken }
+		const response = await axiosClassic.post<IAuthResponse>(
+			getAuthUrl(`access-token`)
 		)
 
+		if (response.data.accessToken) saveTokenStorage(response.data.accessToken)
 
-		if (response.data.accessToken) saveToStorage(response.data)
-
-		return response.data
+		return response
 	},
 
-	async getNewtokensByRefreshToken(refreshToken: string) {
+	async getNewTokensByRefreshToken(refreshToken: string) {
 		const response = await axiosClassic.post<IAuthResponse>(
-			getAuthUrl(`login/access-token`),
+			getAuthUrl(`access-token`),
 			{},
 			{
 				headers: {
@@ -49,19 +51,14 @@ export const AuthService = {
 			}
 		)
 
-
 		return response.data
 	},
 
-	async logout(){
-		const response = await axiosClassic.post<boolean>(
-			getAuthUrl(`logout`)
-		)
+	async logout() {
+		const response = await axiosClassic.post<boolean>(getAuthUrl(`logout`))
 
-		if(response.data) removeFromStorage()
-		
+		if (response.data) removeFromStorage()
+
 		return response
 	}
-
-
 }

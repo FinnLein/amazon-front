@@ -4,7 +4,7 @@ import cn from 'clsx'
 import { m } from 'framer-motion'
 import { FC } from 'react'
 
-import Logo from './Logo'
+import Logo from '../../layout/header/Logo'
 
 interface Props {
 	className?: string

@@ -1,9 +1,14 @@
-import Heading from '@/ui/Heading'
 import { NextPage } from 'next'
-import Link from 'next/link'
-import Profile from './Profile'
 
-const ProfilePage: NextPage = () => {
+import { UserRole } from '@/types/user.type'
+
+import { protectPage } from '@/utils/server/protect-page'
+
+import Profile from '@/screens/profile/Profile'
+
+const ProfilePage: NextPage = async () => {
+	await protectPage([UserRole.USER])
+
 	return <Profile />
 }
 

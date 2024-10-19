@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import Skeleton from 'react-loading-skeleton'
 
 import { Loader } from '@/ui/Loader'
 import Button from '@/ui/button/Button'
@@ -14,19 +13,15 @@ import { IUserForm, IUserFormState } from './user-form.types'
 
 export function UserEditingForm({
 	type,
-	queriesResult: {
-		onSubmit,
-		data,
-		isLoading,
-		isNeedResetForm
-	}
+	queriesResult: { onSubmit, data, isLoading, isNeedResetForm }
 }: IUserForm) {
 	const {
 		register,
 		control,
 		formState: { errors },
 		handleSubmit,
-		reset
+		reset,
+		setValue
 	} = useForm<IUserFormState>({
 		mode: 'onChange'
 	})
@@ -36,7 +31,7 @@ export function UserEditingForm({
 
 		reset({
 			avatarPath: data.avatarPath,
-			role: data.role,
+			rights: data.rights,
 			email: data.email,
 			name: data.name
 		})
@@ -45,7 +40,6 @@ export function UserEditingForm({
 	useEffect(() => {
 		if (isNeedResetForm) reset()
 	}, [isNeedResetForm, reset])
-
 
 	return isLoading ? (
 		<Loader className='flex justify-center' />
@@ -61,8 +55,9 @@ export function UserEditingForm({
 				encType='multipart/form-data'
 			>
 				<UserMainFields
+					rights={data?.rights || []}
+					setValue={setValue}
 					type={type}
-					control={control}
 					register={register}
 					errors={errors}
 				/>

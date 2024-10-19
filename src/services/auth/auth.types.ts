@@ -2,9 +2,9 @@ import { UserRole } from '@/types/user.type'
 
 export interface ITokenInside {
 	id: number
-	role: UserRole
+	rights: UserRole[]
 	iat: number
 	exp: number
 }
 
-export interface IProtectedUser extends Omit<ITokenInside, 'iat' | 'exp'> {}
+export type TProtectedUser = Omit<ITokenInside, 'iat' | 'exp'>

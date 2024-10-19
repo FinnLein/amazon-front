@@ -7,7 +7,7 @@ import { useManageProducts } from '@/hooks/useProducts'
 
 import Heading from '../Heading'
 import ShowMore from '../ShowMore'
-import { itemVariants } from '../admin/statistics/user-statistics-animation'
+import { itemVariants } from '../admin/statistics/users/user-statistics-animation'
 import SortDropdown from '../select/SortDropdown'
 
 import ProductItem from './product-item/ProductItem'
