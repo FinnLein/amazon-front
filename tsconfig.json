@@ -46,7 +46,7 @@
     "**/*.tsx",
     "tailwind.config.js",
     ".next/types/**/*.ts"
-  ],
+, "src/components/ui/fields/brand-form"  ],
   "exclude": [
     "node_modules"
   ]

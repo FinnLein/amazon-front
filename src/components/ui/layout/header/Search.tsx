@@ -12,20 +12,20 @@ const Search: FC = () => {
 	return (
 		<div>
 			<div
-				className='grid border border-solid border-gray/10 rounded-xl overflow-hidden'
+				className='text-white bg-secondary grid border border-solid border-gray/10 rounded-xl overflow-hidden text-sm '
 				style={{ gridTemplateColumns: '1fr 0.1fr' }}
 			>
 				<input
 					placeholder='Search...'
 					value={searchTerm}
 					onChange={e => setSearchTerm(e.target.value)}
-					className='bg-[#22303E] text-white px-4 py-2 text-sm outline-none'
+					className='bg-transparent px-4 py-4 outline-none focus:brightness-110'
 				/>
-
 				<button
-					className='bg-primary text-white flex items-centSer justify-center p-2.5 '
-					onClick={() => push(`/q?term=${searchTerm}`)}
+					className='flex items-center justify-center p-2.5 hover:brightness-110 transition-colors duration-300 ease-in-out'
+					onClick={() => push(`/explorer?searchTerm=${searchTerm}`)}
 					aria-label='найти'
+					disabled={!searchTerm}
 				>
 					<BsSearch />
 				</button>

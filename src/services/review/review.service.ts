@@ -1,21 +1,23 @@
-import { axiosClassic, instance } from '@/api/api.interceptor'
 import { getReviewsUrl } from '@/config/configUrl'
-import { TReview } from '@/types/review.type'
-import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
-import { IReview } from './review.interface'
+
+import { IReview } from '@/types/review.interface'
+
+import { ENUM_HTTP_METHODS } from '@/utils/enums/HTTPMethods'
+
+import { axiosClassic, instance } from '@/api/api.interceptor'
 
 export const ReviewService = {
 	async getAll() {
-		return axiosClassic<TReview[]>({
+		return axiosClassic<IReview[]>({
 			url: getReviewsUrl(''),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 
 	async create(productId: string | number, data: IReview) {
-		return instance<TReview[]>({
+		return instance<IReview[]>({
 			url: getReviewsUrl(`leave/${productId}`),
-			method: EnumHTTPMethods.post,
+			method: ENUM_HTTP_METHODS.POST,
 			data
 		})
 	},
@@ -23,7 +25,7 @@ export const ReviewService = {
 	async getAverageByProduct(productId: string | number) {
 		return axiosClassic<number>({
 			url: getReviewsUrl(`average-by-product/${productId}`),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	}
 }

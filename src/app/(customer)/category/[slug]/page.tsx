@@ -1,6 +1,9 @@
+import { Metadata, ResolvingMetadata } from 'next'
+
+import Heading from '@/ui/Heading'
 import Catalog from '@/ui/catalog/Catalog'
 
-import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
+import { IPageSlugParams, TParamSlug } from '@/types/page-params.types'
 
 import { CategoryService } from '@/services/category/category.service'
 import { ProductService } from '@/services/product/product.service'
@@ -8,7 +11,7 @@ import { ProductService } from '@/services/product/product.service'
 export async function generateStaticParams() {
 	const categories = await CategoryService.getAll({
 		skip: 0,
-		take: 100
+		perPage: 100
 	})
 
 	const paths = categories.data.items.map(category => {
@@ -20,7 +23,22 @@ export async function generateStaticParams() {
 	return paths
 }
 
-async function getProducts(params: TypeParamSlug) {
+export async function generateMetadata(
+	{ params }: IPageSlugParams,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const { category, products } = await getProducts(params)
+	return {
+		title: category.name,
+		description: category.description,
+		openGraph: {
+			images: products[0].images,
+			description: products[0].description
+		}
+	}
+}
+
+async function getProducts(params: TParamSlug) {
 	const { data: products } = await ProductService.getByCategory(
 		params?.slug as string
 	)
@@ -32,8 +50,13 @@ async function getProducts(params: TypeParamSlug) {
 	return { products, category }
 }
 
-export default async function CategoryPage({ params }: IPageSlugParam) {
+export default async function CategoryPage({ params }: IPageSlugParams) {
 	const data = await getProducts(params)
 
-	return <Catalog products={data.products || []} title={data.category.name} />
+	return (
+		<div>
+			<Heading>{data.category.name}</Heading>
+			<Catalog products={data.products || []} />
+		</div>
+	)
 }

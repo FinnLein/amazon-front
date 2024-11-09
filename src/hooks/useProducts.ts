@@ -1,39 +1,25 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
 
-import { useDebounce } from '@/hooks/useDebounce'
+import { useFilters } from '@/ui/filters/useFilters'
+
+import { IPaginationResponse } from '@/types/pagination.interface'
+import { IProduct } from '@/types/product.interface'
 
 import { ProductService } from '@/services/product/product.service'
-import { EnumProductSort } from '@/services/product/productSort.enum'
 
 export const useManageProducts = (
-	pageNumber: number,
-	isSkip: boolean,
-	isFromFirst: boolean
+	initialProducts: IPaginationResponse<IProduct>
 ) => {
-	const [page, setPage] = useState(isFromFirst ? 0 : 1)
-	const [searchTerm, setSearchTerm] = useState('')
-	const [sortType, setSortType] = useState(EnumProductSort.NEWEST)
-	const debouncedSearchTerm = useDebounce(searchTerm, 500)
+	const { queryParams, isFilterUpdated } = useFilters()
 
-	const { isLoading, data, refetch } = useQuery({
-		queryKey: ['get all products', debouncedSearchTerm, sortType, page],
-		queryFn: () =>
-			ProductService.getAll({
-				searchTerm: debouncedSearchTerm,
-				sort: sortType,
-				take: isFromFirst ? pageNumber : pageNumber * page,
-				skip: isSkip ? page * pageNumber : 0
-			})
+	const { isLoading, data, refetch, isFetching, isPending } = useQuery({
+		queryKey: ['get all products', queryParams],
+		queryFn: () => ProductService.getAll(queryParams),
+		enabled: isFilterUpdated,
+		initialData: initialProducts
 	})
 
-	useEffect(() => {
-		if (page === 1) return
-
-		refetch()
-	}, [page])
-
-	const { mutate: deleteProduct, isPending } = useMutation({
+	const { mutate: deleteProduct, isPending: isPendingDelete } = useMutation({
 		mutationKey: ['delete product'],
 		mutationFn: (id: number) => ProductService.delete(id),
 		onSuccess() {
@@ -41,18 +27,14 @@ export const useManageProducts = (
 		}
 	})
 
-	const products = data?.data.items.length ? data.data.items : null
+	const products = data?.items?.length ? data.items : null
 
 	return {
 		products,
-		isHasMore: data?.data.isHasMore,
+		isHasMore: data?.isHasMore,
+		totalCount: data?.totalCount,
 		deleteProduct,
-		page,
-		setPage,
-		searchTerm,
-		setSearchTerm,
-		sortType,
-		setSortType,
-		isLoading: isLoading || isPending
+		data,
+		isLoading: isLoading || isPending || isPendingDelete || isFetching
 	}
 }

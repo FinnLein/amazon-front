@@ -1,16 +1,17 @@
 'use client'
 
-import { TProduct } from '@/types/product.type'
 import { FC, useState } from 'react'
 import { Rating } from 'react-simple-star-rating'
 
-const ProductRating: FC<{ product: TProduct }> = ({ product }) => {
-	const [rating, setRating] = useState<number>(
-		Math.round(
-			product?.reviews?.reduce((acc, review) => acc + review.rating, 0) /
-				product.reviews?.length
-		) || 0
-	)
+import { IProduct } from '@/types/product.interface'
+
+interface IProductRating {
+	product: IProduct
+	isText?: boolean
+}
+
+const ProductRating: FC<IProductRating> = ({ product, isText = false }) => {
+	const [rating, setRating] = useState<number>()
 
 	return (
 		<div className='mb-2'>
@@ -18,17 +19,19 @@ const ProductRating: FC<{ product: TProduct }> = ({ product }) => {
 				<span className='mr-1'>
 					<Rating
 						readonly
-						initialValue={rating}
+						initialValue={product.rating}
 						SVGstyle={{ display: 'inline-block' }}
 						size={20}
 						allowFraction
 						transition
 					/>
-					<span className='text-sm ml-1 color-[#ffffff]'>{rating}</span>
+					<span className='text-sm ml-1 color-[#ffffff]'>{product.rating}</span>
 				</span>
 			)}
 
-			<span className='text-xs'>({product.reviews?.length} reviews)</span>
+			{isText && (
+				<span className='text-xs'>({product.reviews?.length} reviews)</span>
+			)}
 		</div>
 	)
 }

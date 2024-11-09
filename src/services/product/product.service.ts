@@ -1,68 +1,70 @@
 import { getProductsUrl } from '@/config/configUrl'
 
-import {
-	IPaginationParamsWithSort,
-	IPaginationResponse
-} from '@/types/pagination.type'
-import { TProduct, TProductData } from '@/types/product.type'
+import { IPaginationResponse } from '@/types/pagination.interface'
+import { IProduct, IProductData } from '@/types/product.interface'
 
-import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
+import { ENUM_HTTP_METHODS } from '@/utils/enums/HTTPMethods'
 
 import { axiosClassic, instance } from '@/api/api.interceptor'
 
+import { IProductDataFilters } from './product.types'
+
 export const ProductService = {
-	async getAll(params?: IPaginationParamsWithSort) {
-		return axiosClassic<IPaginationResponse<TProduct>>({
+	async getAll(queryData = {} as IProductDataFilters) {
+		const { data } = await axiosClassic<IPaginationResponse<IProduct>>({
 			url: getProductsUrl(''),
-			method: EnumHTTPMethods.get,
-			params
+			method: ENUM_HTTP_METHODS.GET,
+			params: queryData
 		})
+		return data
 	},
 	async getSimilar(id: string | number) {
-		return axiosClassic<TProduct[]>({
+		return axiosClassic<IProduct[]>({
 			url: getProductsUrl(`similar/${id}`),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getBySlug(slug: string) {
-		return axiosClassic<TProduct>({
+		const { data } = await axiosClassic<IProduct>({
 			url: getProductsUrl(`by-slug/${slug}`),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
+
+		return data
 	},
 	async getByCategory(categorySlug: string) {
-		return axiosClassic<TProduct[]>({
+		return axiosClassic<IProduct[]>({
 			url: getProductsUrl(`by-category/${categorySlug}`),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 
 	async getById(id: string | number) {
-		return instance<TProduct>({
+		return instance<IProduct>({
 			url: getProductsUrl(`${id}`),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 
-	async create(data: TProductData) {
-		return instance<TProduct>({
+	async create(data: IProductData) {
+		return instance<IProduct>({
 			url: getProductsUrl(''),
-			method: EnumHTTPMethods.post,
+			method: ENUM_HTTP_METHODS.POST,
 			data
 		})
 	},
 
-	async update(id: string | number, data: TProductData) {
-		return instance<TProduct>({
+	async update(id: string | number, data: IProductData) {
+		return instance<IProduct>({
 			url: getProductsUrl(`${id}`),
-			method: EnumHTTPMethods.put,
+			method: ENUM_HTTP_METHODS.PUT,
 			data
 		})
 	},
 	async delete(id: string | number) {
-		return instance<TProduct>({
+		return instance<IProduct>({
 			url: getProductsUrl(`${id}`),
-			method: EnumHTTPMethods.delete
+			method: ENUM_HTTP_METHODS.DELETE
 		})
 	}
 }

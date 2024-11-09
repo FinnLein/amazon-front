@@ -1,15 +1,14 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-import { TCartItem } from '@/types/cart.type'
-import { ICartInitialState } from './cart.types'
+import { ICartItem } from '@/types/cart.interface'
 
-const initialState: ICartInitialState = {
+const initialState = {
 	items: []
 }
 interface ICartState {
-	items: TCartItem[]
-	addToCart: (item: TCartItem, quantity: number, price: number) => void
+	items: ICartItem[]
+	addToCart: (item: ICartItem, quantity: number, price: number) => void
 	removeFromCart: (id: number) => void
 	changeQuantity: (id: number, type: 'minus' | 'plus') => void
 	reset: () => void
@@ -44,15 +43,16 @@ export const useCartStore = create<ICartState>()(
 					set(state => ({ items: state.items.filter(item => item.id !== id) })),
 				changeQuantity: (id, type) =>
 					set(state => ({
-					  items: state.items.map(item => {
-						if (item.id === id) {
-						  const newQuantity = type === 'plus' ? ++item.quantity : --item.quantity
-						  return { ...item, quantity: newQuantity > 0 ? newQuantity : 1 }
-						}
-						return item
-					  })
+						items: state.items.map(item => {
+							if (item.id === id) {
+								const newQuantity =
+									type === 'plus' ? ++item.quantity : --item.quantity
+								return { ...item, quantity: newQuantity > 0 ? newQuantity : 1 }
+							}
+							return item
+						})
 					})),
-				  
+
 				reset: () =>
 					set(items => ({
 						items: []

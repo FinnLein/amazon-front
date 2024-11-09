@@ -6,13 +6,19 @@ import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-import { ICategoryFormState, IQueriesResultCategory } from './category-form'
+import { ADMIN_PAGES } from '@/config/pages/admin.config'
+
+import { ICategory } from '@/types/category.interface'
+
+import { IQueriesResult } from '../form.types'
+
+import { ICategoryFormState } from './category-form.types'
 import { CategoryService } from '@/services/category/category.service'
 
 export function useCategoryQueries(
 	id = '',
 	isCreateForm: boolean
-): IQueriesResultCategory {
+): IQueriesResult<ICategory, SubmitHandler<ICategoryFormState>> {
 	const { push } = useRouter()
 	const [isNeedResetForm, setIsNeedResetForm] = useState(false)
 	const { data, refetch, isLoading } = useQuery({
@@ -27,7 +33,7 @@ export function useCategoryQueries(
 		onSuccess() {
 			refetch()
 			toast.success('Category created successfully')
-			push('/admin/categories')
+			push(ADMIN_PAGES.CATEGORIES)
 			setIsNeedResetForm(true)
 		}
 	})
@@ -37,14 +43,13 @@ export function useCategoryQueries(
 		onSuccess() {
 			refetch()
 			toast.success('Category updated successfully')
-			push('/admin/categories')
+			push(ADMIN_PAGES.CATEGORIES)
 		}
 	})
 
 	const onSubmit: SubmitHandler<ICategoryFormState> = data => {
 		isCreateForm ? createCategory(data) : updateCategory(data)
 	}
-
 
 	return {
 		data,

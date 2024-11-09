@@ -1,7 +1,7 @@
 'use client'
 
 import { CategoryEditingForm } from './CategoryEditingForm'
-import { ICategoryForm } from './category-form'
+import { ICategoryForm } from './category-form.types'
 import { useCategoryQueries } from './useCategoryQueries'
 
 export function CategoryForm({ id, type }: Pick<ICategoryForm, 'id' | 'type'>) {

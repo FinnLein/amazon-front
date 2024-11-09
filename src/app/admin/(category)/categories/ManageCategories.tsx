@@ -10,14 +10,16 @@ import DashboardTable from '@/ui/admin/table/DashboardTable'
 import { IDashboardTableBaseData } from '@/ui/admin/table/dashbord-table.type'
 import Field from '@/ui/input/Field'
 
-import { TCategory } from '@/types/category.type'
+import { ADMIN_PAGES } from '@/config/pages/admin.config'
+
+import { ICategory } from '@/types/category.interface'
 
 import { ManagersTransitions, ManagersVariants } from '../../ManagersVariants'
 
 import { useManageCategories } from './useManageCategories'
 
 interface ICategoryTable
-	extends Omit<TCategory, 'description'>,
+	extends Omit<ICategory, 'description'>,
 		IDashboardTableBaseData {}
 
 function ManageCategories() {
@@ -43,7 +45,7 @@ function ManageCategories() {
 					<Heading>Categories</Heading>
 					<Link
 						className='my-5 block hover:text-green-200'
-						href={'/admin/category/create'}
+						href={ADMIN_PAGES.CREATE_CATEGORY}
 					>
 						Create a new category
 					</Link>
@@ -71,7 +73,7 @@ function ManageCategories() {
 							id,
 							name: c.name,
 							slug: c.slug,
-							editUrl: `/admin/category/edit/${id}`,
+							editUrl: `${ADMIN_PAGES.EDIT_CATEGORY}/${id}`,
 							deleteHandler: () => deleteCategory(+id)
 						})) || []
 					}

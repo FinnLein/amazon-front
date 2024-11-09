@@ -1,12 +1,15 @@
 'use client'
 
-import { useCart } from '@/hooks/useCart';
-import { useCartStore } from '@/store/cart/cartStore';
-import { TProduct } from '@/types/product.type';
-import { FC } from 'react';
-import { RiShoppingCart2Fill, RiShoppingCart2Line } from "react-icons/ri";
+import { FC } from 'react'
+import { RiShoppingCart2Fill, RiShoppingCart2Line } from 'react-icons/ri'
 
-const AddToCartButton: FC<{ product: TProduct }> = ({ product }) => {
+import { useCartStore } from '@/store/cart/cartStore'
+
+import { useCart } from '@/hooks/useCart'
+
+import { IProduct } from '@/types/product.interface'
+
+const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
 	const { addToCart, removeFromCart } = useCartStore(state => state)
 	const { items } = useCart()
 
@@ -16,25 +19,24 @@ const AddToCartButton: FC<{ product: TProduct }> = ({ product }) => {
 
 	const handleAddToCart = () => {
 		const cartItem = {
-		  id: product.id, 
-		  product: product,
-		  quantity: 1,
-		  price: product.price
-		};
-	
-		addToCart(cartItem, cartItem.quantity, cartItem.price);
-	  };
+			id: product.id,
+			product: product,
+			quantity: 1,
+			price: product.price
+		}
+
+		addToCart(cartItem, cartItem.quantity, cartItem.price)
+	}
 
 	return (
 		<div>
-			<button className="text-secondary"
+			<button
+				className='text-secondary'
 				onClick={() =>
-					currentElement
-						? removeFromCart(currentElement.id)
-						: handleAddToCart()
+					currentElement ? removeFromCart(currentElement.id) : handleAddToCart()
 				}
 			>
-				{currentElement ? <RiShoppingCart2Fill  /> : <RiShoppingCart2Line  />}
+				{currentElement ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />}
 			</button>
 		</div>
 	)

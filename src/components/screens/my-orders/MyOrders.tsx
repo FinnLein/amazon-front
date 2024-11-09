@@ -1,11 +1,16 @@
 'use client'
 
-import { useOrders } from '@/hooks/useOrders'
-import Heading from '@/ui/Heading'
-import { Loader } from '@/ui/Loader'
-import { convertPrice } from '@/utils/convertPrice'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import Heading from '@/ui/Heading'
+import { Loader } from '@/ui/Loader'
+
+import { useOrders } from '@/hooks/useOrders'
+
+import { convertPrice } from '@/utils/convertPrice'
+
+import { SERVER_URL } from '@/constants/main.constants'
 
 const MyOrders = () => {
 	const { allOrders, isLoadingAllOrders } = useOrders()
@@ -38,13 +43,17 @@ const MyOrders = () => {
 											<>
 												<Link
 													key={i.id}
-													href={`/products/${i.product.slug}`}
+													href={`/product/${i.product.slug}`}
 													className='inline-grid '
 												>
 													<Image
 														className='rounded-lg'
 														alt='Product'
-														src={i.product.images[1]}
+														src={
+															i.product.images[0].includes('http')
+																? i.product.images[0]
+																: SERVER_URL + i.product.images[0]
+														}
 														height={200}
 														width={200}
 													/>

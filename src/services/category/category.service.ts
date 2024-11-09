@@ -1,50 +1,51 @@
 import { getCategoriesUrl } from '@/config/configUrl'
 
-import { ICategoryData, TCategory } from '@/types/category.type'
-import { IPaginationParams, IPaginationResponse } from '@/types/pagination.type'
+import { ICategory, ICategoryData } from '@/types/category.interface'
 
-import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
+import { ENUM_HTTP_METHODS } from '@/utils/enums/HTTPMethods'
 
 import { axiosClassic, instance } from '@/api/api.interceptor'
 
 export const CategoryService = {
-	async getAll(params?: IPaginationParams) {
-		return axiosClassic<IPaginationResponse<TCategory>>({
+	async getAll(searchTerm?: string) {
+		const { data } = await axiosClassic<ICategory[]>({
 			url: getCategoriesUrl(''),
-			method: EnumHTTPMethods.get,
-			params
+			method: ENUM_HTTP_METHODS.GET,
+			params: searchTerm
 		})
+
+		return data
 	},
 	async getById(id: string) {
-		return instance<TCategory>({
+		return instance<ICategory>({
 			url: getCategoriesUrl(`${id}`),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getBySlug(slug: string) {
-		return axiosClassic<TCategory>({
+		return axiosClassic<ICategory>({
 			url: getCategoriesUrl(`by-slug/${slug}`),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async create(data: ICategoryData) {
-		return instance<TCategory>({
+		return instance<ICategory>({
 			url: getCategoriesUrl(''),
-			method: EnumHTTPMethods.post,
+			method: ENUM_HTTP_METHODS.POST,
 			data
 		})
 	},
 	async update(id: string | number, data: ICategoryData) {
-		return instance<TCategory>({
+		return instance<ICategory>({
 			url: getCategoriesUrl(`${id}`),
-			method: EnumHTTPMethods.put,
+			method: ENUM_HTTP_METHODS.PUT,
 			data
 		})
 	},
 	async delete(id: string | number) {
-		return instance<TCategory>({
+		return instance<ICategory>({
 			url: getCategoriesUrl(`${id}`),
-			method: EnumHTTPMethods.delete
+			method: ENUM_HTTP_METHODS.DELETE
 		})
 	}
 }

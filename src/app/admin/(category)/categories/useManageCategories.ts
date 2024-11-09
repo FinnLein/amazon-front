@@ -7,19 +7,14 @@ import { useDebounce } from '@/hooks/useDebounce'
 
 import { CategoryService } from '@/services/category/category.service'
 
-export const useManageCategories = (takenPages: number) => {
+export const useManageCategories = () => {
 	const [page, setPage] = useState(1)
 	const [searchTerm, setSearchTerm] = useState('')
 	const debouncedSearchTerm = useDebounce(searchTerm, 500)
 
 	const { data, isLoading, refetch } = useQuery({
 		queryKey: ['get all categories', debouncedSearchTerm],
-		queryFn: () =>
-			CategoryService.getAll({
-				searchTerm: debouncedSearchTerm,
-				skip: 0,
-				take: page * takenPages
-			})
+		queryFn: () => CategoryService.getAll(debouncedSearchTerm)
 	})
 
 	useEffect(() => {
@@ -30,10 +25,13 @@ export const useManageCategories = (takenPages: number) => {
 
 	const { mutate: deleteCategory } = useMutation({
 		mutationKey: ['delete category'],
-		mutationFn: (id: number) => CategoryService.delete(id)
+		mutationFn: (id: number) => CategoryService.delete(id),
+		onSuccess() {
+			refetch()
+		}
 	})
 
-	const categories = data?.data.items.length ? data.data.items : null
+	const categories = data?.length ? data : null
 
 	return {
 		categories,
@@ -42,7 +40,6 @@ export const useManageCategories = (takenPages: number) => {
 		setPage,
 		searchTerm,
 		setSearchTerm,
-		isLoading,
-		isHasMore: data?.data.isHasMore
+		isLoading
 	}
 }

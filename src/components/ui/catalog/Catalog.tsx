@@ -1,37 +1,41 @@
-import { TProduct } from '@/types/product.type'
-import { FC } from 'react'
-import Heading from '../Heading'
+'use client'
+
+import { m } from 'framer-motion'
+
+import { IProduct } from '@/types/product.interface'
+
 import { Loader } from '../Loader'
+import { itemVariants } from '../admin/statistics/users/user-statistics-animation'
+
 import ProductItem from './product-item/ProductItem'
 
 interface ICatalog {
-	products: TProduct[]
+	products: IProduct[]
 	isLoading?: boolean
-	title?: string
-	isPagination?: boolean
 }
 
-const Catalog: FC<ICatalog> = ({ products, isLoading, title }) => {
-	if (isLoading) return <Loader />
+export default function Catalog({ products, isLoading }: ICatalog) {
+	if (isLoading) return <Loader className='flex justify-center mt-10' />
 
 	return (
 		<section>
-			{title && <Heading className='mb-5'>{title}</Heading>}
 			{products?.length ? (
-				<div className='flex gap-5 items-center'>
-					<div
-						className='grid grid-cols-4 gap-10	'
-					>
-						{products.map((product, index) => (
-							<ProductItem index={index} key={product.id} product={product} />
-						))}
-					</div>
+				<div className='grid justify-center grid-cols-auto-fill-300 gap-6 pt-8'>
+					{products.map((product, index) => (
+						<m.div
+							key={product.id}
+							variants={itemVariants}
+							initial='initial'
+							whileInView='animate'
+							transition={{ delay: 0.05 * index }}
+						>
+							<ProductItem index={index} product={product} />
+						</m.div>
+					))}
 				</div>
 			) : (
-				<div>There are no products</div>
+				<div className='flex justify-center'>There are no products</div>
 			)}
 		</section>
 	)
 }
-
-export default Catalog

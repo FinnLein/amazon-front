@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 
 import { PUBLIC_PAGES } from '@/config/pages/public.config'
 
-import { UserRole } from '@/types/user.type'
+import { UserRole } from '@/types/user.interface'
 
 import { getServerAuth } from '@/utils/server/get-server-auth'
 

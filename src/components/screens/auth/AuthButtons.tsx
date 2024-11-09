@@ -7,16 +7,16 @@ interface IProps {
 
 const AuthButtons: FC<IProps> = ({ isLogin }) => {
 	return (
-		<div className='text-sm mt-5'>
+		<div className='text-sm mt-5 '>
 			{isLogin ? (
-				<div>
+				<div className='flex justify-between'>
 					<span>First time here?</span>
 					<Link className='text-primary' href='/register'>
 						Register
 					</Link>
 				</div>
 			) : (
-				<div>
+				<div className='flex justify-between'>
 					<span>Account already exists?</span>
 					<Link className='text-primary' href='/login'>
 						Login

@@ -1,4 +1,4 @@
-export enum Tokens {
-    accessToken = 'accessToken',
-    refreshToken = 'refreshToken'
+export enum ENUM_TOKENS {
+	accessToken = 'accessToken',
+	refreshToken = 'refreshToken'
 }

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { IOption } from '@/ui/select/select.interface'
+import { ISelectItem } from '@/ui/select/select.interface'
 
 import { CategoryService } from '@/services/category/category.service'
 
@@ -9,14 +9,14 @@ export const useProductCategories = () => {
 		queryKey: ['get categories'],
 		queryFn: () =>
 			CategoryService.getAll({
-				take: 1000,
+				perPage: 1000,
 				skip: 0
 			}),
 		select: ({ data }) =>
 			data.items.map(
-				(category): IOption => ({
+				(category): ISelectItem => ({
 					label: category.name,
-					value: category.id
+					key: category.id
 				})
 			)
 	})

@@ -14,7 +14,7 @@ export function MainStatistic() {
 	})
 
 	const { data: dataProduct, isPending: isPendingProduct } = useQuery({
-		queryKey: ['get products statistics'],
+		queryKey: ['get products count'],
 		queryFn: () => StatisticsService.getProductsCount(),
 		select: ({ data }) => data
 	})
@@ -22,7 +22,7 @@ export function MainStatistic() {
 	const isLoading = isPendingProduct || isPendingUser
 
 	return (
-		<div className='flex flex-col gap-10'>
+		<div className='flex flex-col gap-4'>
 			<UserStatistics data={dataUser || []} />
 			<ProductsStatistics data={dataProduct || []} />
 		</div>

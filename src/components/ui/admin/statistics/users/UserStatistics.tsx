@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { AreaChart, BarChart2 } from 'lucide-react'
 
-import { TStatisticsResponse } from '@/types/statistics.type'
+import { IUsersStatisticsResponse } from '@/types/statistics.interface'
 
 import { itemVariants } from './user-statistics-animation'
 import { COLORS } from '@/constants/color.constants'
@@ -9,7 +9,7 @@ import { COLORS } from '@/constants/color.constants'
 export default function UserStatistics({
 	data
 }: {
-	data: TStatisticsResponse
+	data: IUsersStatisticsResponse
 }) {
 	return (
 		<m.div className='grid grid-cols-3 gap-4 text-black-700'>
@@ -18,15 +18,7 @@ export default function UserStatistics({
 					variants={itemVariants}
 					initial='initial'
 					whileInView='animate'
-					whileHover={{
-						rotateX: 10,
-						rotateY: -8,
-						x: 5,
-						y: -10,
-						z: 0,
-						boxShadow: '1px 1px 7px rgb(253,230,138,1)'
-					}}
-					transition={{ delay: 0.2 * index }}
+					whileHover='hover'
 					key={i.name}
 					className='grid justify-items-center grid-cols-2 py-4 px-2 bg-bg-color rounded-lg'
 				>

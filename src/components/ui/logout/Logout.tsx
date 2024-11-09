@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import cn from 'clsx'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
@@ -8,28 +8,34 @@ import { AuthService } from '@/services/auth/auth.service'
 
 type Props = {
 	color?: 'black' | 'white'
+	className?: string
 }
 
-const Logout: FC<Props> = ({ color }) => {
+const Logout: FC<Props> = ({ color, className }) => {
+	const queryClient = useQueryClient()
+
 	const { push } = useRouter()
 
 	const { mutate } = useMutation({
 		mutationKey: ['logout'],
-		//@ts-ignore
 		mutationFn: () => AuthService.logout(),
 		onSuccess: () => {
 			push('/')
 		}
 	})
 
+	const handleClick = () => {
+		mutate()
+	}
+
 	return (
 		<>
 			<button
-				className={cn('flex items-center ml-10 my-10', {
+				className={cn('flex items-center', className, {
 					'text-secondary': color === 'black',
 					'text-white': color === 'white'
 				})}
-				onClick={() => mutate()}
+				onClick={handleClick}
 				type='button'
 			>
 				<FiLogOut />

@@ -1,6 +1,6 @@
-import { TUser } from '@/types/user.type'
+import { IUser } from '@/types/user.interface'
 
 export interface IAuthResponse {
 	accessToken: string
-	user: TUser
+	user: IUser
 }

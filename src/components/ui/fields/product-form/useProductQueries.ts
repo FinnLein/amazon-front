@@ -6,15 +6,19 @@ import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-import { TProductData } from '@/types/product.type'
+import { ADMIN_PAGES } from '@/config/pages/admin.config'
 
-import { IProductFormState, IQuieriesResultProduct } from './product-form.types'
+import { IProduct, IProductData } from '@/types/product.interface'
+
+import { IQueriesResult } from '../form.types'
+
+import { IProductFormState } from './product-form.types'
 import { ProductService } from '@/services/product/product.service'
 
 export const useProductQueries = (
 	id = '',
 	isCreateForm: boolean
-): IQuieriesResultProduct => {
+): IQueriesResult<IProduct, SubmitHandler<IProductFormState>> => {
 	const { push } = useRouter()
 	const [isNeedResetForm, setIsNeedResetForm] = useState(false)
 
@@ -26,12 +30,12 @@ export const useProductQueries = (
 
 	const { mutate: createProduct } = useMutation({
 		mutationKey: ['create product'],
-		mutationFn: (data: TProductData) => ProductService.create(data),
+		mutationFn: (data: IProductData) => ProductService.create(data),
 		onSuccess() {
-			toast.success('Product created succesfully')
+			toast.success('Product created successfully')
 			refetch()
 			setIsNeedResetForm(true)
-			push('/admin/products')
+			push(ADMIN_PAGES.PRODUCTS)
 		},
 		onError() {
 			toast.error('Something gone wrong')
@@ -40,11 +44,11 @@ export const useProductQueries = (
 
 	const { mutate: updateProduct, isPending: isPendingUpdate } = useMutation({
 		mutationKey: ['update product'],
-		mutationFn: (data: TProductData) => ProductService.update(id, data),
+		mutationFn: (data: IProductData) => ProductService.update(id, data),
 		onSuccess() {
-			toast.success('Product updated succesfully')
+			toast.success('Product updated successfully')
 			refetch()
-			push('/admin/products')
+			push(ADMIN_PAGES.PRODUCTS)
 		},
 		onError() {
 			toast.error('Something gone wrong')

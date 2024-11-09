@@ -18,7 +18,7 @@ const Field = forwardRef<HTMLInputElement, IFieldProps>(
 		ref
 	) => {
 		return (
-			<div className={cn('mb-4', className)}>
+			<div className={cn(className)}>
 				<label
 					className={cn({
 						'text-black-700': color === 'black',

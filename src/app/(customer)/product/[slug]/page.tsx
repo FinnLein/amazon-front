@@ -1,16 +1,15 @@
+import { Metadata, ResolvingMetadata } from 'next'
+
 import { SingleProduct } from '@/ui/single-product/SingleProduct'
 
-import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
+import { IPageSlugParams, TParamSlug } from '@/types/page-params.types'
 
 import { ProductService } from '@/services/product/product.service'
 
 export async function generateStaticParams() {
-	const products = await ProductService.getAll({
-		skip: 0,
-		take: 100
-	})
+	const products = await ProductService.getAll()
 
-	const paths = products.data.items.map(p => {
+	const paths = products.items.map(p => {
 		return {
 			params: { slug: p.slug }
 		}
@@ -19,13 +18,22 @@ export async function generateStaticParams() {
 	return paths
 }
 
-export async function getProducts(params: TypeParamSlug) {
-	const { data } = await ProductService.getBySlug(params.slug as string)
-
-	return { data }
+export async function generateMetadata(
+	{ params: { slug } }: IPageSlugParams,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	return {
+		title: `Product ${slug}`
+	}
 }
 
-export default async function ProductPage({ params }: IPageSlugParam) {
-	const { data } = await getProducts(params)
+export async function getProducts(params: TParamSlug) {
+	const data = await ProductService.getBySlug(params.slug as string)
+
+	return data
+}
+
+export default async function ProductPage({ params }: IPageSlugParams) {
+	const data = await getProducts(params)
 	return <SingleProduct data={data} />
 }

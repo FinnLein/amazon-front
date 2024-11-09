@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { FC } from 'react'
 
-import { TCartItem } from '@/types/cart.type'
+import { ICartItem } from '@/types/cart.interface'
 
 import { convertPrice } from '@/utils/convertPrice'
 
@@ -10,7 +10,7 @@ import styles from '../Cart.module.scss'
 import CartActions from './cart-actions/CartActions'
 import { SERVER_URL } from '@/constants/main.constants'
 
-const CartItem: FC<{ item: TCartItem }> = ({ item }) => {
+const CartItem: FC<{ item: ICartItem }> = ({ item }) => {
 	return (
 		<div className={styles.item}>
 			<Image

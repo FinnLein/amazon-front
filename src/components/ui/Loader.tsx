@@ -1,10 +1,12 @@
-import { m } from 'framer-motion'
 import cn from 'clsx'
+import { m } from 'framer-motion'
+
 interface IProps {
 	className?: string
+	color?: 'white' | 'black'
 }
 
-export function Loader({ className }: IProps) {
+export function Loader({ className, color = 'white' }: IProps) {
 	return (
 		<div className={cn('', className)}>
 			<m.svg
@@ -20,7 +22,7 @@ export function Loader({ className }: IProps) {
 					cx='32'
 					cy='32'
 					r='28'
-					stroke='#FEFEFE'
+					stroke={color === 'white' ? '#FEFEFE' : '#000000'}
 					strokeWidth='8'
 					initial={{ opacity: 0.5 }}
 					animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.1, 1] }}

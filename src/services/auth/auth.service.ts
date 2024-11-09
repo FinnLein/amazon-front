@@ -1,9 +1,9 @@
 import { getAuthUrl } from '@/config/configUrl'
 
-import { IAuthFormData } from '@/types/user.type'
+import { IAuthFormData } from '@/types/user.interface'
 
-import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
-import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
+import { ENUM_HTTP_METHODS } from '@/utils/enums/HTTPMethods'
+import { ENUM_AUTH_TYPE } from '@/utils/enums/authoristaionType.enums'
 
 import { axiosClassic } from '@/api/api.interceptor'
 
@@ -12,13 +12,13 @@ import { removeFromStorage, saveTokenStorage } from './auth.helper'
 
 export const AuthService = {
 	async main(
-		type: AuthorizationType.login | AuthorizationType.register,
+		type: ENUM_AUTH_TYPE.LOGIN | ENUM_AUTH_TYPE.REGISTER,
 		data: IAuthFormData,
 		token?: string | null
 	) {
 		const response = await axiosClassic<IAuthResponse>({
 			url: getAuthUrl(`${type}`),
-			method: EnumHTTPMethods.post,
+			method: ENUM_HTTP_METHODS.POST,
 			data,
 			headers: {
 				recaptcha: token

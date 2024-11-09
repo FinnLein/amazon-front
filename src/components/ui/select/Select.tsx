@@ -3,7 +3,7 @@ import makeAnimated from 'react-select/animated'
 
 import '../../../assets/styles/react-select.scss'
 
-import { IOption, ISelect } from './select.interface'
+import { ISelect, ISelectItem } from './select.interface'
 
 const animatedComponents = makeAnimated()
 
@@ -15,19 +15,19 @@ export function Select({
 	placeholder,
 	error
 }: ISelect) {
-	const onChange = (newValue: OnChangeValue<IOption, boolean>) => {
+	const onChange = (newValue: OnChangeValue<ISelectItem, boolean>) => {
 		field.onChange(
 			isMulty
-				? (newValue as IOption[]).map((item: IOption) => item.value)
-				: (newValue as IOption).value
+				? (newValue as ISelectItem[]).map((item: ISelectItem) => item.key)
+				: (newValue as ISelectItem).key
 		)
 	}
 
 	const getValue = () => {
 		if (field.value) {
 			return isMulty
-				? options.filter(option => field.value.indexOf(option.value) >= 0)
-				: options.find(option => option.value === field.value)
+				? options.filter(option => field.value.indexOf(option.key) >= 0)
+				: options.find(option => option.key === field.value)
 		} else return isMulty ? [] : ('' as any)
 	}
 

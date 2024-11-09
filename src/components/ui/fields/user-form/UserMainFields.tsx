@@ -5,9 +5,11 @@ import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
 import Field from '@/ui/input/Field'
 
-import { UserRole } from '@/types/user.type'
+import { UserRole } from '@/types/user.interface'
 
-import { IUserFormState, TypeForm } from './user-form.types'
+import { TypeForm } from '../form.types'
+
+import { IUserFormState } from './user-form.types'
 import { validEmail } from '@/screens/auth/valid-email'
 
 export function UserMainFields({

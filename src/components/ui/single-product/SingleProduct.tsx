@@ -1,10 +1,10 @@
 import Image from 'next/image'
 
-import { TProduct } from '@/types/product.type'
+import { IProduct } from '@/types/product.interface'
 
 import { SERVER_URL } from '@/constants/main.constants'
 
-export function SingleProduct({ data }: { data: TProduct }) {
+export function SingleProduct({ data }: { data: IProduct }) {
 	return (
 		<div>
 			<div className='mb-10'>

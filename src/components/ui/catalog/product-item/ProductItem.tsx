@@ -1,31 +1,33 @@
-import dynamic from 'next/dynamic'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 
 import { getCategoryUrl, getProductUrl } from '@/config/configUrl'
 
-import { TProduct } from '@/types/product.type'
+import { IProduct } from '@/types/product.interface'
 
 import { convertPrice } from '@/utils/convertPrice'
 
 import AddToCartButton from './AddToCartButton'
+import FavoriteButton from './FavoriteButton'
 import ProductRating from './ProductRating'
 import { SERVER_URL } from '@/constants/main.constants'
 
-const DynamicFavoriteButton = dynamic(() => import('./FavoriteButton'), {
-	ssr: false
-})
-
-const ProductItem: FC<{ product: TProduct; index: number }> = ({
+const ProductItem: FC<{ product: IProduct; index: number }> = ({
 	product,
 	index
 }) => {
 	return (
-		<div className='flex flex-col h-full bg-white overflow-hidden rounded-xl'>
+		<m.div
+			whileHover={{ scale: 1.05 }}
+			whileTap={{ scale: 0.7 }}
+			transition={{ ease: 'easeInOut' }}
+			className='flex flex-col h-full bg-white overflow-hidden rounded-xl'
+		>
 			<div className='relative flex-shrink-0 flex-grow basis-auto'>
 				<div className='absolute top-0 right-0 z-10 bg-white p-1 rounded-xl'>
-					<DynamicFavoriteButton productId={product.id} />
+					<FavoriteButton productId={product.id} />
 					<AddToCartButton product={product} />
 				</div>
 
@@ -46,18 +48,22 @@ const ProductItem: FC<{ product: TProduct; index: number }> = ({
 				<Link href={getProductUrl(`${product.slug}`)}>
 					<h3 className='mt-2 font-semibold	'>{product.name}</h3>
 				</Link>
-				<Link
-					href={getCategoryUrl(product?.category?.slug)}
-					className='text-aqua text-xs mb-2'
-				>
-					{product?.category?.name}
-				</Link>
-				<ProductRating product={product} />
+				<div className='flex justify-between'>
+					<Link
+						href={getCategoryUrl(product?.category?.slug)}
+						className='text-aqua text-xs mb-2'
+					>
+						{product?.category?.name}
+					</Link>
+					<span className='text-xs mb-2'>{product?.brand?.name}</span>
+				</div>
+
+				<ProductRating product={product} isText />
 				<div className='text-xl font-semibold'>
 					{convertPrice(product.price)}
 				</div>
 			</div>
-		</div>
+		</m.div>
 	)
 }
 

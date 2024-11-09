@@ -1,26 +1,18 @@
-import { TUser } from '@/types/user.type'
 import { SubmitHandler } from 'react-hook-form'
 
-export interface IQuieriesResult {
-	isLoading?: boolean
-	isNeedResetForm?: boolean
-}
-export type TypeForm = 'create' | 'edit' | TypeFormUpdateProfile
+import { IUser } from '@/types/user.interface'
 
-export interface IUserFormState extends Omit<TUser, 'id'> {
+import { IQueriesResult, TypeForm } from '../form.types'
+
+export interface IUserFormState extends Omit<IUser, 'id'> {
 	password?: string
-}
-
-export type TypeFormUpdateProfile = 'update-profile'
-
-export interface IQuieriesResultUser extends IQuieriesResult {
-	data?: Omit<TUser, 'password'>
-	onSubmit: SubmitHandler<IUserFormState>
-
 }
 
 export interface IUserForm {
 	type: TypeForm
 	id?: string
-	queriesResult: IQuieriesResultUser
+	queriesResult: IQueriesResult<
+		Omit<IUser, 'password'>,
+		SubmitHandler<IUserFormState>
+	>
 }

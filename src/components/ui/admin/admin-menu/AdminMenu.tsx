@@ -19,7 +19,7 @@ const AdminMenu: FC = () => {
 		<m.aside
 			initial={{ translateY: -1000 }}
 			animate={{ translateY: 0 }}
-			transition={{ type: 'tween', delay: 1, duration: 1 }}
+			transition={{ type: 'tween', ease: 'easeInOut', duration: 0.7 }}
 		>
 			<m.div
 				animate={{ width: isRolledUp ? 60 : 240 }}

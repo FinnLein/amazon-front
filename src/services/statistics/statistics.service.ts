@@ -1,69 +1,69 @@
 import { getStatisticsUrl } from '@/config/configUrl'
 
 import {
-	TPriceProducts,
-	TStatisticsProducts,
-	TStatisticsResponse,
-	TUsersRegistration
-} from '@/types/statistics.type'
+	IPriceProducts,
+	IStatisticsProducts,
+	IUsersRegistration,
+	IUsersStatisticsResponse
+} from '@/types/statistics.interface'
 
-import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
+import { ENUM_HTTP_METHODS } from '@/utils/enums/HTTPMethods'
 
 import { instance } from '@/api/api.interceptor'
 
 export const StatisticsService = {
 	async getMain() {
-		return instance<TStatisticsResponse>({
+		return instance<IUsersStatisticsResponse[]>({
 			url: getStatisticsUrl('main'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getBestSellingProduct() {
-		return instance<TStatisticsProducts>({
+		return instance<IStatisticsProducts>({
 			url: getStatisticsUrl('best-selling-products'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getMostUnsoldProduct() {
-		return instance<TStatisticsProducts>({
+		return instance<IStatisticsProducts>({
 			url: getStatisticsUrl('most-unsold-products'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getMostExpensiveProducts() {
-		return instance<TPriceProducts>({
+		return instance<IPriceProducts[]>({
 			url: getStatisticsUrl('most-expensive-products'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getMostExpensiveProductsByCategory() {
-		return instance<TPriceProducts>({
+		return instance<IPriceProducts[]>({
 			url: getStatisticsUrl('most-expensive-products/by-category'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getMostChippiesProducts() {
-		return instance<TPriceProducts>({
+		return instance<IPriceProducts>({
 			url: getStatisticsUrl('most-chippiest-products'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getUsersCount() {
-		return instance<TStatisticsResponse>({
+		return instance<IUsersStatisticsResponse>({
 			url: getStatisticsUrl('users-count'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getProductsCount() {
-		return instance<TStatisticsResponse>({
+		return instance<IUsersStatisticsResponse>({
 			url: getStatisticsUrl('products-count'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getUsersRegistrationByMonths() {
-		return instance<TUsersRegistration>({
+		return instance<IUsersRegistration>({
 			url: getStatisticsUrl('registration-by-month'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	}
 }

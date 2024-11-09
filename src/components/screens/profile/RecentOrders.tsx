@@ -15,7 +15,7 @@ const RecentOrders: FC = () => {
 	const { recentOrders, isLoadingRecentOrders } = useOrders()
 	return (
 		<>
-			<Heading className='xl mb-10'>Recent orders</Heading>
+			<Heading className='xl'>Recent orders</Heading>
 			{isLoadingRecentOrders ? (
 				<Loader />
 			) : (

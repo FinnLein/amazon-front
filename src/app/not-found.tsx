@@ -1,7 +1,8 @@
-import '@/assets/styles/globals.scss'
+import Link from 'next/link'
+
 import Heading from '@/ui/Heading'
 
-import Link from 'next/link'
+import '@/assets/styles/globals.scss'
 
 export default function NotFound() {
 	return (

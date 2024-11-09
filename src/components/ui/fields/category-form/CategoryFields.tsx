@@ -15,7 +15,7 @@ import generateSlug from '@/utils/strings/generateSlug'
 
 import { IProductFormState } from '../product-form/product-form.types'
 
-import { ICategoryFormState } from './category-form'
+import { ICategoryFormState } from './category-form.types'
 
 export function CategoryFields({
 	errors,
@@ -31,7 +31,7 @@ export function CategoryFields({
 	getValues: UseFormGetValues<ICategoryFormState>
 }) {
 	return (
-		<div className="text-black-700">
+		<div className='text-black-700'>
 			<Field
 				placeholder='Name'
 				{...register('name', {

@@ -16,9 +16,10 @@ import UploadField from '@/ui/upload-field/UploadField'
 import generateSlug from '@/utils/strings/generateSlug'
 
 import SlugField from '../../input/SlugField'
-import { TypeForm } from '../user-form/user-form.types'
+import { TypeForm } from '../form.types'
 
 import { IProductFormState } from './product-form.types'
+import { useProductBrands } from './useProductBrands'
 import { useProductCategories } from './useProductCategories'
 
 export function ProductFields({
@@ -35,7 +36,8 @@ export function ProductFields({
 	getValues: UseFormGetValues<IProductFormState>
 	setValue: UseFormSetValue<IProductFormState>
 }) {
-	const { isLoadingCategories, data } = useProductCategories()
+	const { isLoadingCategories, data: categoriesData } = useProductCategories()
+	const { isLoadingBrands, data: brandsData } = useProductBrands()
 
 	return (
 		<div className='grid min-lg:grid-cols-2 gap-5 text-black-700'>
@@ -52,6 +54,17 @@ export function ProductFields({
 					error={errors.slug}
 					generate={() => setValue('slug', generateSlug(getValues('name')))}
 				/>
+
+				<Field
+					className={'w-1/2'}
+					placeholder='Price'
+					{...register('price', {
+						required: 'Price is required',
+						setValueAs: value => parseFloat(value)
+					})}
+				/>
+			</div>
+			<div className='grid grid-cols-2 gap-10 w-1/2'>
 				<Controller
 					name='category.id'
 					control={control}
@@ -62,22 +75,29 @@ export function ProductFields({
 						<Select
 							field={field}
 							error={error}
-							options={data || []}
+							options={categoriesData || []}
 							placeholder='Category'
 							isLoading={isLoadingCategories}
 						/>
 					)}
 				/>
-				<Field
-					className={'w-1/2'}
-					placeholder='Price'
-					{...register('price', {
-						required: 'Price is required',
-						setValueAs: value => parseFloat(value)
-					})}
+				<Controller
+					name='brand.id'
+					control={control}
+					rules={{
+						required: 'Please select at least one brand'
+					}}
+					render={({ field, fieldState: { error } }) => (
+						<Select
+							field={field}
+							error={error}
+							options={brandsData || []}
+							placeholder='Brand'
+							isLoading={isLoadingBrands}
+						/>
+					)}
 				/>
 			</div>
-
 			<Controller
 				name='images'
 				control={control}

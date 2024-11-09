@@ -1,7 +1,6 @@
 'use client'
 
 import { m } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import Heading from '@/ui/Heading'
@@ -9,18 +8,20 @@ import ShowMore from '@/ui/ShowMore'
 import DashboardTable from '@/ui/admin/table/DashboardTable'
 import { IDashboardTableBaseData } from '@/ui/admin/table/dashbord-table.type'
 import Field from '@/ui/input/Field'
-import SortDropdown from '@/ui/select/SortDropdown'
+import { SortDropdown } from '@/ui/sort/SortDropdown'
+
+import { ADMIN_PAGES } from '@/config/pages/admin.config'
 
 import { useManageProducts } from '@/hooks/useProducts'
 
-import { TProduct } from '@/types/product.type'
+import { IProduct } from '@/types/product.interface'
 
 import { ManagersTransitions, ManagersVariants } from '../../ManagersVariants'
 
 import { SERVER_URL } from '@/constants/main.constants'
 
 interface IProductsTable
-	extends Pick<TProduct, 'id' | 'category' | 'images' | 'name' | 'price'>,
+	extends Pick<IProduct, 'id' | 'category' | 'images' | 'name' | 'price'>,
 		IDashboardTableBaseData {}
 
 export function ManageProducts() {
@@ -29,12 +30,8 @@ export function ManageProducts() {
 		deleteProduct,
 		isHasMore,
 		isLoading,
-		setPage,
-		searchTerm,
-		setSearchTerm,
-		sortType,
-		setSortType
-	} = useManageProducts(10, false, false)
+	
+	} = useManageProducts()
 
 	return (
 		<m.div
@@ -48,27 +45,18 @@ export function ManageProducts() {
 					<Heading>Products</Heading>
 					<Link
 						className='my-5 block hover:text-green-200'
-						href='/admin/product/create'
+						href={ADMIN_PAGES.CREATE_PRODUCT}
 					>
 						Create a new product
 					</Link>
 				</div>
 				<div className='flex items-center gap-10'>
-					<div>
-						<Field
-							placeholder='Search...'
-							value={searchTerm}
-							onChange={e => setSearchTerm(e.target.value)}
-						/>
-					</div>
-					<div>
-						<SortDropdown
-							bg='dark'
-							rounded='lg'
-							setSortType={setSortType}
-							sortType={sortType}
-						/>
-					</div>
+					<Field
+						placeholder='Search...'
+						value={searchTerm}
+						onChange={e => setSearchTerm(e.target.value)}
+					/>
+					<SortDropdown bg='dark'  />
 				</div>
 			</div>
 			<DashboardTable<IProductsTable>
@@ -90,8 +78,8 @@ export function ManageProducts() {
 						dataIndex: 'images',
 						render: record =>
 							record.images && (
-								<Image
-									alt=' '
+								<img
+									alt=''
 									width={50}
 									height={50}
 									src={
@@ -121,7 +109,7 @@ export function ManageProducts() {
 						price: product.price,
 						images: product.images,
 						name: product.name,
-						editUrl: `/admin/product/edit/${id}`,
+						editUrl: `${ADMIN_PAGES.EDIT_PRODUCT}/${id}`,
 						deleteHandler: () => deleteProduct(id)
 					})) || []
 				}

@@ -6,9 +6,9 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-import { IAuthFormData } from '@/types/user.type'
+import { IAuthFormData } from '@/types/user.interface'
 
-import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
+import { ENUM_AUTH_TYPE } from '@/utils/enums/authoristaionType.enums'
 
 import { AuthService } from '@/services/auth/auth.service'
 
@@ -28,7 +28,7 @@ export function useAuthForm(isLogin?: boolean) {
 		mutationKey: ['login'],
 		mutationFn: (data: IAuthFormData) =>
 			AuthService.main(
-				AuthorizationType.login,
+				ENUM_AUTH_TYPE.LOGIN,
 				data,
 				recaptchaRef?.current?.getValue()
 			),
@@ -48,7 +48,7 @@ export function useAuthForm(isLogin?: boolean) {
 		mutationKey: ['register'],
 		mutationFn: (data: IAuthFormData) =>
 			AuthService.main(
-				AuthorizationType.register,
+				ENUM_AUTH_TYPE.REGISTER,
 				data,
 				recaptchaRef?.current?.getValue()
 			),

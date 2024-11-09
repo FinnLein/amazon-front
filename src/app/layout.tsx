@@ -1,10 +1,14 @@
-import '@/assets/styles/globals.scss'
-import { getSiteUrl } from '@/config/configUrl'
-import { SITE_NAME } from '@/constants/seo.constants'
-import { Providers } from '@/providers/Provider'
 import { Metadata } from 'next'
 import { Golos_Text } from 'next/font/google'
 import { PropsWithChildren } from 'react'
+
+import { Providers } from '@/providers/Provider'
+
+import { getSiteUrl } from '@/config/configUrl'
+
+import '../assets/styles/globals.scss'
+
+import { SITE_NAME } from '@/constants/seo.constants'
 
 export const metadata: Metadata = {
 	icons: {
@@ -17,7 +21,7 @@ export const metadata: Metadata = {
 	metadataBase: new URL(getSiteUrl()),
 	openGraph: {
 		type: 'website',
-		siteName: SITE_NAME,
+		siteName: SITE_NAME
 	}
 }
 
@@ -33,9 +37,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 	return (
 		<html lang='en' className={golos.variable}>
 			<body>
-				<Providers>
-					<main>{children}</main>
-				</Providers>
+				<Providers>{children}</Providers>
 				<div id='modal'></div>
 			</body>
 		</html>

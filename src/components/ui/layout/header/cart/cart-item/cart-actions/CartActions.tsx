@@ -5,9 +5,9 @@ import { useCartStore } from '@/store/cart/cartStore'
 
 import { useCart } from '@/hooks/useCart'
 
-import { TCartItem } from '@/types/cart.type'
+import { ICartItem } from '@/types/cart.interface'
 
-const CartActions: FC<{ item: TCartItem }> = ({ item }) => {
+const CartActions: FC<{ item: ICartItem }> = ({ item }) => {
 	const { removeFromCart, changeQuantity } = useCartStore(state => state)
 
 	const { items } = useCart()

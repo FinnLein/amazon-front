@@ -1,7 +1,7 @@
-export enum EnumHTTPMethods {
-    post = 'POST',
-    get = 'GET',
-    delete = 'DELETE',
-    put = 'PUT',
-    patch = 'PATCH'
+export enum ENUM_HTTP_METHODS {
+	POST = 'POST',
+	GET = 'GET',
+	DELETE = 'DELETE',
+	PUT = 'PUT',
+	PATCH = 'PATCH'
 }

@@ -1,6 +1,5 @@
-import { FC, PropsWithChildren } from 'react'
-
 import cn from 'clsx'
+import { FC, PropsWithChildren } from 'react'
 
 interface IHeading {
 	className?: string
@@ -10,7 +9,7 @@ const Heading: FC<PropsWithChildren<IHeading>> = ({ className, children }) => {
 	return (
 		<h1
 			className={cn(
-				`text-opacity-80 font-semibold ${className?.includes('xl') ? '' : 'text-3xl'} ${className}`
+				`text-opacity-80 font-semibold mb-5 ${className?.includes('xl') ? '' : 'text-3xl'} ${className}`
 			)}
 		>
 			{children}

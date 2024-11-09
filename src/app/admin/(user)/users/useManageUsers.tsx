@@ -1,9 +1,11 @@
 'use client'
 
-import { useDebounce } from '@/hooks/useDebounce'
-import { UserService } from '@/services/user/user.service'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+
+import { useDebounce } from '@/hooks/useDebounce'
+
+import { UserService } from '@/services/user/user.service'
 
 export function useManageUsers() {
 	const [page, setPage] = useState(1)
@@ -16,7 +18,7 @@ export function useManageUsers() {
 			UserService.getAll({
 				searchTerm: debounceSearch,
 				skip: 0,
-				take: page * 10
+				perPage: page * 10
 			})
 	})
 

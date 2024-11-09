@@ -1,14 +1,10 @@
 import { SubmitHandler } from 'react-hook-form'
 
-import { TFullUser } from '@/types/user.type'
+import { IFullUser } from '@/types/user.interface'
 
-import { IQuieriesResult, IUserFormState } from '../user-form/user-form.types'
-
-export interface IQuieriesResultProfile extends IQuieriesResult {
-	data?: TFullUser
-	onSubmit: SubmitHandler<IUserFormState>
-}
+import { IQueriesResult } from '../form.types'
+import { IUserFormState } from '../user-form/user-form.types'
 
 export interface IProfileForm {
-	queriesResult: IQuieriesResultProfile
+	queriesResult: IQueriesResult<IFullUser, SubmitHandler<IUserFormState>>
 }

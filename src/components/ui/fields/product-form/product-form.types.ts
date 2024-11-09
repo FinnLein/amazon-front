@@ -1,15 +1,13 @@
-import { TProduct, TProductData } from '@/types/product.type'
 import { SubmitHandler } from 'react-hook-form'
-import { IQuieriesResult, TypeForm } from './../user-form/user-form.types'
-export interface IQuieriesResultProduct extends IQuieriesResult {
-	data?: TProduct
-	onSubmit: SubmitHandler<IProductFormState>
-}
+
+import { IProduct, IProductData } from '@/types/product.interface'
+
+import { IQueriesResult, TypeForm } from '../form.types'
 
 export interface IProductForm {
 	type: TypeForm
 	id?: string
-	queriesResult: IQuieriesResultProduct
+	queriesResult: IQueriesResult<IProduct, SubmitHandler<IProductFormState>>
 }
 
-export interface IProductFormState extends TProductData {}
+export interface IProductFormState extends IProductData {}

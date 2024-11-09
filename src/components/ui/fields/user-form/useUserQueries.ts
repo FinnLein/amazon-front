@@ -6,13 +6,19 @@ import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-import { IQuieriesResultUser, IUserFormState } from './user-form.types'
+import { ADMIN_PAGES } from '@/config/pages/admin.config'
+
+import { IUser } from '@/types/user.interface'
+
+import { IQueriesResult } from '../form.types'
+
+import { IUserFormState } from './user-form.types'
 import { UserService } from '@/services/user/user.service'
 
 export function useUserQueries(
 	id = '',
 	isCreateForm: boolean
-): IQuieriesResultUser {
+): IQueriesResult<Omit<IUser, 'password'>, SubmitHandler<IUserFormState>> {
 	const { push } = useRouter()
 	const [isNeedResetForm, setIsNeedResetForm] = useState(false)
 
@@ -29,7 +35,7 @@ export function useUserQueries(
 			toast.success('User created successfully')
 			refetch()
 			setIsNeedResetForm(true)
-			push('/admin/users')
+			push(ADMIN_PAGES.USERS)
 		}
 	})
 	const { mutate: updateUser, isPending: isPendingUpdate } = useMutation({
@@ -38,7 +44,7 @@ export function useUserQueries(
 		onSuccess() {
 			toast.success('User updated successfully')
 			refetch()
-			push('/admin/users')
+			push(ADMIN_PAGES.USERS)
 		}
 	})
 

@@ -1,10 +1,13 @@
-import { instance } from '@/api/api.interceptor'
 import { getOrdersUrl } from '@/config/configUrl'
-import { EnumOrderStatus, TOrder } from '@/types/order.type'
-import { EnumHTTPMethods } from '@/utils/enums/HTTPMethods'
+
+import { ENUM_ORDER_STATUS, IOrder } from '@/types/order.interface'
+
+import { ENUM_HTTP_METHODS } from '@/utils/enums/HTTPMethods'
+
+import { instance } from '@/api/api.interceptor'
 
 type TData = {
-	status?: EnumOrderStatus
+	status?: ENUM_ORDER_STATUS
 	items: {
 		quantity: number
 		price: number
@@ -14,21 +17,21 @@ type TData = {
 
 export const OrderService = {
 	async getAll() {
-		return instance<TOrder[]>({
+		return instance<IOrder[]>({
 			url: getOrdersUrl(''),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async getRecently() {
-		return instance<TOrder[]>({
+		return instance<IOrder[]>({
 			url: getOrdersUrl('get-last'),
-			method: EnumHTTPMethods.get
+			method: ENUM_HTTP_METHODS.GET
 		})
 	},
 	async place(data: TData) {
 		return instance<{ confirmation: { confirmation_url: string } }>({
 			url: getOrdersUrl(''),
-			method: EnumHTTPMethods.post,
+			method: ENUM_HTTP_METHODS.POST,
 			data
 		})
 	}

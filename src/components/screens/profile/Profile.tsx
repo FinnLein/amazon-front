@@ -1,7 +1,5 @@
 'use client'
 
-import Link from 'next/link'
-
 import { ProfileForm } from '@/ui/fields/profile-form/ProfileForm'
 import Logout from '@/ui/logout/Logout'
 import Modal from '@/ui/modal/Modal'
@@ -48,11 +46,6 @@ export default function Profile() {
 					<div>{email}</div>
 					<div>{phone}</div>
 					<span className='flex flex-col'>{rights?.join(',  ')}</span>
-				</div>
-				<div>
-					<div>
-						<Link href={'/my-orders'}>My orders</Link>
-					</div>
 				</div>
 			</div>
 			<RecentOrders />

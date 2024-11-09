@@ -1,16 +1,16 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-import { IAuthFormData, TUser } from '@/types/user.type'
+import { IAuthFormData, IUser } from '@/types/user.interface'
 
-import { AuthorizationType } from '@/utils/enums/authoristaionType.enums'
+import { ENUM_AUTH_TYPE } from '@/utils/enums/authoristaionType.enums'
 
 import { IAuthResponse } from './user.interface'
 import { removeFromStorage } from '@/services/auth/auth.helper'
 import { AuthService } from '@/services/auth/auth.service'
 
 interface IUserStore {
-	user: TUser | null
+	user: IUser | null
 	isLoading: boolean
 	error: null | null
 	register: (data: IAuthFormData, token?: string | null) => Promise<void>
@@ -28,7 +28,7 @@ export const useUserStore = create<IUserStore>()(
 					set({ isLoading: true })
 					try {
 						const res: IAuthResponse = await AuthService.main(
-							AuthorizationType.register,
+							ENUM_AUTH_TYPE.REGISTER,
 							data,
 							token
 						)
@@ -43,7 +43,7 @@ export const useUserStore = create<IUserStore>()(
 					set({ isLoading: true })
 					try {
 						const res: IAuthResponse = await AuthService.main(
-							AuthorizationType.login,
+							ENUM_AUTH_TYPE.LOGIN,
 							data,
 							token
 						)

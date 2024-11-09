@@ -3,7 +3,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 import Field from '@/ui/input/Field'
 
-import { IAuthFormData } from '@/types/user.type'
+import { IAuthFormData } from '@/types/user.interface'
 
 import { validEmail } from './valid-email'
 import { validPhone } from './valid-phone'

@@ -1,22 +1,18 @@
 'use client'
 
-import Button from '@/ui/button/Button'
-import { Loader } from '@/ui/Loader'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import Skeleton from 'react-loading-skeleton'
-import { IProductForm, IProductFormState } from './product-form.types'
+
+import { Loader } from '@/ui/Loader'
+import Button from '@/ui/button/Button'
+
 import { ProductFields } from './ProductFields'
 import { ProductHeading } from './ProductHeading'
+import { IProductForm, IProductFormState } from './product-form.types'
 
 export function ProductEditingForm({
 	type,
-	queriesResult: {
-		data,
-		onSubmit,
-		isLoading,
-		isNeedResetForm,
-	}
+	queriesResult: { data, onSubmit, isLoading, isNeedResetForm }
 }: IProductForm) {
 	const {
 		register,
@@ -39,6 +35,11 @@ export function ProductEditingForm({
 				name: data?.category.name,
 				slug: data?.category.slug
 			},
+			brand: {
+				id: data?.brand?.id,
+				name: data?.brand?.name,
+				slug: data?.brand?.slug
+			},
 			price: data?.price,
 			images: data?.images,
 			description: data?.description
@@ -48,7 +49,6 @@ export function ProductEditingForm({
 	useEffect(() => {
 		if (isNeedResetForm) reset()
 	}, [isNeedResetForm])
-
 
 	return isLoading ? (
 		<Loader className='flex justify-center' />

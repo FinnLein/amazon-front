@@ -1,4 +1,4 @@
-export enum EnumOrderStatus {
+export enum ENUM_ORDER_STATUS {
 	PENDING = 'PENDING',
 	PAYED = 'PAYED',
 	SHIPPED = 'SHIPPED',

@@ -6,7 +6,7 @@ import Button from '@/ui/button/Button'
 
 import { CategoryFields } from './CategoryFields'
 import { CategoryHeading } from './CategoryHeading'
-import { ICategoryForm, ICategoryFormState } from './category-form'
+import { ICategoryForm, ICategoryFormState } from './category-form.types'
 
 export function CategoryEditingForm({
 	type,

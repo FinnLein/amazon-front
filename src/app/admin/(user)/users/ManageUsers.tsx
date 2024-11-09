@@ -11,9 +11,11 @@ import DashboardTable from '@/ui/admin/table/DashboardTable'
 import { IDashboardTableBaseData } from '@/ui/admin/table/dashbord-table.type'
 import Field from '@/ui/input/Field'
 
+import { ADMIN_PAGES } from '@/config/pages/admin.config'
+
 import { useProfile } from '@/hooks/useProfile'
 
-import { TUser } from '@/types/user.type'
+import { IUser } from '@/types/user.interface'
 
 import { ManagersTransitions, ManagersVariants } from '../../ManagersVariants'
 
@@ -21,7 +23,7 @@ import { useManageUsers } from './useManageUsers'
 import { SERVER_URL } from '@/constants/main.constants'
 
 interface IUsersTable
-	extends Pick<TUser, 'id' | 'email' | 'rights' | 'avatarPath' | 'name'>,
+	extends Pick<IUser, 'id' | 'email' | 'rights' | 'avatarPath' | 'name'>,
 		IDashboardTableBaseData {}
 
 export function ManageUsers() {
@@ -48,7 +50,7 @@ export function ManageUsers() {
 				<div>
 					<Heading>Users</Heading>
 					<Link
-						href={'/admin/user/create'}
+						href={ADMIN_PAGES.CREATE_USER}
 						className='my-5 block hover:text-green-200'
 					>
 						Create a new user
@@ -116,7 +118,7 @@ export function ManageUsers() {
 								email: user.email,
 								rights: user.rights.join(', '),
 								name: user.name,
-								editUrl: `/admin/user/edit/${id}`,
+								editUrl: `${ADMIN_PAGES.EDIT_USER}/${id}`,
 								deleteHandler: () => deleteUser(id)
 							})) || []
 					}
