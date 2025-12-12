@@ -1,34 +1,36 @@
-import cn from 'clsx'
-import { FC, PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren } from 'react'
+import { useRef } from 'react'
+import ReactDOM from 'react-dom'
+import { RiCloseFill } from 'react-icons/ri'
 
-interface IProps {
-	isActive: boolean
-	setIsActive: (value: boolean) => void
-}
+import styles from './Modal.module.scss'
 
-const Modal: FC<PropsWithChildren<IProps>> = ({
-	isActive,
-	setIsActive,
-	children
+interface IModal {
+	isOpen: boolean
+	closeModal: () => void
+}	
+
+const Modal: FC<PropsWithChildren<IModal>> = ({
+	children,
+	isOpen,
+	closeModal
 }) => {
-	return (
-		<div
-			className={cn(
-				'flex justify-center items-center w-[100%] h-[100%] fixed top-0 left-0 bg-[rgba(0,0,0,0.3)] transition-opacity ease-in-out duration-300',
-				{
-					'opacity-0 pointer-events-none': !isActive,
-					'opacity-100': isActive
-				}
-			)}
-			onClick={() => setIsActive(false)}
-		>
-			<div
-				onClick={e => e.stopPropagation()}
-				className='cursor-default p-5 rounded-lg bg-bg-color'
-			>
+	const modalRef = useRef<HTMLElement | null>(document.getElementById('modal'))
+
+	if (!isOpen || !modalRef.current) {
+		return null
+	}
+
+	return ReactDOM.createPortal(
+		<div className={styles.overlay}>
+			<div className={styles.window}>
+				<button onClick={closeModal}>
+					<RiCloseFill />
+				</button>
 				{children}
 			</div>
-		</div>
+		</div>,
+		modalRef.current
 	)
 }
 

@@ -1,11 +1,8 @@
 import { ICategory } from './category.interface'
 
-export interface IUsersStatisticsResponse {
-	name: string
-	value: number
-}
 
-export interface IProductsStatisticsResponse {
+
+export interface IStatisticsResponse {
 	name: string
 	value: number
 }

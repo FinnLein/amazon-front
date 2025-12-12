@@ -120,6 +120,7 @@ export function ProductFields({
 				render={({ field: { value, onChange }, fieldState: { error } }) => (
 					<TextEditor
 						value={value}
+						isToolbarExist
 						onChange={onChange}
 						placeholder='Description'
 						error={error}

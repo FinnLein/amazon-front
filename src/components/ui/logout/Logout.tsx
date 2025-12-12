@@ -12,7 +12,6 @@ type Props = {
 }
 
 const Logout: FC<Props> = ({ color, className }) => {
-	const queryClient = useQueryClient()
 
 	const { push } = useRouter()
 

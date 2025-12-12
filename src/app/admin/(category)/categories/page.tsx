@@ -1,6 +1,7 @@
 import { Metadata, NextPage } from 'next'
 
-import ManageCategories from './ManageCategories'
+import ManageCategories from '../../../../components/screens/admin/categories/ManageCategories'
+
 import { NO_INDEX_PAGE } from '@/constants/seo.constants'
 
 export const metadata: Metadata = {

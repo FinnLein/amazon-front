@@ -13,10 +13,9 @@ import '@/assets/styles/globals.scss'
 import { useCartStore } from '@/store/cart/cartStore'
 
 import { useCart } from '@/hooks/useCart'
-import { useOrders } from '@/hooks/useOrders'
 import { useOutside } from '@/hooks/useOutside'
 
-import { xSlideAnimations } from '@/utils/animations.ts/animations.data'
+import { xSlideAnimations } from '@/utils/animations/animations.data'
 import { convertPrice } from '@/utils/convertPrice'
 
 import styles from './Cart.module.scss'
@@ -26,8 +25,6 @@ const HeaderCart: FC = () => {
 	const { isShow, setIsShow, ref } = useOutside(false)
 	const { total } = useCart()
 	const { items } = useCartStore(state => state)
-
-	const { mutate } = useOrders()
 
 	return (
 		<div className='relative z-40' ref={ref}>
@@ -63,7 +60,11 @@ const HeaderCart: FC = () => {
 							<div>{convertPrice(total)}</div>
 						</div>
 						<div className='text-center mt-7 mb-5'>
-							<Link className='btn btn-white' href={'/checkout'}>
+							<Link
+								className='btn btn-white'
+								href={'/checkout'}
+								onClick={() => setIsShow(false)}
+							>
 								Go to checkout
 							</Link>
 						</div>

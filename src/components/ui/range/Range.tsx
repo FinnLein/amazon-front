@@ -1,29 +1,31 @@
 'use client'
 
-import Slider from 'rc-slider'
-import { useEffect, useState } from 'react'
+import 'rc-slider/assets/index.css'
+import { type FC, useEffect, useState } from 'react'
 
 import { useDebounce } from '@/hooks/useDebounce'
 
+import styles from './Range.module.scss'
+
 interface IRange {
-	min?: number
+	min: number
 	max: number
-	fromInitialValue?: number
-	toInitialValue?: number
-	onChangeFromValue: (value: number) => void
-	onChangeToValue: (value: number) => void
+	fromInitialValue?: string
+	toInitialValue?: string
+	onChangeFromValue: (value: string) => void
+	onChangeToValue: (value: string) => void
 }
 
-export default function Range({
-	min = 0,
+const Range: FC<IRange> = ({
+	min,
 	max,
-	fromInitialValue = 0,
-	toInitialValue = max,
 	onChangeFromValue,
-	onChangeToValue
-}: IRange) {
-	const [fromValue, setFromValue] = useState(fromInitialValue)
-	const [toValue, setToValue] = useState(toInitialValue)
+	onChangeToValue,
+	fromInitialValue,
+	toInitialValue
+}) => {
+	const [fromValue, setFromValue] = useState(fromInitialValue || '')
+	const [toValue, setToValue] = useState(toInitialValue || '')
 
 	const debouncedFromValue = useDebounce(fromValue, 500)
 	const debouncedToValue = useDebounce(toValue, 500)
@@ -37,23 +39,26 @@ export default function Range({
 	}, [debouncedToValue])
 
 	return (
-		<div className='w-full px-1'>
-			<Slider
-				range
+		<div className={styles.range}>
+			<input
 				min={min}
 				max={max}
-				defaultValue={[fromInitialValue, toInitialValue]}
-				onChange={value => {
-					if (typeof value === 'object') {
-						setFromValue(value[0])
-						setToValue(value[1])
-					}
-				}}
+				type='number'
+				placeholder='From'
+				value={fromValue}
+				onChange={e => setFromValue(e.target.value)}
 			/>
-			<div className='flex justify-between text-base mt-2'>
-				<span>От ${fromInitialValue}</span>
-				<span>До ${toInitialValue}</span>
-			</div>
+			{' - '}
+			<input
+				min={min}
+				max={max}
+				type='number'
+				placeholder='To'
+				value={toValue}
+				onChange={e => setToValue(e.target.value)}
+			/>
 		</div>
 	)
 }
+
+export default Range

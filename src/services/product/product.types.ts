@@ -1,5 +1,3 @@
-import { IBrand } from '@/types/brand.interface'
-import { ICategory } from '@/types/category.interface'
 import { IPaginationParamsWithSort } from '@/types/pagination.interface'
 
 export enum EnumProductSort {
@@ -10,9 +8,9 @@ export enum EnumProductSort {
 }
 
 export interface IProductDataFilters extends IPaginationParamsWithSort {
-	brand?: IBrand
-	category?: ICategory
-	rating?: string
+	brand?: string
+	category?: string
+	rating: string
 	minPrice?: string
 	maxPrice?: string
 }

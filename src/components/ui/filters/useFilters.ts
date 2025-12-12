@@ -1,3 +1,5 @@
+'use client'
+
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -24,6 +26,9 @@ export function useFilters() {
 	const updateQueryParams = (key: keyof IProductDataFilters, value: string) => {
 		const newParams = new URLSearchParams(searchParams.toString())
 
+		if (key !== 'page' && key !== 'perPage') {
+			newParams.set('page', '1')
+		}
 		if (value) {
 			newParams.set(key, String(value))
 		} else {

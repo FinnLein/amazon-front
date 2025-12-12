@@ -27,7 +27,6 @@ export const useUpload: TypeUpload = (onChange, isMultiple, folder) => {
 			toast.error(error.message)
 		}
 	})
-	//to do
 
 	const uploadFile = useCallback(
 		async (e: ChangeEvent<HTMLInputElement>) => {

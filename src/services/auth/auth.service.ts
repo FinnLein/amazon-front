@@ -21,9 +21,8 @@ export const AuthService = {
 			method: ENUM_HTTP_METHODS.POST,
 			data,
 			headers: {
-				recaptcha: token
-			}
-		})
+				recaptcha: token 
+		}})
 
 		if (response.data.accessToken) saveTokenStorage(response.data.accessToken)
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import type { FC } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import Heading from '@/ui/Heading'

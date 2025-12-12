@@ -5,6 +5,7 @@
 body {
 	@apply bg-secondary text-base text-black-700;
 	font-family: var(--font-golos), sans-serif;
+	width: 100%;
 }
 
 ::-webkit-scrollbar{
@@ -49,4 +50,11 @@ body {
 	&.btn-large {
 		@apply px-12 py-4 text-xl;
 	}
+}
+
+input[type='range']::-webkit-slider-thumb {
+	pointer-events: all;
+	width: 24px;
+	height: 24px;
+	-webkit-appearance: none;
 }

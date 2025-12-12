@@ -1,5 +1,5 @@
 import cn from 'clsx'
-import { FC, PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 interface IHeading {
 	className?: string

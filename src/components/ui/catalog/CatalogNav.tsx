@@ -23,7 +23,7 @@ export function CatalogNav({
 		<>
 			<Heading className='flex justify-center '>Catalog</Heading>
 
-			<div className='border-b pb-2 border-slate-300 relative'>
+			<div className='border-b pb-2 border-slate-300 '>
 				<div className='flex justify-between mx-10 px-2'>
 					<button className='flex text-sm' onClick={() => toggleIsRolledUp()}>
 						{isRolledUp ? <X size={24} /> : <ListFilter size={24} />}

@@ -1,8 +1,8 @@
 import { EnumProductSort } from '@/services/product/product.types'
 
 export interface IPaginationParams {
-	perPage: number | string
-	page?: number | string
+	perPage: number
+	page?: number
 	searchTerm?: string
 }
 
@@ -14,4 +14,6 @@ export interface IPaginationResponse<T> {
 	items: T[]
 	isHasMore: boolean
 	totalCount: number
+	maxPrice?: number
+	minPrice?: number
 }

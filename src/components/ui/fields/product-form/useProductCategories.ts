@@ -7,13 +7,9 @@ import { CategoryService } from '@/services/category/category.service'
 export const useProductCategories = () => {
 	const { isLoading: isLoadingCategories, data } = useQuery({
 		queryKey: ['get categories'],
-		queryFn: () =>
-			CategoryService.getAll({
-				perPage: 1000,
-				skip: 0
-			}),
-		select: ({ data }) =>
-			data.items.map(
+		queryFn: () => CategoryService.getAll(),
+		select: data =>
+			data.map(
 				(category): ISelectItem => ({
 					label: category.name,
 					key: category.id

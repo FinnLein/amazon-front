@@ -1,6 +1,7 @@
-import { Metadata, NextPage } from 'next'
+import { Metadata } from 'next'
 
-import ManageBrands from './ManageBrands'
+import ManageBrands from '../../../../components/screens/admin/brands/ManageBrands'
+
 import { NO_INDEX_PAGE } from '@/constants/seo.constants'
 
 export const metadata: Metadata = {
@@ -8,7 +9,6 @@ export const metadata: Metadata = {
 	...NO_INDEX_PAGE
 }
 
-export default function BrandsPage ()  {
+export default function BrandsPage() {
 	return <ManageBrands />
 }
-

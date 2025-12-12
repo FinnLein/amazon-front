@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 
 import Header from '@/ui/layout/header/Header'
 
@@ -8,11 +8,11 @@ export default function CostumerLayout({
 	return (
 		<section className=''>
 			<Header />
-			<div className='grid justify-center'>
-				<section className='mt-32 pt-8 pb-32 bg-bg-color rounded-xl w-[97vw]'>
-					{children}
-				</section>
-			</div>
+			<section className='mx-auto pt-8  bg-bg-color rounded-xl w-[97vw]'>
+				{children}
+			</section>
+			<div className='bg-secondary w-full h-64'></div>
+			<div id='modal'></div>
 		</section>
 	)
 }

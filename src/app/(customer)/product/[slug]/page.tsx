@@ -1,9 +1,8 @@
 import { Metadata, ResolvingMetadata } from 'next'
 
-import { SingleProduct } from '@/ui/single-product/SingleProduct'
-
 import { IPageSlugParams, TParamSlug } from '@/types/page-params.types'
 
+import { Product } from '@/screens/product/Product'
 import { ProductService } from '@/services/product/product.service'
 
 export async function generateStaticParams() {
@@ -19,21 +18,36 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-	{ params: { slug } }: IPageSlugParams,
+	{ params }: IPageSlugParams,
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
+	const { product } = await getProduct(params)
+
 	return {
-		title: `Product ${slug}`
+		title: product.name,
+		description: product.description,
+		category: product.category.name,
+		openGraph: {
+			images: product.images || [],
+			description: product.description
+		}
 	}
 }
 
-export async function getProducts(params: TParamSlug) {
-	const data = await ProductService.getBySlug(params.slug as string)
+export async function getProduct(params: TParamSlug) {
+	const product = await ProductService.getBySlug(params.slug as string)
 
-	return data
+	const { data: similarProducts } = await ProductService.getSimilar(product.id)
+	return { product, similarProducts }
 }
 
 export default async function ProductPage({ params }: IPageSlugParams) {
-	const data = await getProducts(params)
-	return <SingleProduct data={data} />
+	const { product, similarProducts } = await getProduct(params)
+	return (
+		<Product
+			product={product}
+			similarProducts={similarProducts}
+			slug={params.slug}
+		/>
+	)
 }

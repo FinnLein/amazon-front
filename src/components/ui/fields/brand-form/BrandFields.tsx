@@ -9,7 +9,6 @@ import {
 
 import Field from '@/ui/input/Field'
 import SlugField from '@/ui/input/SlugField'
-import TextEditor from '@/ui/text-editor/TextEditor'
 
 import generateSlug from '@/utils/strings/generateSlug'
 

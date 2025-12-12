@@ -26,7 +26,7 @@ const Favorites = () => {
 					<Catalog products={favorites || []} />
 				</>
 			) : (
-				<div className='mt-16 flex flex-col justify-center items-center'>
+				<div className='mt-16 flex pb-40 flex-col justify-center items-center'>
 					<div>
 						<h3>There is no favorites yet</h3>
 						<span>Return to our catalog and choose </span>

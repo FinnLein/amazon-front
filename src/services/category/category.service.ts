@@ -1,17 +1,18 @@
 import { getCategoriesUrl } from '@/config/configUrl'
 
 import { ICategory, ICategoryData } from '@/types/category.interface'
+import { IPaginationParams } from '@/types/pagination.interface'
 
 import { ENUM_HTTP_METHODS } from '@/utils/enums/HTTPMethods'
 
 import { axiosClassic, instance } from '@/api/api.interceptor'
 
 export const CategoryService = {
-	async getAll(searchTerm?: string) {
+	async getAll(queryParams = {} as IPaginationParams) {
 		const { data } = await axiosClassic<ICategory[]>({
 			url: getCategoriesUrl(''),
 			method: ENUM_HTTP_METHODS.GET,
-			params: searchTerm
+			params: queryParams
 		})
 
 		return data

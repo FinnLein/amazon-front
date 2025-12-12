@@ -1,1 +1,1 @@
-export const RATING_VARIANTS = [6, 7, 8, 9, 10]
+export const RATING_VARIANTS = [1, 2, 3, 4, 5]

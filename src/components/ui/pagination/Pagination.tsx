@@ -13,7 +13,7 @@ export function Pagination({
 }: IPagination) {
 	return (
 		<div className='text-center mt-16'>
-			{Array.from({ length: numberPages > 1 ? Math.ceil(numberPages) : 1 }).map(
+			{Array.from({ length: numberPages > 1 ? Math.ceil(numberPages) : 0 }).map(
 				(_, index) => {
 					const pageNumber = (index + 1).toString()
 

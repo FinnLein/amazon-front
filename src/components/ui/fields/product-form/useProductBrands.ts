@@ -8,12 +8,9 @@ export const useProductBrands = () => {
 	const { isLoading: isLoadingBrands, data } = useQuery({
 		queryKey: ['get brands'],
 		queryFn: () =>
-			BrandService.getAll({
-				perPage: 1000,
-				skip: 0
-			}),
-		select: ({ data }) =>
-			data.items.map(
+			BrandService.getAll(),
+		select: (data) =>
+			data.map(
 				(brand): ISelectItem => ({
 					label: brand.name,
 					key: brand.id

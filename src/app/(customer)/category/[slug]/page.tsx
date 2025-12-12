@@ -9,12 +9,9 @@ import { CategoryService } from '@/services/category/category.service'
 import { ProductService } from '@/services/product/product.service'
 
 export async function generateStaticParams() {
-	const categories = await CategoryService.getAll({
-		skip: 0,
-		perPage: 100
-	})
+	const categories = await CategoryService.getAll()
 
-	const paths = categories.data.items.map(category => {
+	const paths = categories.map(category => {
 		return {
 			params: { slug: category.slug }
 		}
@@ -32,8 +29,8 @@ export async function generateMetadata(
 		title: category.name,
 		description: category.description,
 		openGraph: {
-			images: products[0].images,
-			description: products[0].description
+			images: products[0]?.images[0],
+			description: products[0]?.description
 		}
 	}
 }
@@ -54,7 +51,7 @@ export default async function CategoryPage({ params }: IPageSlugParams) {
 	const data = await getProducts(params)
 
 	return (
-		<div>
+		<div className='px-10 pb-10'>
 			<Heading>{data.category.name}</Heading>
 			<Catalog products={data.products || []} />
 		</div>

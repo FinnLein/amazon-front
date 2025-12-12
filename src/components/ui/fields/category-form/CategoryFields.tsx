@@ -51,6 +51,7 @@ export function CategoryFields({
 				control={control}
 				render={({ field: { onChange, value } }) => (
 					<TextEditor
+						isToolbarExist
 						onChange={onChange}
 						value={value}
 						placeholder='Description'

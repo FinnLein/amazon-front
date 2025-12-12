@@ -1,6 +1,7 @@
 import { Metadata, NextPage } from 'next'
 
-import { ManageUsers } from './ManageUsers'
+import { ManageUsers } from '../../../../components/screens/admin/users/ManageUsers'
+
 import { NO_INDEX_PAGE } from '@/constants/seo.constants'
 
 export const metadata: Metadata = {

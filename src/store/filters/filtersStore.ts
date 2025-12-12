@@ -20,7 +20,8 @@ const initialQueryParams: Pick<IFiltersStore, 'queryParams'> = {
 		sort: EnumProductSort.NEWEST,
 		searchTerm: '',
 		perPage: 4,
-		page: 1
+		page: 1,
+		rating: ''
 	}
 }
 
@@ -30,14 +31,14 @@ export const useFiltersStore = create<IFiltersStore>()(set => ({
 
 	updateQueryParam({ key, value }) {
 		set(state => ({
-			queryParams: { ...state.queryParams, [key]: value },
+			queryParams: { ...state.queryParams, page: 1, [key]: value },
 			isFilterUpdated: true
 		}))
 	},
 	reset() {
 		set(() => ({
 			...initialQueryParams,
-			isFilterUpdated: true
+			isFilterUpdated: false
 		}))
 	}
 }))

@@ -1,10 +1,11 @@
 'use client'
 
 import cn from 'clsx'
-import { useEffect } from 'react'
+import { AnimatePresence, m } from 'framer-motion'
 
 import Catalog from '@/ui/catalog/Catalog'
 import { CatalogNav } from '@/ui/catalog/CatalogNav'
+import { Filters } from '@/ui/filters/Filters'
 import { useFilters } from '@/ui/filters/useFilters'
 import { Pagination } from '@/ui/pagination/Pagination'
 
@@ -20,36 +21,43 @@ interface IProps {
 }
 
 export default function Home({ initialProducts }: IProps) {
-	const { products, isHasMore, isLoading, totalCount, data } =
-		useManageProducts(initialProducts)
-
+	const { products, isLoading, totalCount } = useManageProducts(initialProducts)
 	const { isRolledUp } = useSidebarStore()
-	const { updateQueryParams, queryParams, isFilterUpdated } = useFilters()
-
-	useEffect(() => {
-		updateQueryParams('page', '1')
-	}, [queryParams.sort])
+	const { updateQueryParams, queryParams } = useFilters()
 
 	return (
-		<section>
+		<>
 			<CatalogNav initialProducts={initialProducts} />
-			<div
-				className={cn('grid gap-6', {
-					'grid-cols-[1fr_3.5fr]': isRolledUp
-				})}
-			>
-				{isRolledUp && (
-					<aside className={cn('border-slate-300 rounded-br-lg bg-white z-20')}>
-						<div className='sticky top-0 left-0'>Filters </div>
-					</aside>
-				)}
-				<Catalog products={products || []} isLoading={isLoading} />
+			<div className={'flex 100%'}>
+				<AnimatePresence>
+					{isRolledUp && (
+						<m.div
+							initial={{ width: 0, opacity: 0 }}
+							animate={{ width: '25%', opacity: 1 }}
+							exit={{ width: 0, opacity: 0 }}
+							className='border-slate-300  border-r bg-white'
+						>
+							<aside className={cn('top-32  z-20')}>
+								<Filters />
+							</aside>
+						</m.div>
+					)}
+				</AnimatePresence>
+				<section
+					className={cn('pb-32 pt-8 px-8 mx-auto', {
+						'w-3/4': isRolledUp
+					})}
+				>
+					<Catalog products={products || []} isLoading={isLoading} />
+					{!isLoading && products && (
+						<Pagination
+							numberPages={(totalCount as number) / +queryParams.perPage}
+							currentPage={queryParams.page?.toString()}
+							changePage={page => updateQueryParams('page', page.toString())}
+						/>
+					)}
+				</section>
 			</div>
-			<Pagination
-				numberPages={totalCount / +queryParams.perPage}
-				currentPage={queryParams.page?.toString()}
-				changePage={page => updateQueryParams('page', page.toString())}
-			/>
-		</section>
+		</>
 	)
 }

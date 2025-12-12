@@ -9,6 +9,6 @@ export const metadata: Metadata = {
 	...NO_INDEX_PAGE
 }
 
-export default function CreateCategoryPage() {
+export default function CreateBrandPage() {
 	return <BrandForm type='create' />
 }

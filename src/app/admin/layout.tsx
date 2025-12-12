@@ -1,8 +1,6 @@
-import { Metadata } from 'next'
-import { PropsWithChildren } from 'react'
+import type { Metadata } from 'next'
+import type { PropsWithChildren } from 'react'
 
-import AdminMenu from '@/ui/admin/admin-menu/AdminMenu'
-import HeaderAdmin from '@/ui/admin/header/HeaderAdmin'
 
 import '@/assets/styles/globals.scss'
 
@@ -14,6 +12,8 @@ import { protectPage } from '@/utils/server/protect-page'
 import NotFound from '../not-found'
 
 import { NO_INDEX_PAGE } from '@/constants/seo.constants'
+import HeaderAdmin from '@/screens/admin/header/HeaderAdmin'
+import AdminMenu from '@/screens/admin/admin-menu/AdminMenu'
 
 export const metadata: Metadata = {
 	title: 'Dashboard',
@@ -31,14 +31,14 @@ export default async function Layout({ children }: PropsWithChildren<unknown>) {
 		<section>
 			<HeaderAdmin className='mb-2 flex justify-center' />
 			<div
-				className='bg-secondary grid'
+				className='grid'
 				style={{
 					gridTemplateColumns: '.7fr 4fr'
 				}}
 			>
 				<AdminMenu />
 
-				<section className='px-20 py-4 mb-5 text-white rounded-tl-lg'>
+				<section className='px-20 bg-black-800 py-4  text-white rounded-tl-lg'>
 					{children}
 				</section>
 			</div>

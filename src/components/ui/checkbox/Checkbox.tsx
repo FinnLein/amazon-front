@@ -1,5 +1,6 @@
 import cn from 'clsx'
-import { PropsWithChildren } from 'react'
+import { Check } from 'lucide-react'
+import type { PropsWithChildren } from 'react'
 
 import styles from './Checkbox.module.scss'
 
@@ -18,9 +19,12 @@ export function Checkbox({
 		<button onClick={onClick} className={cn(styles.checkbox, className)}>
 			<span
 				className={cn({
-					[styles.active]: isChecked
+					[styles.active]: isChecked,
+					[styles.inActive]: !isChecked
 				})}
-			/>
+			>
+				{isChecked && <Check size={18} color='white' />}
+			</span>
 			<span>{children}</span>
 		</button>
 	)

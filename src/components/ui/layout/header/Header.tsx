@@ -30,7 +30,7 @@ const Header: FC<Props> = ({ className }) => {
 	return (
 		<header
 			className={cn(
-				'bg-secondary w-full py-6 px-6 grid grid-cols-3 gap-10 items-center fixed z-50',
+				'bg-secondary w-full p-6 grid grid-cols-3 gap-10 items-center sticky top-0 z-50',
 				className
 			)}
 			style={{ gridTemplateColumns: '1.5fr 3fr 1.5fr' }}

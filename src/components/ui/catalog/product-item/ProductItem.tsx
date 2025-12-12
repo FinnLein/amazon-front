@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FC } from 'react'
 
 import { getCategoryUrl, getProductUrl } from '@/config/configUrl'
 
@@ -9,15 +9,20 @@ import { IProduct } from '@/types/product.interface'
 
 import { convertPrice } from '@/utils/convertPrice'
 
+import { SERVER_URL } from '@/constants/main.constants'
 import AddToCartButton from './AddToCartButton'
 import FavoriteButton from './FavoriteButton'
-import ProductRating from './ProductRating'
-import { SERVER_URL } from '@/constants/main.constants'
+import { ProductRating } from './ProductRating'
 
-const ProductItem: FC<{ product: IProduct; index: number }> = ({
+const DynamicProductRating = dynamic(() =>
+	import('./ProductRating').then(mod => mod.ProductRating)
+)
+
+export function ProductItem({
 	product,
-	index
-}) => {
+}: {
+	product: IProduct
+}) {
 	return (
 		<m.div
 			whileHover={{ scale: 1.05 }}
@@ -66,5 +71,3 @@ const ProductItem: FC<{ product: IProduct; index: number }> = ({
 		</m.div>
 	)
 }
-
-export default ProductItem

@@ -8,7 +8,7 @@ const initialState = {
 }
 interface ICartState {
 	items: ICartItem[]
-	addToCart: (item: ICartItem, quantity: number, price: number) => void
+	addToCart: (item: ICartItem) => void
 	removeFromCart: (id: number) => void
 	changeQuantity: (id: number, type: 'minus' | 'plus') => void
 	reset: () => void
@@ -19,7 +19,7 @@ export const useCartStore = create<ICartState>()(
 		persist(
 			set => ({
 				...initialState,
-				addToCart: (item, quantity, price) =>
+				addToCart: (item: ICartItem) =>
 					set(state => {
 						const existingItem = state.items.find(i => i.id === item.id)
 
@@ -27,7 +27,7 @@ export const useCartStore = create<ICartState>()(
 							return {
 								items: state.items.map(i =>
 									i.product.id === item.id
-										? { ...i, quantity: i.quantity + quantity }
+										? { ...i, quantity: i.quantity + item.quantity }
 										: i
 								)
 							}
@@ -35,7 +35,12 @@ export const useCartStore = create<ICartState>()(
 						return {
 							items: [
 								...state.items,
-								{ id: item.id, product: item.product, quantity, price }
+								{
+									id: item.id,
+									product: item.product,
+									quantity: item.quantity,
+									price: item.price
+								}
 							]
 						}
 					}),

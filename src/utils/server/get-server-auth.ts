@@ -22,6 +22,7 @@ export async function getServerAuth(): Promise<IUserDataState | null> {
 	if (!accessToken) {
 		try {
 			const data = await AuthService.getNewTokensByRefreshToken(refreshToken)
+			console.log(data)
 			accessToken = data.accessToken
 		} catch (error) {
 			return null

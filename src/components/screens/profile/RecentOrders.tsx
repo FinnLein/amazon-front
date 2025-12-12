@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { FC } from 'react'
+import type { FC } from 'react'
 
 import Heading from '@/ui/Heading'
 import { Loader } from '@/ui/Loader'

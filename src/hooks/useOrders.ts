@@ -17,7 +17,7 @@ export const useOrders = () => {
 
 	const { data: allOrders, isLoading: isLoadingAllOrders } = useQuery({
 		queryKey: ['my orders'],
-		queryFn: () => OrderService.getAll(),
+		queryFn: () => OrderService.getByCurrentUser(),
 		select: ({ data }) => data,
 		enabled: isLoggedIn
 	})

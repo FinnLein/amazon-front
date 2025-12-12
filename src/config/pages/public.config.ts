@@ -5,6 +5,8 @@ class PublicPages {
 	MY_ORDERS = '/my-orders'
 	PROFILE = '/profile'
 	EXPLORER = '/explorer'
+	CATEGORY = '/category'
 }
 
 export const PUBLIC_PAGES = new PublicPages()
+	

@@ -1,8 +1,7 @@
 import { Metadata, NextPage } from 'next'
 
-import CategoryChart from '@/ui/admin/charts/CategoryChart'
-
 import { NO_INDEX_PAGE } from '@/constants/seo.constants'
+import CategoryChart from '@/screens/admin/charts/CategoryChart'
 
 export const metadata: Metadata = {
 	title: 'Categories chart',

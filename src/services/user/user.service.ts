@@ -43,12 +43,14 @@ export const UserService = {
 		})
 	},
 
-	async getAll(params?: IPaginationParams) {
-		return instance<IPaginationResponse<IUser>>({
+	async getAll(queryData = {} as IPaginationParams) {
+		const { data } = await instance<IPaginationResponse<IUser>>({
 			url: getUsersUrl(''),
 			method: ENUM_HTTP_METHODS.GET,
-			params
+			params: queryData
 		})
+
+		return data
 	},
 
 	// admin

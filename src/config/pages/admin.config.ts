@@ -21,6 +21,16 @@ class AdminPages {
 	CREATE_USER = '/admin/user/create'
 	EDIT_USER = '/admin/user/edit'
 
+	REVIEWS = '/admin/reviews'
+	REVIEW = '/admin/review'
+	CREATE_REVIEW = '/admin/review/create'
+	EDIT_REVIEW = '/admin/review/edit'
+
+	ORDERS = '/admin/orders'
+	ORDER = '/admin/order'
+	CREATE_ORDER = '/admin/order/create'
+	EDIT_ORDER = '/admin/order/edit'
+
 	MAIN_CHART = '/admin/main-chart'
 	CATEGORY_CHART = '/admin/category-chart'
 }

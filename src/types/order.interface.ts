@@ -13,4 +13,5 @@ export interface IOrder {
 	items: ICartItem[]
 	status: ENUM_ORDER_STATUS
 	total: number
+	userId: number
 }

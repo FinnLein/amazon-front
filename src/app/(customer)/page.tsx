@@ -19,7 +19,6 @@ async function getProducts(searchParams: IProductDataFilters) {
 export default async function HomePage({ searchParams }: TSearchParams) {
 	const data = await getProducts(searchParams)
 
-	console.log(data)
 
 	return <Home initialProducts={data} />
 }

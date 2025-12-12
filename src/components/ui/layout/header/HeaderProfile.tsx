@@ -15,7 +15,7 @@ import { PUBLIC_PAGES } from '@/config/pages/public.config'
 import { useOutside } from '@/hooks/useOutside'
 import { useProfile } from '@/hooks/useProfile'
 
-import { xSlideAnimations } from '@/utils/animations.ts/animations.data'
+import { xSlideAnimations } from '@/utils/animations/animations.data'
 
 import { HeaderData } from './header.data'
 import { SERVER_URL } from '@/constants/main.constants'

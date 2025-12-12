@@ -1,6 +1,6 @@
-import { Metadata } from 'next'
-import { Golos_Text } from 'next/font/google'
-import { PropsWithChildren } from 'react'
+import type { Metadata } from 'next'
+import  { Golos_Text } from 'next/font/google'
+import type { PropsWithChildren } from 'react'
 
 import { Providers } from '@/providers/Provider'
 
@@ -38,7 +38,6 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 		<html lang='en' className={golos.variable}>
 			<body>
 				<Providers>{children}</Providers>
-				<div id='modal'></div>
 			</body>
 		</html>
 	)

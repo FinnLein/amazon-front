@@ -8,7 +8,7 @@ import { IProduct } from '@/types/product.interface'
 import { ProductService } from '@/services/product/product.service'
 
 export const useManageProducts = (
-	initialProducts: IPaginationResponse<IProduct>
+	initialProducts?: IPaginationResponse<IProduct>
 ) => {
 	const { queryParams, isFilterUpdated } = useFilters()
 
@@ -34,7 +34,8 @@ export const useManageProducts = (
 		isHasMore: data?.isHasMore,
 		totalCount: data?.totalCount,
 		deleteProduct,
-		data,
-		isLoading: isLoading || isPending || isPendingDelete || isFetching
+		isLoading: isLoading || isPending || isPendingDelete || isFetching,
+		maxPrice: data?.maxPrice,
+		minPrice: data?.minPrice
 	}
 }

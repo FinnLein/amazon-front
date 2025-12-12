@@ -13,7 +13,6 @@ export interface IProduct {
 	createdAt: string
 	category: ICategory
 	brand: IBrand
-	rating: number
 }
 
 export interface IProductData

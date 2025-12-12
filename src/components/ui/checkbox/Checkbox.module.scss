@@ -7,9 +7,12 @@
 		&.active {
 			@apply border-primary bg-primary;
 		}
+		&.inActive {
+			@apply border-slate-300
+		}
 	}
 
 	> span:last-child {
-		@apply ml-3;
+		@apply inline-flex ml-3;
 	}
 }

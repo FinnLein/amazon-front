@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 import Field from '@/ui/input/Field'

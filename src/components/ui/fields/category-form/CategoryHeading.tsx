@@ -1,4 +1,4 @@
-import { TypeForm } from '../user-form/user-form.types'
+import { TypeForm } from '../form.types'
 
 export function CategoryHeading({
 	type,

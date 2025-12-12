@@ -12,7 +12,7 @@ import { ENUM_AUTH_TYPE } from '@/utils/enums/authoristaionType.enums'
 
 import { AuthService } from '@/services/auth/auth.service'
 
-export function useAuthForm(isLogin?: boolean) {
+export function 	useAuthForm(isLogin?: boolean) {
 	const router = useRouter()
 
 	const recaptchaRef = useRef<ReCAPTCHA>(null)
